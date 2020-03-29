@@ -1,0 +1,10 @@
+# Mac System File
+*/.DS_Store
+*.swp
+.tern-project
+cscope.*
+
+# dependencies
+node_modules
+package-lock.json
+yarn.lock
