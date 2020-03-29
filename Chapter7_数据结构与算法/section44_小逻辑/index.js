@@ -246,4 +246,20 @@ function jsonP(src){
   }
 }
 
+/**
+ * 10 this is a pen首字母大写
+ */
+
+function bigLetter(str){
+  return str.split(' ').map(item=> item = item.slice(0,1).toLocaleUpperCase() + item.slice(1)).join(' ');
+}
+
+function bigLetter(str){
+  return str.replace(/\b(\w+)\b/g,function(match,key){ //注意 \b g 
+    console.log('match,key: ', match,key);
+    return match.slice(0,1).toLocaleUpperCase() + match.slice(1);
+  })
+}
+
+
 
