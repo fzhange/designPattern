@@ -60,7 +60,19 @@ function getListWithLRD(tree){
 console.log('后序 getListWithLRD(tree): ', getListWithLRD(tree)); //34251
 
 
-
+/**
+ * 层次遍历
+ */
+function getListWithRank(tree,first=true){
+    let arr = [];
+    if(first && tree.name) arr.push(tree.name);
+    if(tree.left && tree.left) arr.push(tree.left.name);
+    if(tree.right && tree.right) arr.push(tree.right.name);
+    if(tree.left && tree.left.left)  arr = arr.concat(getListWithRank(tree.left,false));
+    if(tree.right && tree.right.right)  arr = arr.concat(getListWithRank(tree.right,false));
+    return arr;
+}
+console.log('层次遍历 getListWithLRD(tree): ', getListWithRank(tree)); //12534
 
 
 
