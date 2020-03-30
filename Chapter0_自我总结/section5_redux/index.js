@@ -1,6 +1,7 @@
-function createStore(reducer){
-    let state = {};
+function createStore(reducer,initialState={}){
+    let state = initialState;
     let observers = [];
+    let isDispatched = false;
     function getState(){
       return state;
     }
@@ -13,10 +14,14 @@ function createStore(reducer){
       }
     }
     function dispatch(action){
+      if(isDispatched) return action; //加入锁的逻辑 避免多个action同时发送造成store混乱;
+      isDispatched = true;
+      state = reducer(state,action);
+      isDispatched = false;
       observers.forEach((observer)=>{
         observer();
       })
-      state = reducer(state,action);
+      return action;
     }
     /* 注意！！！只修改了这里，用一个不匹配任何计划的 type，来获取初始值 */
     dispatch({ type: Symbol() })
