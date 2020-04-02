@@ -8,7 +8,14 @@
             app
         </div>
         <script type="text/javascript">
-
+            function compose(){
+                let arg = Array.from(arguments);
+                return function(...args){
+                    arg.reduce((pre,curr,idx,arr)=>{
+                        return pre(curr(args));
+                    })
+                }
+            }            
         </script>
     </body>
 </html>

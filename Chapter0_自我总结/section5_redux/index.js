@@ -1,4 +1,14 @@
-function createStore(reducer,initialState={}){
+/**
+ * 
+ * @param {*} reducer 
+ * @param {*} initialState 
+ * @param {*} enhancer 增强dispatch函数 
+ */
+function createStore(reducer,initialState={},enhancer){
+    if(enhancer && typeof enhancer == 'function'){
+      return enhancer(createStore)(reducer,initialState);
+    }
+
     let state = initialState;
     let observers = [];
     let isDispatched = false;
@@ -23,8 +33,7 @@ function createStore(reducer,initialState={}){
       })
       return action;
     }
-    /* 注意！！！只修改了这里，用一个不匹配任何计划的 type，来获取初始值 */
-    dispatch({ type: Symbol() })
+
     return {
       getState,
       subscrible,
@@ -39,6 +48,27 @@ function createStore(reducer,initialState={}){
         newState[key] = reducerObj[key](action,state[key]);
       });
       return newState;
+    }
+  }
+
+  /**
+   * enhancer 中间件增强dispatch的原理
+   */
+  const logger = ()=>{
+    return (createStore)=>(reducer,initialState)=>{
+      /**
+       * 重写dispatch  有点秀
+       */
+      function dispatch(){
+        let store = createStore(reducer,initialState);
+        console.log(`before dispatch state=${store.getState()}`);
+        store.dispatch(action);
+        console.log(`after dispatch state=${store.getState()}`);
+      }
+      return {
+        dispatch,
+        ...store,
+      }
     }
   }
   
