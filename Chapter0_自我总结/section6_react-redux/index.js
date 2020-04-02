@@ -81,6 +81,13 @@ export default {
  * 假设现在我们有 logger， visible， style等多个 HOC，现在要同时增强一个 Input组件：
  * logger(visible(style(Input)))
  * 所以我们封装一个组合函数 以装饰器模式来增强组件 即套娃模式
+ * 
+ * 
+ * 后续es7新增装饰器模式 可方便实现套娃 示例如下
+ * @logger
+ * @visible
+ * @style
+ * class Input extends Component{}
  */
 function compose(){
     let arr = Array.prototype.slice.call(arguments);  //Array.from(arguments)
