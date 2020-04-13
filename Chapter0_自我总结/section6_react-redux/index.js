@@ -99,6 +99,7 @@ function compose(){
             pre(curr(...args))
         }
     })
+    //q其实就是最终的装饰器 装饰的是传递进来的东西
     return q;
 }
 
@@ -118,5 +119,7 @@ function fun_3(some){
     console.log(`${some}_3`);
     return `${some}_3`
 }
-compose(fun_0,fun_1,fun_2,fun_3)('zf') //zf_3 zf_3_2 zf_3_2_1 zf_3_2_1_0
+let fun  = compose(fun_0,fun_1,fun_2,fun_3)
+fun('zf') //zf_3 zf_3_2 zf_3_2_1 zf_3_2_1_0
+// 等价于  @fun 'zf'
 

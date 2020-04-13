@@ -8,54 +8,30 @@
       app
     </div>
     <script type="text/javascript">
-          /**
-          * compose 【组成】
-          * 装饰器增强模式
-          * compose(f,g,h)
-          * (...args)=>f(g(h(...args)))
-          **/
-        //   const compose = (...fns) => fns.reduce((f,g)=>(...args)=>g(f(...args)));
-    
-        //   function compose(){
-        //       let arg = Array.prototype.slice.call(arguments);  //Array.from(arguments)
-        //       return arg.reduce((pre,curr,idx,arr)=>{
-        //         return function(...args){
-        //             pre(curr(...args))
-        //         }
-        //       })
-        //   }
+      function compose(middwares){
+        return (ctx)=>{
+          function dispatch(idx){
+            if(idx ==  middwares.length) return;
+            return middwares[idx](ctx,()=>dispatch(idx+1))
+          }
+          return dispatch(0);
+        }
+      }
+      async function fun_1(ctx, next){
+        console.log('Middleware 1 Start')
+        await next()
+        ctx.body = 'hello, fun_1'
+        console.log('Middleware 1 End')
+      }
 
+      async function fun_2(ctx, next){
+        console.log('Middleware 2 Start')
+        await next()
+        console.log('Middleware 2 End')
+        ctx.body = 'hello, fun_2'
+      }
 
-        function compose(){
-            let arr = Array.prototype.slice.call(arguments);  //Array.from(arguments)
-            /**
-             *  let q = ()=> fun_0(fun_1(fun_2(fun_3(...args))))
-            * */
-            let q = arr.reduce((pre,curr,idx,arr)=>{
-                return function(...args){
-                    pre(curr(...args))
-                }
-            })
-            return q;
-        }
-
-        function fun_0(some){
-            console.log(`${some}_0`);
-            return `${some}_0`
-        }
-        function fun_1(some){
-            console.log(`${some}_1`);
-            return `${some}_1`
-        }
-        function fun_2(some){
-            console.log(`${some}_2`);
-            return `${some}_2`
-        }
-        function fun_3(some){
-            console.log(`${some}_3`);
-            return `${some}_3`
-        }
-        compose(fun_0,fun_1,fun_2,fun_3)('zf')
+      compose([fun_1,fun_2])({})
     </script>
   </body>
 </html>
