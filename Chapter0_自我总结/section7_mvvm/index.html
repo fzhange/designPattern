@@ -2,6 +2,13 @@
     <head>
         <meta charset="utf-8" />
         <title>template</title>
+        <style>
+            input{
+                width: 100%;
+                height: 50px;
+                border: 2px solid lightcoral;
+            }
+        </style>
     </head>
     <body>
         <div id="app">
@@ -9,25 +16,43 @@
             <p>{{name}}</p>
             <h3>年龄</h3>
             <p>{{age}}</p>
+            <div>设置姓名：</div>
+            <input type="text" onchange="setNameChange(event)">
         </div>
+        <hr style="border-color: blueviolet;">
+        <h2>实现原理</h2>
+        <p>页面加载完成后，主要分为两个部分。1.数据劫持 2.dom节点的编译</p>
+        <h4>数据劫持</h4>
+        <p>通过get set方法。get的时候将对的dom节点添加到观察者对象中。</p>
+        <p>在set数据的时候 直接更新数据源和对应的dom节点就好了</p>
+        <h4>dom编译</h4>
+        <p>1.先将data数据填充到对应的{{}}中</p>
+        <p>2.添加dom节点到观察者中 供数据更新 实现页面update</p>
+        <h2>参考技术</h2>
+        <p><a href="https://www.w3school.com.cn/jsref/prop_node_nodetype.asp">HTML DOM nodeType 属性</a></p>
+        <p><a href="https://www.runoob.com/regexp/regexp-metachar.html">正则表达式 - 元字符</a></p>
         <script>
+            let opt = {el:'#app', data:{name:'检索中...', age:18}};
+
+            function setNameChange(event){
+                opt.data.name = event?.currentTarget?.value.trim() || "zf";
+            }
             document.addEventListener('DOMContentLoaded', function(){
-                let opt = {el:'#app', data:{name:'检索中...', age:18}}
-                let vm = new Vue(opt)
+                let vm = new MVVM(opt)
                 setTimeout(() => {
                     opt.data.name = 'zf'
                 }, 2000);
             }, false)
             
-            class Vue{
+            class MVVM{
                 constructor(opt){
                     this.opt = opt
-                    this.observe(opt.data)
+                    this.proxy(opt.data)
                     let root = document.querySelector(opt.el)
                     this.compile(root)
                 }
                 // 为响应式对象 data 里的每一个 key 绑定一个观察者对象
-                observe(data){ 
+                proxy(data){ 
                     Object.keys(data).forEach(key => {
                         let obv = new Observer() 
                         data["_"+key] = data[key]
@@ -46,16 +71,18 @@
                 }
                 // 初始化页面，遍历 DOM，收集每一个key变化时，随之调整的位置，以观察者方法存放起来    
                 compile(node){
-                    [].forEach.call(node.childNodes, child =>{
+                    node.childNodes.forEach((child)=>{
                         if(!child.firstElementChild && /\{\{(.*)\}\}/.test(child.innerHTML)){
                             let key = RegExp.$1.trim()
-                            child.innerHTML = child.innerHTML.replace(new RegExp('\\{\\{\\s*'+ key +'\\s*\\}\\}', 'gm'),this.opt.data[key]) 
-                            Observer.target = child
-                            this.opt.data[key] 
-                            Observer.target = null
+                            console.log('key: ', key);
+                            child.innerHTML = child.innerHTML.replace(new RegExp('\\{\\{\\s*'+ key +'\\s*\\}\\}', 'gm'),this.opt.data[key]);
+                            Observer.target = child;
+                            this.opt.data[key];
+                            Observer.target = null;
                         }
-                        else if (child.firstElementChild) 
-                        this.compile(child)
+                        if(child.firstElementChild) {
+                            this.compile(child)
+                        }
                     })
                 }    
             }
@@ -67,6 +94,7 @@
                 addSubNode(node){
                     this.subNode.push(node)
                 }
+
                 update(newVal){
                     this.subNode.forEach(node=>{
                         node.innerHTML = newVal

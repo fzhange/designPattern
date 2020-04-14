@@ -2,36 +2,83 @@
   <head>
     <meta charset="utf-8" />
     <title>template</title>
+    <style>
+      p{
+        height: 200vh;
+        font-size: 54px;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      app
+      <div>{{name}}</div>
+      <div>{{age}}</div>
     </div>
     <script type="text/javascript">
-      function compose(middwares){
-        return (ctx)=>{
-          function dispatch(idx){
-            if(idx ==  middwares.length) return;
-            return middwares[idx](ctx,()=>dispatch(idx+1))
-          }
-          return dispatch(0);
+      let data = {name:"检索中...",age:18}
+      document.addEventListener("DOMContentLoaded",function(){
+          let mvvm = new MVVM(data);
+          setTimeout(()=>{
+            data.age = 15;
+          },3000)
+      })
+
+      class MVVM{
+        constructor(data){
+          this.data = data;
+          this.proxy();
+          this.compile();
+        }
+        compile(){
+          let app = document.querySelector("#app");
+          let childNodes = app.childNodes;
+          childNodes.forEach((item)=>{
+            let reg = new RegExp(/\{\{(.*)\}\}/,"g")
+            if(item.nodeType != 3 &&  reg.test(item.innerHTML)){
+              let key = RegExp.$1;
+              item.innerHTML = item.innerHTML.replace(/\{\{(.*)\}\}/g,this.data[`_${key}`])
+              Observer.target = item;
+              this.data[key];
+              Observer.target = null;
+            }
+          })
+        }
+
+        proxy(){
+          let self = this;
+          Object.entries(this.data).forEach(([key,value])=>{
+            self.data[`_${key}`] = value;
+            let obs = new Observer();
+            Object.defineProperty(self.data,key,{
+              get(){
+                !!Observer.target && obs.addNodes(Observer.target);
+                return self.data[`_${key}`]
+              },
+              set(newV){
+                console.log('this.data: ', self.data,newV);
+                obs.update(newV);
+                self.data[`_${key}`] = newV;
+              }
+            })
+          })
         }
       }
-      async function fun_1(ctx, next){
-        console.log('Middleware 1 Start')
-        await next()
-        ctx.body = 'hello, fun_1'
-        console.log('Middleware 1 End')
-      }
 
-      async function fun_2(ctx, next){
-        console.log('Middleware 2 Start')
-        await next()
-        console.log('Middleware 2 End')
-        ctx.body = 'hello, fun_2'
-      }
 
-      compose([fun_1,fun_2])({})
+      class Observer{
+        constructor(){
+          this.nodes = [];
+        }
+        addNodes(node){
+          this.nodes.push(node);
+        }
+        update(newV){
+          this.nodes.forEach((item)=>{
+            console.log('item: ', item);
+            item.innerHTML = newV;
+          })
+        }
+      }
     </script>
   </body>
 </html>

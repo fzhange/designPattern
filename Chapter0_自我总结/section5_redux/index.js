@@ -62,6 +62,7 @@ function createStore(reducer,initialState={},enhancer){
       function dispatch(){
         let store = createStore(reducer,initialState);
         console.log(`before dispatch state=${store.getState()}`);
+        //TODO ANY_THING
         store.dispatch(action);
         console.log(`after dispatch state=${store.getState()}`);
       }

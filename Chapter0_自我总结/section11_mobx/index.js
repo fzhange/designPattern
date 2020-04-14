@@ -1,5 +1,5 @@
 import {observable,action,computed} from "mobx";
-
+//依赖收集
 class store {
   @observable 
   name = "zf";
@@ -16,10 +16,7 @@ class store {
     this.name = name;
   }
 }
-
-function observable(){
-
-}
+function observable(){}
 
 
 

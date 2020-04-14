@@ -140,30 +140,6 @@ class ReduxDemo extends Page {
                                 name:"松鼠本松松鼠本松松鼠本松松鼠本松松鼠本松",
                                 tagList:['瑞士旅游专家']
                             }
-                        },{
-                            itemId:"12312", 
-                            rank:'No.1',
-                            favoriteCount:'1231人收藏',
-                            image:"http://a.hiphotos.baidu.com/image/pic/item/838ba61ea8d3fd1fc9c7b6853a4e251f94ca5f46.jpg",
-                            jumpUrl:"https://fanyi.baidu.com/#zh/en/%E6%94%BB%E7%95%A5",
-                            title:"曼谷最",
-                            user:{
-                                portrait:"http://a.hiphotos.baidu.com/image/pic/item/838ba61ea8d3fd1fc9c7b6853a4e251f94ca5f46.jpg",
-                                name:"松鼠本松松鼠本松松鼠本松松鼠本松松鼠本松",
-                                tagList:['瑞士旅游专家']
-                            }
-                        },{
-                            itemId:"12312", 
-                            rank:'No.1',
-                            favoriteCount:'1231人收藏',
-                            image:"http://a.hiphotos.baidu.com/image/pic/item/838ba61ea8d3fd1fc9c7b6853a4e251f94ca5f46.jpg",
-                            jumpUrl:"https://fanyi.baidu.com/#zh/en/%E6%94%BB%E7%95%A5",
-                            title:"曼谷最美赏秋胜地大公开，十一月小众旅行目的地全攻略",
-                            user:{
-                                portrait:"http://a.hiphotos.baidu.com/image/pic/item/838ba61ea8d3fd1fc9c7b6853a4e251f94ca5f46.jpg",
-                                name:"松鼠本松松鼠本松松鼠本松松鼠本松松鼠本松",
-                                tagList:['瑞士旅游专家']
-                            }
                         }]
                     }
                 }}></DestHighPopuStrategy>
