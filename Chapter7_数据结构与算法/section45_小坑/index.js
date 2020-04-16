@@ -28,3 +28,33 @@ for (const item of arr) {
 for (const [idx, item] of Object.entries(arr)) {
   console.log("idx,item: ", idx, item); //idx,item:  2 2
 }
+
+/**
+ * 3
+ * 个人理解 数组是对象的一个子集
+ * ['a','b','c']   
+ * {
+ *  0:"a",
+ *  1:"b",
+ *  2:"c"
+ * }
+ */
+var obj = {
+  '2':3,
+  '3':4,
+  'length':2,
+  'splice':Array.prototype.splice,
+  'push':Array.prototype.push
+}
+obj.push(1)
+obj.push(2)
+obj.push(3)
+console.log(obj)
+// {
+//   '2':1
+//   '3':2,
+//   '4':3,
+//   'length':5,
+//   'splice':Array.prototype.splice,
+//   'push':Array.prototype.push
+// }

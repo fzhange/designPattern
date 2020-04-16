@@ -2,6 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <title>template</title>
+    <link rel="alternate" media="only screen and (max-width: 640px)"  href=" http://m.home.com/" />
     <style>
       p{
         height: 200vh;
@@ -15,70 +16,83 @@
       <div>{{age}}</div>
     </div>
     <script type="text/javascript">
-      let data = {name:"检索中...",age:18}
-      document.addEventListener("DOMContentLoaded",function(){
-          let mvvm = new MVVM(data);
-          setTimeout(()=>{
-            data.age = 15;
-          },3000)
-      })
+      "use strict";
+      // function fun(str){
+      //   console.log('str: ', str);
+      //   let arr = [];
+      //   if(str.length>1){
+      //     for(let i=0;i<str.length;i++){
+      //       let left = str[i];
+      //       let __str = str.slice(0,i) + str.slice(i+1);
+      //       let strArr = fun(__str);
+      //       for(let i=0;i<strArr.length;i++){
+      //         let mystr = left + strArr[i];
+      //         arr.push(mystr);
+      //       }
+      //     }
+      //   }else{
+      //     arr.push(str);
+      //   }
+      //   return arr;
+      // }
+      // console.log('fun(abc): ', fun('abc'));
+      // Object.defineProperty(window,'obj',{
+      //   value:{
+      //     a:1,
+      //   },
+      //   writable:false
+      // })
+        // Function.prototype.bind = function(ctx){
+        //   let arg = Array.from(arguments).slice(1);
+        //   let that = this;
+        //   function fun(...innerArg){
+        //     that.call(ctx,...arg,...innerArg);
+        //   }
+        //   fun.prototype = Object.create(that.prototype);
+        //   return fun;
+        // }
+        // function fun(){}
+        
+        // let obj  = {
+        //   name:"zf"
+        // }
+        // let x = fun.bind(obj,1,2);
+        // x();
+        // sum(1)(2)(3)
+        // function sum(a,b,c){
+        //   console.log(a+b+c);
+        // }
+        // function curry(fun){
+        //   let arg = Array.from(arguments).slice(1);
+        //   function myFun(...innerArg){
+        //     let allArg = [...arg,...innerArg];
+        //     if(allArg.length >= fun.length){
+        //       fun(...allArg);
+        //     }else{
+        //       arg = [...arg,...innerArg];
+        //       return myFun;
+        //     }
+        //   }
+        //   return myFun;
+        // }
+        // let x = curry(sum,1);
+        // x(2,3);
 
-      class MVVM{
-        constructor(data){
-          this.data = data;
-          this.proxy();
-          this.compile();
-        }
-        compile(){
-          let app = document.querySelector("#app");
-          let childNodes = app.childNodes;
-          childNodes.forEach((item)=>{
-            let reg = new RegExp(/\{\{(.*)\}\}/,"g")
-            if(item.nodeType != 3 &&  reg.test(item.innerHTML)){
-              let key = RegExp.$1;
-              item.innerHTML = item.innerHTML.replace(/\{\{(.*)\}\}/g,this.data[`_${key}`])
-              Observer.target = item;
-              this.data[key];
-              Observer.target = null;
-            }
-          })
-        }
-
-        proxy(){
-          let self = this;
-          Object.entries(this.data).forEach(([key,value])=>{
-            self.data[`_${key}`] = value;
-            let obs = new Observer();
-            Object.defineProperty(self.data,key,{
-              get(){
-                !!Observer.target && obs.addNodes(Observer.target);
-                return self.data[`_${key}`]
-              },
-              set(newV){
-                console.log('this.data: ', self.data,newV);
-                obs.update(newV);
-                self.data[`_${key}`] = newV;
-              }
-            })
-          })
-        }
-      }
+        // var obj = {
+        //     '2':1,
+        //     "3":2,
+        //     "4":3,
+        //     'length':5,
+        //     'splice':Array.prototype.splice,
+        //     'push':Array.prototype.push
+        // }
+        // obj.push(1) 
+        // obj.push(2)
+        // obj.push(3)
+        // console.log(obj)
 
 
-      class Observer{
-        constructor(){
-          this.nodes = [];
-        }
-        addNodes(node){
-          this.nodes.push(node);
-        }
-        update(newV){
-          this.nodes.forEach((item)=>{
-            console.log('item: ', item);
-            item.innerHTML = newV;
-          })
-        }
-      }
+
     </script>
   </body>
 </html>

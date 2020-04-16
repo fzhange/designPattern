@@ -31,6 +31,7 @@
         <h2>参考技术</h2>
         <p><a href="https://www.w3school.com.cn/jsref/prop_node_nodetype.asp">HTML DOM nodeType 属性</a></p>
         <p><a href="https://www.runoob.com/regexp/regexp-metachar.html">正则表达式 - 元字符</a></p>
+        <p><a href="https://www.w3school.com.cn/jsref/jsref_obj_regexp.asp">JavaScript RegExp 对象</a></p>
         <script>
             let opt = {el:'#app', data:{name:'检索中...', age:18}};
 
@@ -94,7 +95,6 @@
                 addSubNode(node){
                     this.subNode.push(node)
                 }
-
                 update(newVal){
                     this.subNode.forEach(node=>{
                         node.innerHTML = newVal
