@@ -90,6 +90,7 @@
    //          return fun;
    //      }
    //  }
+   
 
     // var $ = {
     //     g: function (id) {
@@ -104,3 +105,59 @@
     // })
     // $.g('div').addEventListener('click', x);
    
+
+   /**
+    * bind 方法实现
+    */
+    if(Function.prototype.bind == undefined){
+        Function.prototype.bind = function(context){    
+            var args = Array.prototype.slice.call(arguments,1);
+            var that = this;
+
+            var fun = function(){
+               if(this instanceof fun) this.apply(context,Array.prototype.slice.call(arguments)) //new fun();
+               else that.apply(context,Array.prototype.slice.call(arguments).concat(args))
+            }
+            fun.prototype = Object.create(that.prototype);
+            return fun;
+        }
+   }
+   // function fun(){};
+   // let obj = {name:"Zf"}
+   // let _fun = fun.bind(obj);
+   // let c = new _fun();
+
+   /**
+   * call 方法实现
+   * fun.call(obj,...arg)
+   */
+   Function.prototype.call = function(ctx){
+      let arg = Array.from(arguments).slice(1);
+      ctx[this.name] = this;
+      const value = ctx[this.name](...arg);
+      delete ctx[this.name];
+      return value;
+   }
+   let obj = {name:"Zf"}
+
+   function say(age){
+      console.log('---',this.name,age);
+   }
+
+   say.call(obj,18)
+
+   /**
+    * apply 
+    * fn.apply(ctx,[arg])
+    */
+   Function.prototype.apply = function(ctx,arg){
+      ctx[this.name] = this;
+      const value  = ctx[this.name](...arg);
+      delete ctx[this.name];
+      return value;
+   }
+   function say(age){
+      console.log('---',this.name,age);
+   }
+
+   say.apply(obj,[18])

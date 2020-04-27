@@ -138,9 +138,9 @@ firstFn().then(console.log); // 1
 firstFn().then(console.log); // 无输出
 
 /**
- * 6 判断两个对象是否相等
+ * 6 判断两个对象是否相等  深比较
  */
-WARN("6 判断两个对象是否相等");
+WARN("6 判断两个对象是否相等  深比较");
 function isEqual(obj_1, obj_2) {
   let isEqualFlag = false;
   if (obj_1 == obj_2) isEqualFlag = true;
@@ -217,7 +217,7 @@ Promise_2.all([pro_1,pro_2]).then((val)=>{
  * 原理 ins.__proto__ 其实就是指的 Person.prototype对象
  */
 
-function _instanceOf(ins,obj){
+function _instanceOf(insObj,obj){
   let insObjProto =  insObj.__proto__;
   let objProto = obj.prototype;
   while(true){
@@ -249,6 +249,7 @@ function jsonP(src){
 
 /**
  * 10 this is a pen首字母大写
+ * 正则相关
  */
 
 function bigLetter(str){
@@ -261,6 +262,104 @@ function bigLetter(str){
     return match.slice(0,1).toLocaleUpperCase() + match.slice(1);
   })
 }
+/**
+ * 11 获取连续字符
+ * 'aaabcaakaaaajbb'
+ * {
+ *  a:4,
+ *  b:2
+ * }
+ * /(.)\1/ 圆括号规则匹配的内容为一个临时缓冲区，\1引用第一个圆括号规则所匹配度的内容。
+ */
+function series(str){
+  let obj = {}
+  let arr = str.match(/(\w)\1+/g);  // ['aaa','aa','aaaa','bb'];
+  for(let i=0;i<arr.length;i++){
+    let item = arr[i];
+    let ele = item[0];
+    if(obj[ele]) obj[ele] = Math.max(item.length,obj[ele]);
+    else obj[ele] = item.length;
+  }
+  return obj;
+}
+console.log('series(aaabcaakaaaajbb)',series('aaabcaakaaaajbb')); //{ a: 4, b: 2 }
 
+/**
+ * 12 将一个字符串的大小写取反
+ */
+function changeLowerUpperCase(str){ 
+  return str.replace(/([a-zA-Z])/g,function(match){
+    let str = '';
+    /[a-z]/.test(match) ? str = match.toLocaleUpperCase() : str = match.toLowerCase();
+    return str;
+  });
+}
+console.log('changeLowerUpperCase: ', changeLowerUpperCase('aBc'));
 
+/**
+ * 13 数组连续性判断
+ */
+function arrSeriesFun(arrSeries){
+  let arr = []
+  let len = 0;
+  arrSeries.reduce((pre,curr,idx)=>{
+    if(pre+1 == curr){
+      if(idx == 1){
+        arr[len] =  [pre,curr];
+      }else{
+        arr[len].push(curr);
+      }
+    }else{
+      arr[++len] = [curr];
+    }
+    return curr;
+  })
+  return arr;
+}
+console.log('arrSeriesFun([1,2,3,5,8,10,11]): ', arrSeriesFun([1,2,3,5,8,10,11]));
 
+/**
+ * 14 数组的flat方法实现
+ */
+function flat(arr){
+  while(arr.some((item)=>Array.isArray(item))){
+    arr = [].concat(...arr);
+  }
+  return arr;
+}
+console.log('flat:',flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]]));
+
+/**
+ * 15 求两个数组的交集
+ * hash表算法 以空间换取时间
+ * 先用hash表存储arr1元素出现的个数。
+ * 遍历arr2,发现arr2的元素和hash表的key对应，然后就将数据添加到myarr中，然后个数-1.等于0时删除对应key。
+ */
+function subnet(arr1,arr2){
+  let obj = {};
+  let myArrr = [];
+  Object.entries(arr1).forEach(([idx,value]) => {
+    !!obj[value] ? obj[value] = obj[value]+1 : obj[value]=1;
+  });
+  Object.entries(arr2).forEach(([idx,value])=>{
+    if(obj[value]){
+      myArrr.push(value);
+      obj[value] = obj[value] - 1
+      if(obj[value]<=0) delete obj[value];
+    }
+  })
+  return myArrr;
+}
+console.log('subnet([1,2,2,1],[2,3,2]): ', subnet([1,2,2,1],[2,3,2]));
+
+/**
+ * 16 数组去重
+ *  let arr = [[1,2,3],[1,'2',3],[1,2,3]]
+ *  let myArr=  [...new Set(arr.map(item=>JSON.stringify(item)))].map((item)=>JSON.parse(item))
+ */
+ function mySet(arr){
+    arr = arr.map(item=>JSON.stringify(item)).filter((value,idx,arr)=>{
+      return arr.indexOf(value) == idx
+    }).map(item=>JSON.parse(item))
+    console.log('arr: ', arr);
+ }

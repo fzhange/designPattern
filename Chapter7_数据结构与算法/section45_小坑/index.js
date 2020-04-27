@@ -26,7 +26,7 @@ for (const item of arr) {
   console.log(item); //undefined undefined 2
 }
 for (const [idx, item] of Object.entries(arr)) {
-  console.log("idx,item: ", idx, item); //idx,item:  2 2
+  console.log("idx,item: ", idx, item); //idx,item:  2
 }
 
 /**
