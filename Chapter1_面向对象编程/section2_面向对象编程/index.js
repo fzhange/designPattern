@@ -128,8 +128,7 @@ function inherit(subClass,superClass){
         F.prototype = obj;
         return new F();
     }
-    var obj = null;
-    obj = _inheritObj(superClass.prototype);
+    var obj = _inheritObj(superClass.prototype);
     obj.constructor = subClass;
     subClass.prototype = obj;
 }

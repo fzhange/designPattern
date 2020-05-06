@@ -31,14 +31,21 @@ for (const [idx, item] of Object.entries(arr)) {
 
 /**
  * 3
- * 个人理解 数组是对象的一个子集
- * ['a','b','c']   
+ * 数组长度为2即
+ * [empty,empty]
+ * 然后push 
+ * [empty,empty,1,2,3] length:5
  * {
- *  0:"a",
- *  1:"b",
- *  2:"c"
+ *  2:1,
+ *  3:2,
+ *  4:3
+ * }
+ * 覆盖原有的{
+ *  2:3,
+ *  3:4
  * }
  */
+
 var obj = {
   '2':3,
   '3':4,
@@ -58,3 +65,5 @@ console.log(obj)
 //   'splice':Array.prototype.splice,
 //   'push':Array.prototype.push
 // }
+
+

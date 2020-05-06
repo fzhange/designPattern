@@ -194,6 +194,15 @@ class Promise_2 {
       }
     })
   }
+  static async race(...promiseList){
+    return new Promise((resolve,reject)=>{
+      for(let promise of promiseList){
+        promise.then((value)=>{
+          resolve(value);
+        })
+      }
+    })
+  }
 }
 //使用
 let pro_1 = new Promise((resolve,reject)=>{
@@ -210,6 +219,9 @@ Promise_2.all([pro_1,pro_2]).then((val)=>{
   console.log('val: ', val);
 }).catch((err)=>{
   console.log('err: ', err);
+})
+Promise_2.race(pro_1,pro_2).then((val)=>{
+  console.log('race val: ', val);
 })
 
 /**
@@ -299,23 +311,27 @@ console.log('changeLowerUpperCase: ', changeLowerUpperCase('aBc'));
 /**
  * 13 数组连续性判断
  */
-function arrSeriesFun(arrSeries){
-  let arr = []
-  let len = 0;
-  arrSeries.reduce((pre,curr,idx)=>{
-    if(pre+1 == curr){
-      if(idx == 1){
-        arr[len] =  [pre,curr];
+function arrSeriesFun(arr){
+  let myArr = [...arr] //引用传值  进行数组copy
+  myArr.sort((x,y) => x-y) //排序
+  let newArr = [[]];
+  let idx = 0;
+  myArr.reduce((pre,curr,innerIdx)=>{
+    if(innerIdx != 0){
+      if(pre+1 == curr){
+        newArr[idx].push(curr);
       }else{
-        arr[len].push(curr);
+        newArr[++idx] = [curr];
       }
     }else{
-      arr[++len] = [curr];
+      newArr[idx] = [curr];
     }
     return curr;
-  })
-  return arr;
+  },0)
+  return newArr;
 }
+
+
 console.log('arrSeriesFun([1,2,3,5,8,10,11]): ', arrSeriesFun([1,2,3,5,8,10,11]));
 
 /**
@@ -363,3 +379,89 @@ console.log('subnet([1,2,2,1],[2,3,2]): ', subnet([1,2,2,1],[2,3,2]));
     }).map(item=>JSON.parse(item))
     console.log('arr: ', arr);
  }
+
+ /**
+  * 17 对象的扁平化
+  */
+
+ let objFlatObj  = {
+  "a": {
+    "b": {
+      "c": {
+        "d": 1
+      }
+    }
+  },
+  "aa": 2,
+  "c": [1,2]
+}
+
+function objFlat(objFlatObj){
+  let newObj = {}
+  function innerFun(innerObj,parentKeyName=''){
+    Object.entries(innerObj).forEach(([key,value])=>{
+      if(typeof value != "object" || Array.isArray(value) || value == null){
+        newObj[`${parentKeyName}${key}`] = value;
+      }else{
+        innerFun(value,`${parentKeyName}${key}.`)
+      }
+    })
+  }
+  innerFun(objFlatObj);
+  return newObj;
+}
+
+console.log('objFlat(objFlatObj);: ', JSON.stringify(objFlat(objFlatObj))); //{"a.b.c.d":1,"aa":2,"c":[1,2]}
+
+/**
+ * 18 对象的展开
+ */
+
+function openObj(obj){
+  let newObj = {}
+  Object.entries(obj).forEach(([key,value])=>{
+    if(key.includes(".")){
+      let keylist = key.split('.')
+      keylist.reduce((pre,curr,innerIdx)=>{ 
+        if(innerIdx == keylist-1){
+          pre[curr] = value;
+        }else{
+          pre[curr] = {}
+        }
+        return pre[curr];   //利用引用传值的特性
+      },newObj)
+    }else{
+      newObj[key] = value;
+    }
+  })
+  return newObj;
+}
+
+console.log('openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}): ', openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}));
+
+/**
+ * 19  利用引用传值的特性
+ */
+let list =[
+    {id:1,name:'部门A',parentId:0},
+    {id:2,name:'部门B',parentId:0},
+    {id:3,name:'部门C',parentId:1},
+    {id:4,name:'部门D',parentId:1},
+    {id:5,name:'部门E',parentId:2},
+    {id:6,name:'部门F',parentId:3},
+    {id:7,name:'部门G',parentId:2},
+    {id:8,name:'部门H',parentId:4}
+];
+
+function convert(list){
+  return list.filter((ele)=>{
+    let child = list.filter((item)=>{
+      if(item.parentId == ele.id){
+        return item;
+      }
+    })
+    if(child.length) ele.child = child
+    return ele.parentId == 0;
+  })
+}
+console.log('convert(list): ', convert(list));

@@ -96,7 +96,7 @@ function compose(){
     * */
     let q = arr.reduce((pre,curr,idx,arr)=>{
         return function(...args){
-            pre(curr(...args))
+            pre(curr(...args)) 
         }
     })
     //q其实就是最终的装饰器 装饰的是传递进来的东西
