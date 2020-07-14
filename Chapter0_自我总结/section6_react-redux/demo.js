@@ -8,6 +8,20 @@ import { connect } from 'react-redux';
 import DestHighPopuStrategy from  "../../destination/views/templates/DestHighPopuStrategy";  
 import MyCollection from "../../destination/views/MyCollection";
 
+const reducer =  (state = initialState, action) => {
+    switch(action.type){
+        case "ADD": 
+            return Object.assign({}, state, { 
+                count: state.count + action.num 
+            }); 
+        case "REDUCE": 
+            return Object.assign({}, state, { 
+                count: state.count - action.num 
+            }); 
+        default: 
+            return state;
+    }
+}
 
 
 

@@ -1,5 +1,4 @@
 /**
- * 
  * @param {*} reducer 
  * @param {*} initialState 
  * @param {*} enhancer 增强dispatch函数 
@@ -59,8 +58,8 @@ function createStore(reducer,initialState={},enhancer){
       /**
        * 重写dispatch  有点秀
        */
-      function dispatch(){
-        let store = createStore(reducer,initialState);
+      let store = createStore(reducer,initialState);
+      function dispatch(action){
         console.log(`before dispatch state=${store.getState()}`);
         //TODO ANY_THING
         store.dispatch(action);

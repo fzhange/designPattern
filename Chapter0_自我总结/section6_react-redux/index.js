@@ -22,13 +22,15 @@ let connect = (mapStateToProps, mapDispatchToProps) => WrappedComponent => {
     constructor(props) {
       this.store = StoreContext;
       super(props);
-      (this.state = mapStateToProps(this.store.getState())),
-        (this.dispatch = mapDispatchToProps(this.store.dispatch));
+      this.state = {
+        myState:mapStateToProps(this.store.getState()),
+        myDispatch:mapDispatchToProps(this.store.dispatch)
+      }
     }
     componentDidMount() {
-      this.unSubscrible = this.store.subscrible(() => {
+      this.unSubscrible = this.store.subscrible((state) => {
         this.state({
-          ...mapStateToProps(this.store.getState())
+          myState : mapStateToProps(state)
         });
       });
     }
@@ -36,8 +38,8 @@ let connect = (mapStateToProps, mapDispatchToProps) => WrappedComponent => {
       return (
         <WrappedComponent
           {...this.props}
-          {...this.state}
-          {...this.dispatch}
+          {...this.state.myState}
+          {...this.state.myDispatch}
         ></WrappedComponent>
       );
     }

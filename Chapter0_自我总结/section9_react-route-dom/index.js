@@ -40,38 +40,38 @@ class BrowserRouter extends React.Component {
     }
     componentDidMount(){
         // ---------------------------h5 history 路由变动监听------------------
-        // function _wc(type){
-        //     const originFunction = history[type];
-        //     return function(){
-        //         const event = new Event(type);
-        //         event.arguments = arguments;
-        //         window.dispatchEvent(event);
-        //         originFunction.apply(this,arguments);
-        //     }
-        // }
-        // function _addEvent(dom,type,fn){
-        //     if(dom.addEventListener){
-        //         dom.addEventListener(type,fn,true);
-        //     }else if(dom.attachEvent){
-        //         dom.attachEvent(type,fn,true);
-        //     }else{
-        //         dom[`on${type}`] = fn;
-        //     }
-        // }
+        function _wc(type){
+            const originFunction = history[type];
+            return function(){
+                const event = new Event(type);
+                event.arguments = arguments;
+                window.dispatchEvent(event);
+                originFunction.apply(this,arguments);
+            }
+        }
+        function _addEvent(dom,type,fn){
+            if(dom.addEventListener){
+                dom.addEventListener(type,fn,true);
+            }else if(dom.attachEvent){
+                dom.attachEvent(type,fn,true);
+            }else{
+                dom[`on${type}`] = fn;
+            }
+        }
 
-        // window.history.pushState = _wc('pushState');
-        // window.history.replaceState = _wc('replaceState');
+        window.history.pushState = _wc('pushState');
+        window.history.replaceState = _wc('replaceState');
 
-        // _addEvent(window,'pushState',(event)=>{
-        //     this.setState({
-        //         urlValue:window.location.href
-        //     })
-        // })
-        // _addEvent(window,'replaceState',(event)=>{
-        //     this.setState({
-        //         urlValue:window.location.href
-        //     })
-        // })
+        _addEvent(window,'pushState',(event)=>{
+            this.setState({
+                urlValue:window.location.href
+            })
+        })
+        _addEvent(window,'replaceState',(event)=>{
+            this.setState({
+                urlValue:window.location.href
+            })
+        })
 
         // ---------------------------hash 路由变动监听------------------
         window.onhashchange = function(){
@@ -127,8 +127,7 @@ class Switch extends React.component{
                     const children =  this.props.children;
                     for(let i=0;i < children.length ;i++){
                         const child = children[i];
-                        const path = child.props.path;
-                        if(path == urlValue) return child;
+                        if( child.props.path == urlValue) return child;
                     }
                     return null;
                 }

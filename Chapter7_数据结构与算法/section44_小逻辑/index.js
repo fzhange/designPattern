@@ -5,26 +5,23 @@ const WARN = console.warn;
  * sum求和问题
  */
 WARN("1 sum求和问题");
-const sum = (function() {
-  let queue = [];
-
-  function _sum() {
-    let arg = Array.prototype.slice.call(arguments);
-    if (arg.length > 0) {
-      queue = queue.concat(arg);
-      return _sum;
-    } else {
-      let totalNum = queue.reduce((pre, curr, idx, arr) => {
-        console.log("pre,curr,idx,arr: ", pre, curr, idx, arr);
-        return pre + curr;
-      });
-      queue = [];
+const sum = function(){
+  let args = [];
+  function fun(...arg){
+    if(arg.length == 0) {
+      let totalNum =  args.reduce((pre,curr, idx, arr)=>{
+        return pre+curr;
+      },0)
+      args = [];
       return totalNum;
+    }else{
+      args = args.concat(arg);
+      return fun;
     }
   }
+  return fun;
+}();
 
-  return _sum;
-})();
 console.log(" sum(100,200)(300)(100,100,100)(): ", sum(100, 200)(300)(100, 100, 100)());
 
 /**
@@ -165,64 +162,7 @@ function isEqual(obj_1, obj_2) {
   return isEqualFlag;
 }
 
-/**
- * 7 Promise.all的实现
- * Promise.all 入参的是一个数组 返回的是一个Promise实例
- * 主要难点 eg Promise.all([A,B,C]) 如何判断A B C 三个promise都进入resolve状态 
- */
 
-class Promise_2 {
-  static async all(promiseList){
-    let resolveValList = [];
-    // for(const [idx,promise] of Object.entries(promiseList)){
-    //   //此处是顺序的 不怎么好  
-    //   resolveValList[i] = await promise
-    // }
-    // return resolveValList;
-
-    return new Promise((resolve,reject)=>{
-      for(const [idx,promise] of Object.entries(promiseList)){
-        promise.then((val)=>{
-          resolveValList[idx] = val;
-          if(Object.entries(resolveValList).length == promiseList.length) {
-            /** 重点是这个if判断逻辑 **/
-            resolve(resolveValList)
-          }
-        }).catch((err)=>{
-          reject(err);
-        })
-      }
-    })
-  }
-  static async race(...promiseList){
-    return new Promise((resolve,reject)=>{
-      for(let promise of promiseList){
-        promise.then((value)=>{
-          resolve(value);
-        })
-      }
-    })
-  }
-}
-//使用
-let pro_1 = new Promise((resolve,reject)=>{
-  setTimeout(()=>{
-    resolve(1);
-  },3000)
-})
-let pro_2 = new Promise((resolve,reject)=>{
-  setTimeout(()=>{
-    resolve(2);
-  },1000)
-})
-Promise_2.all([pro_1,pro_2]).then((val)=>{
-  console.log('val: ', val);
-}).catch((err)=>{
-  console.log('err: ', err);
-})
-Promise_2.race(pro_1,pro_2).then((val)=>{
-  console.log('race val: ', val);
-})
 
 /**
  * 8 手动实现 instanceof
@@ -230,12 +170,12 @@ Promise_2.race(pro_1,pro_2).then((val)=>{
  */
 
 function _instanceOf(insObj,obj){
-  let insObjProto =  insObj.__proto__;
+  let insObjProto =  insObj;
   let objProto = obj.prototype;
   while(true){
+    insObjProto = insObjProto.__proto__;
     if(!insObjProto) return false;
     if(insObjProto === objProto) return true;
-    insObjProto = insObjProto.__proto__;
   }
 }
 
@@ -269,11 +209,11 @@ function bigLetter(str){
 }
 
 function bigLetter(str){
-  return str.replace(/\b(\w+)\b/g,function(match,key){ //注意 \b g 
-    console.log('match,key: ', match,key);
-    return match.slice(0,1).toLocaleUpperCase() + match.slice(1);
+  'this is a pen'.replace(/\b\w/g,function(match){
+    return match.toLocaleUpperCase
   })
 }
+
 /**
  * 11 获取连续字符
  * 'aaabcaakaaaajbb'
@@ -285,7 +225,7 @@ function bigLetter(str){
  */
 function series(str){
   let obj = {}
-  let arr = str.match(/(\w)\1+/g);  // ['aaa','aa','aaaa','bb'];
+  let arr = str.match(/(\w)\1+/g);  // ['aaa','aa','aaaa','bb']; GOOD
   for(let i=0;i<arr.length;i++){
     let item = arr[i];
     let ele = item[0];
@@ -312,27 +252,39 @@ console.log('changeLowerUpperCase: ', changeLowerUpperCase('aBc'));
  * 13 数组连续性判断
  */
 function arrSeriesFun(arr){
-  let myArr = [...arr] //引用传值  进行数组copy
-  myArr.sort((x,y) => x-y) //排序
-  let newArr = [[]];
+  let myArr = [arr[0]];
   let idx = 0;
-  myArr.reduce((pre,curr,innerIdx)=>{
-    if(innerIdx != 0){
-      if(pre+1 == curr){
-        newArr[idx].push(curr);
-      }else{
-        newArr[++idx] = [curr];
-      }
+  arr.reduce((pre,curr,innerIdx)=>{
+    if(pre+1 == curr) {
+      myArr[idx].push(curr);
     }else{
-      newArr[idx] = [curr];
+      idx++;
+      myArr[idx] = [curr];
     }
     return curr;
-  },0)
-  return newArr;
+  },arr[0])
+  return myArr;
 }
+// function arrSeriesFun(arr){
+//   if(arr.length<=1) return arr;
+//   let newArr = [[arr[0]]];
+//   let indiactor = 0;
+//   for(let i=1;i<arr.length;i++){
+//     let __arr = newArr[indiactor];
+//     let preNum = __arr[__arr.length-1];
+//     let nowNum = arr[i];
+//     if(preNum+1 == nowNum) {
+//       __arr.push(nowNum);
+//     }else{
+//       newArr.push([nowNum]);
+//       indiactor++;
+//     }
+//   }
+//   return newArr;
+// }
 
 
-console.log('arrSeriesFun([1,2,3,5,8,10,11]): ', arrSeriesFun([1,2,3,5,8,10,11]));
+console.log('arrSeriesFun([1,2,3,5,8,10,11]): ', arrSeriesFun([1,2,3,5,8,10,11])); //[ 1, [ 1, 2, 3 ], [ 5 ], [ 8 ], [ 10, 11 ] ]
 
 /**
  * 14 数组的flat方法实现
@@ -344,6 +296,7 @@ function flat(arr){
   return arr;
 }
 console.log('flat:',flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]]));
+// [1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]].flat(Infinity)
 
 /**
  * 15 求两个数组的交集
@@ -351,6 +304,12 @@ console.log('flat:',flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]]));
  * 先用hash表存储arr1元素出现的个数。
  * 遍历arr2,发现arr2的元素和hash表的key对应，然后就将数据添加到myarr中，然后个数-1.等于0时删除对应key。
  */
+
+// function subnet(arr1,arr2){
+//   return arr1.filter((item)=>{
+//     if(arr2.indexOf(item) != -1) return item;
+//   })
+// }
 function subnet(arr1,arr2){
   let obj = {};
   let myArrr = [];
@@ -442,6 +401,22 @@ console.log('openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}): ', openObj({"a.b.c.d":1,"a
 /**
  * 19  利用引用传值的特性
  */
+/**
+ * [{
+ *    {
+ *    id:1,name:'部门A',parentId:0,
+ *    child:[
+ *      {id:3,name:'部门C',parentId:1},
+ *      {id:4,name:'部门D',parentId:1},
+ *    ]},
+ *    {
+ *    id:2,name:'部门B',parentId:0,
+ *    child:[
+ *      {id:5,name:'部门E',parentId:2},
+ *      {id:7,name:'部门G',parentId:2},
+ *    ]},
+ * }] 
+ **/
 let list =[
     {id:1,name:'部门A',parentId:0},
     {id:2,name:'部门B',parentId:0},
@@ -465,3 +440,101 @@ function convert(list){
   })
 }
 console.log('convert(list): ', convert(list));
+
+/**
+ * Lazy man
+ */
+class Tom{
+  constructor(){
+    this.queue = []
+    setTimeout(()=>{
+      this.next();
+    },0)
+  }
+  next(){
+    let fun = this.queue.shift();
+    fun && fun();
+  }
+  eat(value){
+    let fun = ()=>{
+      console.log(value);
+      this.next();
+    }
+    this.queue.push(fun);
+    return this
+  }
+  sleepFirst(gap){
+    let fun = ()=>{
+      setTimeout(()=>{
+        this.next();
+      },gap)
+    }
+    this.queue.unshift(fun);
+    return this
+  }
+  sleep(gap){
+    let fun = ()=>{
+      setTimeout(()=>{
+        this.next();
+      },gap)
+    }
+    this.queue.push(fun);
+    return this
+  }
+  play(value){
+    let fun = ()=>{
+      console.log(value);
+      this.next();
+    }
+    this.queue.push(fun)
+    return this
+  }
+}
+new Tom().eat('apple').sleep(2000).play('soccer').sleepFirst(1000);
+
+
+/**
+ * @param {*} nums 
+ * @param {*} k 
+ * 滑动窗口
+ * 滑动窗口的位置                  最大值
+ * -------------------         ---------
+ * [1 3 -1] -3 5 3 6 7            3
+ * 1 [3 -1 -3] 5 3 6 7            3
+ * 1 3 [-1 -3 5] 3 6 7            5
+ * 1 3 -1 [-3 5 3] 6 7            5
+ * 1 3 -1 -3 [5 3 6] 7            6
+ * 1 3 -1 -3 5 [3 6 7]            7
+ */
+
+function slideWindow(nums,k=3){ //暴力破解
+  let arr = [];
+  for(let i=0;i<=nums.length-k;i++){
+    arr.push(Math.max(...nums.slice(i,i+k)))
+  }
+  return arr;
+}
+console.log('slideWindow([1,3,-1,-3,5,3,6,7],3): ', slideWindow([1,3,-1,-3,5,3,6,7],3)); //[ 3, 3, 5, 5, 6, 7 ]
+
+
+
+/**
+ * Array.splice 方法实现
+ */
+Array.prototype.splice = function(...args){
+  let startIdx = args[0];
+  let deleteCount = args[1];
+  let otherData = args.slice(2);
+  let myarr = [];
+  let arr = Object(this);
+
+  if(args.length == 1) myarr = arr.slice(0,startIdx);
+  if(args.length == 2) myarr = arr.slice(0,startIdx).concat(arr.slice(startIdx+deleteCount));
+  if(args.length>2){
+    let arr_1 = arr.slice(0,startIdx);
+    let arr_3 = arr.slice(startIdx+deleteCount);
+    myarr = arr_1.concat(otherData).concat(arr_3);
+  }
+  for(let i=0;i<myarr.length;i++) arr[i] = myarr[i];
+  arr.length = myarr.length;
+} 

@@ -10,22 +10,7 @@
  * }
  * Books.isChinese = true; 静态公有
  */
-/**
- * demo1 闭包:你们看不见我
- */
-var Book = (function(){
-    var bookNum = 0; //静态私有
-    function checkBook(name){}; //静态私有
-    return function(newId,newName,newPrice){
-        var name='zf',price; //私有属性
-        function checkId(){}  //私有方法
-        function getName(){ //特权方法
-            return name;
-        }
-        this.id = newId; //公有属性
-        this.copy = function(){} //公有方法   
-    }
-})()
+
 /**
  * demo2 检查长  创建对象的安全模式
  */
@@ -132,9 +117,7 @@ function inherit(subClass,superClass){
     obj.constructor = subClass;
     subClass.prototype = obj;
 }
-function superClass(){
-
-}
+function superClass(){}
 function subClass(){
     superClass.call(this);
 }
@@ -181,6 +164,57 @@ console.log('demo9 多继承',soruce);
 
 
 
+/**
+ * ES6 继承
+ */
+class SuperClass{
+    constructor(superClassName='defaultName'){
+        this.superClassName = superClassName;
+        this.names = ['zf','cp'];
+    }
+    static getName(){
+        console.log(this.names);
+    }
+    getSuperClassName(){
+        return this.superClassName;
+    }
+}
+
+class SubClass_1 extends SuperClass{
+    constructor(superClassName){
+       super(superClassName);
+    }
+}
+class SubClass_2 extends SuperClass{}
+
+
+const sub_1_ins = new SubClass_1('SuperClass_SubClass_1');
+const sub_2_ins = new SubClass_2();
+
+console.log('sub_1_ins.names.push', sub_1_ins.names.push('babyGirl'),sub_1_ins.getSuperClassName()); 
+console.log('sub_1_ins.names',sub_1_ins.names); //['zf','cp','babyGirl'];
+console.log('sub_2_ins.names',sub_2_ins.names); //['zf','cp'];
+/**
+ * 注意点
+ *   1：super关键字当做function使用(这时候代表父类的构造函数)的时候必须放在constructor中；而且必须在constructor中执行一次；否则子类this对象 reference error;
+ *   2：super对象当做obj使用的时候，在普通的方法中指向父类的prototype对象，但是此时父类方法内部this实例是指向子类的；在静态方法中，指向父类；
+ */
+
+ /**
+  * 构造函数不需要显示的返回值。使用new来创建对象(调用构造函数)时，如果return的是非对象(数字、字符串、布尔类型等)会忽而略返回值;如果return的是对象，
+  * 则返回该对象(注：若return null也会忽略返回值）。
+  */
+function Person(name) {
+    this.name = name
+    return {}
+}
+let p = new Person('Tom'); // {}
+
+function Person(name) {
+    this.name = name
+    return name;
+}
+let p = new Person('Tom');  //{name: 'Tom'}
 
 
 

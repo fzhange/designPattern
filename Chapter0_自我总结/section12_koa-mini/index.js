@@ -2,11 +2,12 @@ const http = require("http");
 
 function compose(middlewares){
   return (ctx)=>{
-    function executeMiddleWare(idx){
-      if(idx ==  middlewares.length)  return;
-      return middlewares[idx](ctx,()=>executeMiddleWare(idx+1))
+    //队列的思想
+    function executeMiddleWare(){
+      let fun = middlewares.pop();
+      if(!!fun) return fun(ctx,()=>executeMiddleWare())
     }
-    return executeMiddleWare(0);
+    return executeMiddleWare();
   }
 }
 class Context{
@@ -36,7 +37,8 @@ class App{
     server.listen(port);
   }
   use(middleware){
-   this.middlewares.push(middleware);
+  //  this.middlewares.push(middleware);
+  this.middlewares.unshift(middleware) //队列 先进先出
   }
 }
 

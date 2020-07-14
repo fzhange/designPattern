@@ -77,19 +77,19 @@
 
 
     // // 原型添加 超级赞
-   //  if(Function.prototype.bind == undefined){
-   //      Function.prototype.bind = function(context){    
-   //          var args = Array.prototype.slice.call(arguments,1);
-   //          var that = this;
+//    if(Function.prototype.bind == undefined){
+//       Function.prototype.bind = function(context,...args){    
+//        // var args = Array.prototype.slice.call(arguments,1);
+//           var originFun = this;
 
-   //          var fun = function(){
-   //             if(this instanceof fun) this.apply(context,Array.prototype.slice.call(arguments))
-   //             else that.apply(context,Array.prototype.slice.call(arguments).concat(args))
-   //          }
-   //          fun.prototype = Object.create(that.prototype);
-   //          return fun;
-   //      }
-   //  }
+//           var fun = function(...innerArgs){
+//              if(this instanceof fun) this.apply(context,[...args,...innerArgs])
+//              else originFun.apply(context,[...args,...innerArgs])
+//           }
+//           fun.prototype = Object.create(that.prototype);
+//           return fun;
+//       }
+//   }
    
 
     // var $ = {
@@ -110,13 +110,17 @@
     * bind 方法实现
     */
     if(Function.prototype.bind == undefined){
-        Function.prototype.bind = function(context){    
-            var args = Array.prototype.slice.call(arguments,1);
+        Function.prototype.bind = function(context,...args){    
+            // var args = Array.prototype.slice.call(arguments,1);
+
             var that = this;
 
             var fun = function(){
-               if(this instanceof fun) this.apply(context,Array.prototype.slice.call(arguments)) //new fun();
-               else that.apply(context,Array.prototype.slice.call(arguments).concat(args))
+               if(this instanceof fun){
+                  this.apply(context,Array.prototype.slice.call(arguments)) //new fun();
+               } else{
+                  that.apply(context,Array.prototype.slice.call(arguments).concat(args))
+               } 
             }
             fun.prototype = Object.create(that.prototype);
             return fun;

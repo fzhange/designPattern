@@ -1,5 +1,6 @@
 /**
- * debounce 防抖函数
+ * debounce 防抖函数 
+ * N秒内只会触发一次 如果N秒内被再次触发 则重新计时
  */
 var debounce = function(fn){
     var id = null;
