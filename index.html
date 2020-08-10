@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <title>Blob 文件下载示例</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dedicated Worker Demo</title>
   </head>
-
   <body>
-    <button id="downloadBtn">文件下载</button>
-    <script type="text/javascript" src="https://english.ctrip.com/m/i18n/100015463/en-us.js"></script>
+    <input type="file">
+    <script>
+      async function fun(){
+        try{
+          let res = await new Promise((reolve,reject)=>{
+            reolve(1234)
+          }).then(function(result){
+            throw new Error('1234567')
+          })
+          console.log('res: ', res);
+        }catch(eror){
+          console.log('eror: ', eror);
+        }
+      }
+      fun();
+    </script>
   </body>
 </html>

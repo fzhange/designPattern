@@ -42,6 +42,9 @@
  * Event 可以理解为事件中心，提供了订阅和发布功能。
  * 订阅者在订阅事件的时候，只关注事件本身，而不关心谁会发布这个事件；
  * 发布者在发布事件的时候，只关注事件本身，而不关心谁订阅了这个事件
+ * 
+ * 例子：订阅博客
+ * 博主 博客平台 订阅者
  */
 const event = new Event()
 event.register('whatColor',function(name,color){

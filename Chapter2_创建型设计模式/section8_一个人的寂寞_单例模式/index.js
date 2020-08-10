@@ -1,36 +1,29 @@
+/** 
+ * 单例模式中Class的实例个数最多为1 
+ * 当需要一个对象去贯穿整个系统执行某些任务时，单例模式就派上了用场。
+ * 而除此之外的场景尽量避免单例模式的使用，因为单例模式会引入全局状态，而一个健康的系统应该避免引入过多的全局状态。
+ * 
+*/
+
 /**
- * 单例模式：是只允许实例化一次的对象类。
- * 例如我们使用的jquery，单例模式就为其提供了一个命名空间JQuery.
+ * 实现单例模式需要解决以下几个问题：
+ * 
+ * 如何确定Class只有一个实例？
+ * 如何简便的访问Class的唯一实例？
+ * Class如何控制实例化的过程？
+ * 如何将Class的实例个数限制为1？
  */
-/**
- * demo1 
- * 利用单例模式创建静态变量（只能读取，不能修改）
- * 静态变量一般采用大写的方式
- */
-// var NUM = (function(){
-//     var conf = {
-//         MAX:100,
-//         MEDIU:50,
-//         MIN:0,
-//     }
-//     return {
-//         get:function(key){
-//             return conf[key] ? conf[key] : null;
-//         }
-//     }
-// })()
-class CreateOnePerson{
-    constructor(name,age){
-      this.name = name;
-      this.age = age;
+
+
+const fun = (function(){
+  let instance = null;
+  function Person(){}
+  return {
+    getInstance(){
+      if(!instance) {
+        instance = new Person();
+      }
+      return instance;
     }
-    static getInstance(...arg){
-      //当前的this指向的就是CreateOnePerson class
-      console.log('this: ', this);
-      if(!this.person) this.person = new CreateOnePerson(...arg);
-      return this.person;
-    }
-}
-  let obj1= CreateOnePerson.getInstance('xxx',18);
-  let obj2= CreateOnePerson.getInstance('xxx',18);
-  console.log(obj1 === obj2);
+  }
+})()

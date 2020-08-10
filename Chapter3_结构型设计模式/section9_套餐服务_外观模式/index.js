@@ -1,34 +1,32 @@
 /**
- * 为一组复杂的子系统提供一个更高级的统一的外层接口。
+ * 外观模式是最常见的设计模式之一，它为子系统中的一组接口提供一个统一的高层接口，使子系统更容易使用。
+ * 简而言之外观设计模式就是把多个子系统中复杂逻辑进行抽象，从而提供一个更统一、更简洁、更易用的API
+ * 
+ * 很多我们常用的框架和库基本都遵循了外观设计模式，比如JQuery就把复杂的原生DOM操作进行了抽象和封装，
+ * 并消除了浏览器之间的兼容问题。从而提供了一个更高级更易用的版本。
  */
 
- function addEvent(dom,type,fn){
-    if(dom.addEventListener){
-        dom.addEventListener(type,fn); //默认是true 即捕获事件
-    }else if(dom.attachEvent){
-        dom.attachEvent(type,fn);
-    }else{
-        dom['on'+type] = fn;
+// 比如，我们可以应用外观模式封装一个统一的DOM元素事件绑定/取消方法，用于兼容不同版本的浏览器和更方便的调用：
+
+
+// 绑定事件
+function addEvent(element, event, handler) {
+    if (element.addEventListener) {
+        element.addEventListener(event, handler, false);
+    } else if (element.attachEvent) {
+        element.attachEvent('on' + event, handler);
+    } else {
+        element['on' + event] = fn;
     }
- }
+}
 
- //绑定参数
- function g(id){
-     return document.getElementById(id);
- }
-
- function click(name){
-     console.log(name);
- }
- g('app').addEventListener('click',click.bind(g('app'),'zf'))
-//  g('app').addEventListener('click',click);
-
-
-// Function.prototype._bind=function(obj){
-//     var that = this;
-//     var _args = Array.prototype.slice(arguments,1);
-//     return function(){
-//         var args = Array.prototype.slice(arguments);
-//         that.apply(obj,_args.concat(args));
-//     }
-// }
+// 取消绑定
+function removeEvent(element, event, handler) {
+    if (element.removeEventListener) {
+        element.removeEventListener(event, handler, false);
+    } else if (element.detachEvent) {
+        element.detachEvent('on' + event, handler);
+    } else {
+        element['on' + event] = null;
+    }
+}
