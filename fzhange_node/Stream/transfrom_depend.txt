@@ -1,0 +1,2 @@
+const buf = Buffer.from(arr.buffer);
+console.log(buf);

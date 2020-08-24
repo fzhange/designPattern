@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dedicated Worker Demo</title>
-  </head>
-  <body>
-    <input type="file">
+<html>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>flv.js demo</title>
+</head>
+
+<body>
+    
+    <video id="mse" autoplay=true playsinline controls="controls">
+        <source src="https://h5player.bytedance.com/video/mp4/xgplayer-demo-720p.mp4" type="video/mp4">
+        你的浏览器不支持Video标签
+     </video>
     <script>
-      async function fun(){
-        try{
-          let res = await new Promise((reolve,reject)=>{
-            reolve(1234)
-          }).then(function(result){
-            throw new Error('1234567')
-          })
-          console.log('res: ', res);
-        }catch(eror){
-          console.log('eror: ', eror);
-        }
-      }
-      fun();
+        (function(name){
+            console.log('name: ', name);
+
+        })("zf")
+
     </script>
-  </body>
+</body>
+
 </html>

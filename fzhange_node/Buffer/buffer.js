@@ -3,6 +3,10 @@ const path = require('path');
 const zlib = require('zlib');
 const { SSL_OP_CRYPTOPRO_TLSEXT_BUG } = require('constants');
 const { rejects } = require('assert');
+zlib.deflate("this is my message",function(err, deflateBuf){
+    console.log('deflateBuf: ', deflateBuf);
+
+})
 /**
  * png > base64
  */
@@ -88,11 +92,23 @@ const { rejects } = require('assert');
 // });
 
 
-
-// let buf = Buffer.from('超',"ascii")
-// console.log('buf: ', buf);
-// console.log('buf: ', buf.toString('ascii'));
-
-const buf = Buffer.from('semlinker');
-console.log(buf[0]); // 十进制：115 十六进制：0x73
-console.log(buf[1]); // 十进制：101 十六进制：0x65
+// let readStream = fs.createReadStream(path.join(__dirname,"./img.png"));
+// const bufferList = [];
+// readStream.on('open',function(fd){
+//     console.log('fd: ', fd);
+// })
+// readStream.on('data',function(data){
+//     console.log('data: ', data);
+//     bufferList.push(data);
+// })
+// readStream.on('close',function(){
+//     let buf = Buffer.concat(bufferList);
+//     // let buf = Buffer.from(bufferList);
+//     let base64_data = buf.toString('base64');
+//     let dataurl = `data:image/png;base64,${base64_data}`;
+//     fs.writeFile(path.join(__dirname,"./base64.txt"),dataurl,function(err,data){
+//         if(err) console.error(err);
+//         console.log('文件已被保存');
+//     })
+//     console.log('--------close---------');
+// })

@@ -10,6 +10,17 @@ function LoginController(){
         this.login = this.strategy.login;
     }
 }
+const loginController = function(){  /**全局单例  只有一个诸葛亮**/
+    function LoginController(){
+        this.strategy = undefined;
+        this.setStrategy = function(strategy){
+            this.strategy = strategy;
+            this.login = this.strategy.login;
+        }
+    }
+    return new LoginController();
+}()
+
 
 /**
  * 用户名、密码登录策略
@@ -32,7 +43,7 @@ function PhoneStragety() {
 
 
 const app = {} 
-const loginController = new LoginController(); /**全局单例  只有一个诸葛亮**/
+
 app.use("/login/local",function(req,res){
     loginController.setStrategy(new LocalStragegy());
     loginController.login(req.body);
