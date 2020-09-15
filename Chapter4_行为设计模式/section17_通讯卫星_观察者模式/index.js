@@ -4,6 +4,8 @@
  * 消息的发送者（称为发布者）不会将消息直接发送给特定的接收者（称为订阅者）
  * “发布者”将 不同类别的消息 发送到 “事件中心”
  * “订阅者”可以表达对一个或多个类别的兴趣，只接收感兴趣的消息，无需了解哪些发布者（如果有的话）存在。
+ * 
+ * node的 event.EventEmitter就是一个典型的发布订阅者模式
  */
 
  class Event {
@@ -45,13 +47,17 @@
  * 
  * 例子：订阅博客
  * 博主 博客平台 订阅者
+ * 
+ * 例子：租房子
+ * 房东 找房APP  房客
  */
-const event = new Event()
-event.register('whatColor',function(name,color){
+const event = new Event()  //事件调度中心
+function sub_1(name,color){ //订阅者1
     console.log('who answer question',name);
     console.log('answer is ',color);
- })
-event.fire('whatColor','zf','red');
+}
+event.register('whatColor',sub_1) //订阅者1 在 事件调度中心进行信息注册 等有事件发布会通知他
+event.fire('whatColor','zf','red'); //发布
 
 
 /**
@@ -63,3 +69,28 @@ event.fire('whatColor','zf','red');
  * 1目标对象
  * 2观察者
  */
+
+class Subjcet{  //被观察者
+    observers = [];
+    subscrible(observer){ //订阅
+        this.observers.push(observer);
+    } 
+    fire(){ //触发
+        this.observers.forEach((observer)=>{
+            observer.call(null);
+        })
+    }
+}
+
+
+const sub = new Subjcet();
+const fun1 = function(){
+    console.log('观察者1');
+}
+const fun2 = function(){
+    console.log('观察者2');
+}
+sub.subscrible(fun1)
+sub.subscrible(fun2);
+
+sub.fire(); //被订阅者  某个时间触发变更事件  然后进行事件发布  没有事件中心平台

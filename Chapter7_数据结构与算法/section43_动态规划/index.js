@@ -149,12 +149,9 @@ function fun(targetVal){
 
 
  /**
-  * let str = "1,5,3,4,6,9,7,8"; 
+  * let str = "1,5,3,4,6,9,7,8";
   * 求最长上升子序列 134678  注意序列的非连续性
-  *  f(1) [1]
-  *  f(5) f(1)[5]
-  *  f(3) f(1)[3]
-  *  f(4) f(3)[4]
+  * [[1],[1,5],[1,3],[1,3,4],[1,3,4,6],[1,3,4,6,9],[1,3,4,6,7],[1,3,4,6,8]]
   */
  function sonRise(){
   let obj = {
@@ -168,7 +165,7 @@ function fun(targetVal){
       let currKey = str[i];
       let preKey = str[j];
       if(preKey < currKey){
-        obj[currKey] = [...obj[preKey]].concat([currKey])
+        obj[currKey] = [...obj[preKey]].concat([currKey]);
         break;
       }
 
@@ -305,4 +302,18 @@ console.log('recursionFibo(6): ', recursionFibo(6));
 
 
 
-
+/**
+ * 连续子序列
+ */
+      // 输入: [-2,1,-3,4,-1,2,1,-5,4]
+      // 输出: 6
+      // 解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+      //当前位置的最优解 是有上一个位置的最优解转移得到的。
+      var maxSubArray = function(nums) {
+        if(nums.length<1) return null;
+        let arr = [nums[0]];
+        for(let i=1;i<nums.length;i++){
+          arr[i] = Math.max(arr[i-1]+nums[i],nums[i]);
+        }
+        return Math.max(...arr);
+      };

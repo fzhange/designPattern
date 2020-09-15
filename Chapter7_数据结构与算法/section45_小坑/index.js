@@ -57,6 +57,15 @@ obj.push(1)
 obj.push(2)
 obj.push(3)
 console.log(obj)
+
+
+
+
+
+
+
+
+
 // {
 //   '2':1
 //   '3':2,

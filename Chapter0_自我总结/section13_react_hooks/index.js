@@ -2,38 +2,34 @@
  * React Hooks 原理  
  * https://github.com/brickspert/blog/issues/26
  */
-let stateMemorize = [];
-let indicator = 0;
 
-function useState(initialState){
-  stateMemorize[indicator] = stateMemorize[indicator] || initialState;
-  
-  let nowIndicator = indicator;
-  function setState(newState){
-    stateMemorize[nowIndicator] = newState;
-    //render
+let __memoryArr = [];
+let __indicator = 0;
+
+function useState(initialStsate){
+  __memoryArr[__indicator] = __memoryArr[__indicator] || initialStsate;
+  let idx = __indicator;
+  let setState = function(val){
+    __memoryArr[idx] = val;
+    render();
   }
-
-  return [stateMemorize[indicator++],setState]
+  return [__memoryArr[__indicator++],setState]
 }
 
-
-function useEffect(callbak,depArray){
-  let deps = stateMemorize[indicator];
-  let changed = false
-  let changed = !!deps ? !deps.every((item,idx)=>depArray[i] = item) : true;
-
-  if(!depArray || changed){
-    callbak();
-    stateMemorize[indicator] = depArray;
+function useEffct(callback,depArr){
+  let noDepArr = !depArr;
+  let isDepChange = !depArr ? true : depArr.some((item,idx) => item!=depArr[idx] );
+  if(noDepArr || isDepChange){
+    callback();
+    __memoryArr[__indicator] = depArr;
   }
-  indicator++;
+  __indicator++;
 }
 
 
 
 
-function Hello(){
-  let [count,setCount] = useState(0);
-  let [name,setName] = useState('zf');
+
+function render(){
+  __indicator = 0;
 }

@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "mkdirp": "^1.0.4",
+    "mvdir": "^1.0.17",
+    "q": "^1.5.1",
+    "shelljs": "^0.8.4"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "eslint": "^7.9.0",
     "husky": "^3.0.9"
   },
   "scripts": {

@@ -7,6 +7,7 @@ zlib.deflate("this is my message",function(err, deflateBuf){
     console.log('deflateBuf: ', deflateBuf);
 
 })
+
 /**
  * png > base64
  */

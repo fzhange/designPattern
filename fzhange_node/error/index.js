@@ -1,57 +1,62 @@
 /**
- * nodejs 异常处理
- */
-/**
- * 1 callback
- */
-/**
- * 2 try catch 
+ * 1 显示异常
+ * throw 方法只能用在同步方法中。
  * try catch 只能捕获同步错误
- * 
  */
+function formatName(name){
+    if(!name) throw new Error('name is required'); 
+}
 try{
-    undefine 
-}catch(error){
-    console.error('error: ', error);
-  
-}finally{
-    process.stdin.on('data',function(data){
-        process.stdout.write(`data: ${data.toString()}`)
-    })
+    formatName();
+}catch(err){
+    console.log(err.message,err.stack);
 }
 
 /**
- * uncaughtException 
- * 如果打算使用 'uncaughtException' 事件作为异常处理的最后补救机制，这是非常粗糙的设计方式。
- * 不建议
+ * 2. 隐式的异常
+ * try catch 只能捕获同步错误
  */
-
-// process.on('uncaughtException', (err, origin) => {
-//     console.log('err: ', err);
-//     console.log('origin: ', origin);
-//   });
-//   process.stdin.on('data',function(data){
-//     process.stdout.write(`data: ${data.toString()}`)
-// })
-// h
-// console.log('这里不会运行');
+function hidedError(err,data){
+    try{
+        data = dat;
+    }catch(error){
+        console.log(error.message,error.stack);
+    }
+}
+hidedError();
 
 /**
- * event.eventEmitter on error事件
- * EventEmitter 定义了一个特殊的事件 error，它包含了错误的语义，我们在遇到 异常的时候通常会触发 error 事件。
-    当 error 被触发时，EventEmitter 规定如果没有响 应的监听器，Node.js 会把它当作异常，退出程序并输出错误信息。
-    我们一般要为会触发 error 事件的对象设置监听器，避免遇到错误后整个程序崩溃。例如：
+ * 3. 错误事件
+ * 这种错误很难调试，所以一定要做错误监听。
+ * 如果error事件没有对应的处理函数，node则会爆出未处理异常.
+ * 如果没有响 应的监听器，Node.js 会把它当作异常，退出程序并输出错误信息。
  */
-var events = require('events'); 
-var emitter = new events.EventEmitter(); 
-emitter.emit('error'); 
-
+let EventEmitter = require('events').EventEmitter;
+let ee = new EventEmitter();
+ee.emit('error',new Error('no handle to catch me'));
 
 /**
- * 利用js中的Error构造函数
+ *  4
+ * 错误参数
+ * callback(err,data)
  */
+function handleError(err){
+    console.error(err.message,err.stack);
+}
 
+let fs = require('fs');
+fs.readFile('../file/index.js',function(err,data){
+    if(err) return handleError(err);
+    console.log('data: ', data);
+})
 
-/**
- * express中的err处理
- */
+ /**
+  * 5 未捕获的异常
+  * 如果一个未捕获异常抛出时，未被处理，node会终止进程的执行。
+  * 但是，如果错误被捕获了，你强制让其运行，也许可能造成内存泄漏，使得应用程序及其不稳定。
+  */
+ process.on('uncaughtException',function(error){
+    console.error(error);
+    setTimeout(process.exit,1000,1)
+ })
+

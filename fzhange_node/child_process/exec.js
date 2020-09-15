@@ -7,7 +7,7 @@
 /**
  * 如果要在命令解析器里执行命令，你可以选择exec.
  * unix下  exec 实际上也是调用 /bin/sh  
- * 如果你是unix用户 node始终使用的是 /bin/sh做脚本解析。  具体提示请看  《Node.js硬实战 115个核心技巧》- AiBooKs.Cc   8子进程部分 这块没咋看懂
+ * 如果你是unix用户 node始终使用的是 /bin/sh做脚本解析。  具体提示请看  《Node.js硬实战 115个核心技巧》  8子进程部分 这块没咋看懂
  * window下 cdm.exe
  * 
  * 前提是你必须有权限 呵呵

@@ -25,7 +25,7 @@ const stream = require('stream');
  */
 
 /** stream.Writeable
- * close 当调用 stream.resume() 并且 readsFlowing 不为 true 时，将会触发 'resume' 事件。
+ * close 当流或其底层资源（比如文件描述符）被关闭时触发。 表明不会再触发其他事件，也不会再发生操作。
  * drain  如果调用 stream.write(chunk) 返回 false，则当可以继续写入数据到流时会触发 'drain' 事件。
  * error
  * finish 调用 stream.end() 且缓冲数据都已传给底层系统之后触发。

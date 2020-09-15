@@ -20,7 +20,7 @@ class middleware extends Transform {
         super(options);
     }
     _transform(data, encoding, done) {
-        // console.log('in middleware: ', data)
+        console.log('in middleware: ', data)
         const lines = data.toString().split(/\n/)
         let index = 1
 

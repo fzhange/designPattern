@@ -80,12 +80,17 @@ console.log('quickSort',quickSort([2,1,1,4,5]));
  * 经过第一轮比较 将最大值放在最后
  */
 function bubbleSort(arr){
+  function swap(swapArr,i,j){
+    let t = swapArr[i]; swapArr[i] = swapArr[j]; swapArr[j] = t;
+  }
+  function sort(a,b){
+    return a-b;
+  }
   for(let i=arr.length-1;i>0;i--){
    for(let j=0;j<i-1;j++){
      let tmp = arr[j];
      if(arr[j] > arr[j+1]) {
-       arr[j] = arr[j+1];
-       arr[j+1] = tmp;
+       swap(arr,i,j);
      }
    }
   }

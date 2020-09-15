@@ -522,19 +522,20 @@ console.log('slideWindow([1,3,-1,-3,5,3,6,7],3): ', slideWindow([1,3,-1,-3,5,3,6
  * Array.splice 方法实现
  */
 Array.prototype.splice = function(...args){
-  let startIdx = args[0];
-  let deleteCount = args[1];
-  let otherData = args.slice(2);
+  // let startIdx = args[0];
+  // let deleteCount = args[1];
+  // let otherData = args.slice(2);
+  let [startIdx,deleteCount,...otherData] = args;
   let myarr = [];
-  let arr = Object(this);
+  let originArr = Object(this);
 
-  if(args.length == 1) myarr = arr.slice(0,startIdx);
-  if(args.length == 2) myarr = arr.slice(0,startIdx).concat(arr.slice(startIdx+deleteCount));
+  if(args.length == 1) myarr = originArr.slice(0,startIdx);
+  if(args.length == 2) myarr = originArr.slice(0,startIdx).concat(originArr.slice(startIdx+deleteCount));
   if(args.length>2){
-    let arr_1 = arr.slice(0,startIdx);
-    let arr_3 = arr.slice(startIdx+deleteCount);
+    let arr_1 = originArr.slice(0,startIdx);
+    let arr_3 = originArr.slice(startIdx+deleteCount);
     myarr = arr_1.concat(otherData).concat(arr_3);
   }
-  for(let i=0;i<myarr.length;i++) arr[i] = myarr[i];
-  arr.length = myarr.length;
+  for(let i=0;i<myarr.length;i++) originArr[i] = myarr[i];
+  originArr.length = myarr.length;
 } 
