@@ -1,5 +1,16 @@
 /**
  * webpack 模块化原理
+ * https://juejin.im/post/6844904114183208968 干货:import和require如何在项目中混用
+ * https://juejin.im/post/6844903520865386510 import、require、export、module.exports 混合使用详解
+ * http://www.ruanyifeng.com/blog/2016/01/babel.html    [Babel 入门教程]
+ * 
+ * http://www.ruanyifeng.com/blog/2012/10/javascript_module.html  Javascript模块化编程（一）：模块的写法
+ * http://www.ruanyifeng.com/blog/2012/10/asynchronous_module_definition.html Javascript模块化编程（二）：AMD规范
+ * http://www.ruanyifeng.com/blog/2012/11/require_js.html Javascript模块化编程（三）：require.js的用法
+ */
+/**
+ * CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用
+ * CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
  */
 
 (function(modules) {

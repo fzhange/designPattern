@@ -78,6 +78,7 @@ function fun(targetVal){
      if(i-11>=0) count = Math.min(count,arr[i-11])
      arr[i] = count+1;
    }
+   console.log('arr: ', arr);
    return arr[targetVal];
  }
  
