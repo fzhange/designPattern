@@ -1,0 +1,14 @@
+<html>
+<head>
+</head>
+<body>
+    <div>这是 B 页面</div>
+    <script>
+        window.onbeforeunload = function (e) {
+            window.open('A.html#close', "A") // url 挂参 跳回到已打开的 A 页面
+            return '确定离开此页吗？';
+        }
+    </script>
+</body>
+</html>
+
