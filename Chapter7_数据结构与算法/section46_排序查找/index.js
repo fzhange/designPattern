@@ -29,28 +29,37 @@ console.log("binarySearch(arr,8): ", binarySearch(arr, 10));
 /**
  * 全排列
  */
-function fullpermutate(str) {
-  var result = [];
-  if (str.length > 1) {
-    //遍历每一项
-    for (var m = 0; m < str.length; m++) {
-      //拿到当前的元素
-      var left = str[m]; 
-      //除当前元素的其他元素组合  
-      var rest = str.slice(0, m) + str.slice(m + 1, str.length);
-      //上一次递归返回的全排列
-      var preResult = fullpermutate(rest);
-      //组合在一起
-      for (var i = 0; i < preResult.length; i++) {
-        var tmp = left + preResult[i];
-        result.push(tmp);
-      }
-    }
-  } else if (str.length == 1) {
-    result.push(str);
+
+function fullpermutate(str){
+  if(str.length == 1) return [[str]];
+  let arr = [];
+  for(let i=0;i<str.length;i++){
+    let nowIChar = str[i];
+    let otherStr = str.slice(0,i) + str.slice(i+1);
+    let otherStrArr = fullpermutate(otherStr);
+    otherStrArr.forEach((item)=>{
+      arr.push([`${item[0]}${nowIChar}`]);
+    })
   }
-  return result;
+  return arr;
 }
+
+// function fullpermutate(str){
+//   let arr = [];
+//   function innerFun(str,preFix=''){
+//     if(str.length == 1) {
+//       arr.push(`${preFix}${str}`);
+//       return;
+//     }
+//     for(let i=0;i<str.length;i++){
+//       let nowIChar = str[i];
+//       let otherStr = str.slice(0,i) + str.slice(i+1);
+//       innerFun(otherStr,`${preFix}${nowIChar}`);
+//     }
+//   }
+//   innerFun(str);
+//   return arr;
+// }
 
 console.log('fullpermutate(abc): ', fullpermutate('abc'));
 
@@ -124,21 +133,18 @@ console.log('selectSort',selectSort(selectArr));
  * 版本号排序
  */
 let versions = ['4.1', '4.7.1', '4.8', '4.8.0', '4.10', '5'];
-versions.sort((a,b)=>{
-  let arr1 = a.split('.').map((item)=>parseInt(item));
-    let arr2 = b.split('.').map((item)=>parseInt(item));
-    let minLen = Math.min(arr1.length,arr2.length);
-
-    for(let i=0;i<minLen;i++){
-      if(arr1[i] < arr2[i]) return -1; //返回一个小于0的数字 代表前者的idx比后者的小 无需处理
-      if(arr1[i] > arr2[i]) return 1;  //返回一个大于0的数字 代表前者的idx比后者的大 需要进行换位
-
-      //这个是为了区分'4.8'和'4.8.0'的情况
-      //前几位大小相同 谁的位数长 谁就在后边
-      if(i+1 == minLen){
-        if(arr1.length < arr2.length) return -1;
-        if(arr1.length > arr2.length) return 1;
-      }
-    }
+versions.sort((currVersion,preVersion)=>{
+  let currArr = currVersion.split('.').map(item=>parseInt(item));
+  let preArr = preVersion.split('.').map(item=>parseInt(item));
+  let len = Math.min(currArr.length,preArr.length);
+  for(let i=0;i<len;i++){
+    let currNum = currArr[i];
+    let preNum = preArr[i];
+    if(currNum > preNum) return 1;
+    if(currNum == preArr) continue;
+    if(currNum < preArr) return -1;
+  }
+  if(currArr.length<preArr.length) return -1;
+  else return 1;
 })
 console.log('versions: ', versions);

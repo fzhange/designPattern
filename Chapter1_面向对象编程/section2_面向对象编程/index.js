@@ -1,3 +1,6 @@
+/** 
+ * ! 原型继承的本质其实只是对象的组合
+ */
 /**
  * function Books(id){
  *  var num = 1; 私有属性
@@ -121,7 +124,7 @@ function superClass(){}
 function subClass(){
     superClass.call(this);
 }
-inherit(subClass,superClass);
+inherit(subClass,superClass);  // subClass.prototype = Object.create(superClass.prototype);
 new subClass();
 
 /**

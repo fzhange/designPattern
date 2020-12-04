@@ -1,28 +1,6 @@
 const WARN = console.warn;
 
-/**
- * 1
- * sum求和问题
- */
-WARN("1 sum求和问题");
-const sum = function(){
-  let args = [];
-  function fun(...arg){
-    if(arg.length == 0) {
-      let totalNum =  args.reduce((pre,curr, idx, arr)=>{
-        return pre+curr;
-      },0)
-      args = [];
-      return totalNum;
-    }else{
-      args = args.concat(arg);
-      return fun;
-    }
-  }
-  return fun;
-}();
 
-console.log(" sum(100,200)(300)(100,100,100)(): ", sum(100, 200)(300)(100, 100, 100)());
 
 /**
  * 2
@@ -71,7 +49,11 @@ function deepClone(obj) {
     Object.keys(obj).forEach((key, idx) => {
       let item = obj[key];
       if (typeof item == "object") {
-        tmp[key] = deepClone(item);
+        if(item == null) tmp[key] = null;
+        else{
+          if(Array.isArray(item)) tmp[key] = JSON.parse(JSON.stringify(item));
+          else tmp[key] = deepClone(item);
+        }       
       } else {
         tmp[key] = item;
       }
@@ -102,31 +84,25 @@ function deepCloneSecondMethod(obj) {
  */
 WARN("5 队列问题 ali");
 
-function firstPromise(promiseFunction) {
+function firstPromise(promiseFunction){
   let flag = true;
-  return function() {
-    let _promise = null;
-    if (flag) {
-      _promise = promiseFunction();
-      flag = false;
-      return new Promise((resolve, reject) => {
-        _promise.then(val => {
+  return function(){
+    return new Promise((res,rej)=>{
+      if(flag){
+        flag =false;
+        promiseFunction().then((count)=>{
           flag = true;
-          resolve(val);
-        });
-      });
-    } else {
-      return new Promise((resolve, reject) => {
-        resolve(null);
-      });
-    }
-  };
+          res(count);
+        })
+      }else res();
+    })
+  }
 }
 let count = 1;
 const promiseFunction = () => {
-  return new Promise(rs => {
+  return new Promise(resolve => {
     window.setTimeout(() => {
-      rs(count++);
+      resolve(count++);
     });
   });
 };
@@ -338,6 +314,7 @@ console.log('subnet([1,2,2,1],[2,3,2]): ', subnet([1,2,2,1],[2,3,2]));
     }).map(item=>JSON.parse(item))
     console.log('arr: ', arr);
  }
+ mySet([[1,2,3],[1,'2',3],[1,2,3]])
 
  /**
   * 17 对象的扁平化
@@ -539,3 +516,113 @@ Array.prototype.splice = function(...args){
   for(let i=0;i<myarr.length;i++) originArr[i] = myarr[i];
   originArr.length = myarr.length;
 } 
+
+
+/**
+ * 最长不重复子串求和
+*    [
+*       'p',
+        'pw',
+        'w',
+        'wk',
+        'wke',
+        'wke'
+*    ]
+ */
+
+var lengthOfLongestSubstr = function(s) {
+  	if(!s) return 0;
+  	let maxSubStrArr = [s[0]];
+    for(let i=1;i<s.length;i++){
+      let nowI = s[i];
+      let preSubStr = maxSubStrArr[i-1];
+      let j = preSubStr.length-1;
+      for(;j>=0;j--){
+        let nowJ = preSubStr[j];
+        if(nowI == nowJ) break;
+      }
+      maxSubStrArr.push(`${preSubStr.slice(j+1)}${nowI}`);
+    }
+    console.log('maxSubStrArr: ', maxSubStrArr);
+};
+lengthOfLongestSubstr('bbbbb')
+console.log('lengthOfLongestSubstr(): ', lengthOfLongestSubstr('pwwkew'));
+
+
+
+/**
+ * 求目标和
+ * [
+    [7],
+    [2,2,3]
+  ]
+  回溯 递归 hash缓存
+ */
+function fun(arr,target){
+  let obj = {};
+
+  function innerFun(arr,nowTargetVal){
+    console.log('nowTargetVal: >>>>>>', nowTargetVal);
+    if(obj[nowTargetVal]) return obj[nowTargetVal];
+    let myArr = [];
+    for(let i = 0;i < arr.length;i++){
+      let nowVal = arr[i];
+      let reduceVal = nowTargetVal - nowVal;
+      if(reduceVal == 0){
+        myArr.push([nowVal]);
+      }
+      if(reduceVal > 0){
+        let recursionArr = [];
+
+        recursionArr = innerFun(arr,reduceVal);
+        recursionArr.forEach((item,idx)=>{
+          myArr.push([nowVal,...item]);
+        })
+      }
+    }
+    obj[nowTargetVal] = myArr;
+    console.log('nowTargetVal: ', nowTargetVal,myArr);
+    return myArr;
+  }
+  let myArr = innerFun(arr,target);
+
+  console.log('myArr: ', myArr);
+  console.log('obj: ', obj);
+}
+fun([2,3,6,7],7);
+
+
+
+
+/**
+ * ==============================
+ * welcome to imooc.com
+ * this is a rollup test project
+ * ==============================
+ **/
+// comment('welcome to imooc.com', 'this is a rollup test project')
+function comment() {
+  if (arguments.length === 0) {
+    return // 如果参数为0直接返回
+  }
+  let maxlength = 0
+  for (let i = 0; i < arguments.length; i++) {
+    const length = arguments[i].toString().length
+    maxlength = length > maxlength ? length : maxlength // 获取最长的参数
+  }
+  maxlength = maxlength === 0 ? maxlength : maxlength + 1 // 在最长参数长度上再加1，为了美观
+  let seperator = ''
+  for (let i = 0; i < maxlength; i++) {
+    seperator += '=' // 根据参数长度生成分隔符
+  }
+  const c = []
+  c.push('/**\n') // 添加注释头
+  c.push(' * ' + seperator + '\n') // 添加注释分隔符
+  for (let i = 0; i < arguments.length; i++) {
+    c.push(' * ' + arguments[i] + '\n') // 加入参数内容
+  }
+  c.push(' * ' + seperator + '\n') // 添加注释分隔符
+  c.push(' **/') // 添加注释尾
+  return c.join('') // 合并参数为字符串
+}
+

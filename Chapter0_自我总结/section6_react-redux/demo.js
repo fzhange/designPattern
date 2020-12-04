@@ -3,7 +3,7 @@
 'use strict';
 import React, { Component } from 'react';
 import {  View,ScrollView,StatusBar,Text,StyleSheet,Platform,TouchableOpacity,Image,Dimensions,FlatList,Alert} from 'react-native';
-import { Page,fetch,ViewPort,Device,Log,URL,Loading} from '@ctrip/crn';
+import { Page,fetch,ViewPort,Device,Log,URL,Loading} from 'rn';
 import { connect } from 'react-redux';
 import DestHighPopuStrategy from  "../../destination/views/templates/DestHighPopuStrategy";  
 import MyCollection from "../../destination/views/MyCollection";

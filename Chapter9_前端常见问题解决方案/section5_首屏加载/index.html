@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    白屏时间
+</body>
+<script>
+    /**
+     *  用户能够看到第一屏区域内所有元素加载完的时间就是“首屏加载”时间。一个页面的“总加载时间”（onload）一定大于等于“首屏加载”时长。
+     * 
+     * 
+     * 判断首屏有没有图片，如果没图片就用domready时间，
+     * 如果有图，分2种情况，
+     * 图在首屏，图不在首屏，如果在则收集，并判断加载状态，加载完毕之后则首屏完成加载，
+     * 如果首屏没图，找到首屏下面的图，立刻触发首屏完毕。
+     * 可以想象这么做前端收集是不准的，但是可以确保最晚不会超过win load，所以应该还算有些意义。。
+     * 没办法，移动端很多浏览器不支持performance api，所以土办法前端收集，想出这么个黑魔法，在基线插入节点收集也是个办法，
+     * 但是不友好，而且现在手机屏幕这么多。
+     **/
+
+</script>
+</html>

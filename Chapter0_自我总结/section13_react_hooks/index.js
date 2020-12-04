@@ -18,7 +18,7 @@ function useState(initialStsate){
 
 function useEffct(callback,depArr){
   let noDepArr = !depArr;
-  let isDepChange = !depArr ? true : depArr.some((item,idx) => item!=depArr[idx] );
+  let isDepChange = !depArr ? true : depArr.some((item,idx) => item!= __memoryArr[__indicator][i] );
   if(noDepArr || isDepChange){
     callback();
     __memoryArr[__indicator] = depArr;

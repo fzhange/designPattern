@@ -11,7 +11,34 @@
 /**
  * CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用
  * CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+ * CJS 同步加载  
  */
+
+ /**
+  * 模块化演进
+  * 1、函数化  
+  * 2、对象化  全局化对象中的数据容易被篡改
+  * 3、IIFE  立即执行函数 
+  * 4、commonjs
+  * 5、amd
+  * 6、cmd
+  * 7、umd
+  */
+
+let module1 = (function(window,$){
+  var data = 'data'; //利用闭包 是data变量私有化
+  function getDate(){
+    return data;
+  }
+  function setData(val){
+    data = val;
+  }
+  return {
+    getDate,setData
+  }
+})(window,JQuery)
+
+
 
 (function(modules) {
     function __webpack_require__(moduleId) {
@@ -43,7 +70,7 @@
   ]);
 
 
-  
+
 
 /**
  * node 模块化原理

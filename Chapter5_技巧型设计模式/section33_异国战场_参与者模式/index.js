@@ -76,20 +76,7 @@
     // //函数柯里化 end
 
 
-    // // 原型添加 超级赞
-//    if(Function.prototype.bind == undefined){
-//       Function.prototype.bind = function(context,...args){    
-//        // var args = Array.prototype.slice.call(arguments,1);
-//           var originFun = this;
 
-//           var fun = function(...innerArgs){
-//              if(this instanceof fun) this.apply(context,[...args,...innerArgs])
-//              else originFun.apply(context,[...args,...innerArgs])
-//           }
-//           fun.prototype = Object.create(that.prototype);
-//           return fun;
-//       }
-//   }
    
 
     // var $ = {
@@ -109,23 +96,20 @@
    /**
     * bind 方法实现
     */
-    if(Function.prototype.bind == undefined){
-        Function.prototype.bind = function(context,...args){    
-            // var args = Array.prototype.slice.call(arguments,1);
+   if(Function.prototype.bind == undefined){
+      Function.prototype.bind = function(context,...args){    
+       // var args = Array.prototype.slice.call(arguments,1);
+          var originFun = this;
 
-            var that = this;
-
-            var fun = function(){
-               if(this instanceof fun){
-                  this.apply(context,Array.prototype.slice.call(arguments)) //new fun();
-               } else{
-                  that.apply(context,Array.prototype.slice.call(arguments).concat(args))
-               } 
-            }
-            fun.prototype = Object.create(that.prototype);
-            return fun;
-        }
-   }
+          var fun = function(...innerArgs){
+            // bind后的函数不丢失this
+             if(this instanceof fun) originFun.apply(this,[...args,...innerArgs])
+             else originFun.apply(context,[...args,...innerArgs])
+          }
+          fun.prototype = Object.create(that.prototype);
+          return fun;
+      }
+  }
    // function fun(){};
    // let obj = {name:"Zf"}
    // let _fun = fun.bind(obj);
@@ -150,14 +134,15 @@
 
    say.call(obj,18)
 
-   /**
+   /** 
     * apply 
-    * fn.apply(ctx,[arg])
+    * fn.apply(ctx,[arg]) 
     */
    Function.prototype.apply = function(ctx,arg){
-      ctx[this.name] = this;
+      const symbol_pro = Symbol('symbol_pro');
+      ctx[symbol_pro] = this;
       const value  = ctx[this.name](...arg);
-      delete ctx[this.name];
+      delete ctx[symbol_pro];
       return value;
    }
    function say(age){

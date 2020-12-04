@@ -6,11 +6,14 @@ var debounce = function(fn){
     var id = null;
     return function(){
         id && clearTimeout(id);
+        let that = this;
         id = setTimeout(function(){
-            fn.apply(null,arguments);
+            fn.apply(that,arguments);
         },300)
     }
 }
+
+
 function say(){
     console.log(arguments);
 }
