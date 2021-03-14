@@ -4,7 +4,7 @@
  * try catch 只能捕获同步错误
  */
 function formatName(name){
-    if(!name) throw new Error('name is required'); 
+    if(!name) throw new Error('name is required');
 }
 try{
     formatName();
@@ -57,7 +57,7 @@ fs.readFile('../file/index.js',function(err,data){
   */
  process.on('uncaughtException',function(error){
     console.error(error);
-    setTimeout(process.exit,1000,1)
+    setTimeout(process.exit,1000,1);
  })
 
 
@@ -78,4 +78,35 @@ fs.readFile('../file/index.js',function(err,data){
  * 
  * 开发手动异常上报
  * ? 开发在业务代码中进行catch捕获 按需进行异常上报
+ */
+
+
+
+
+
+/**
+ * 监控分为 1.性能监控 2.错误监控
+ * 监控分为两步: 1.数据采集 2.数据上报
+ * 
+ * !性能监控
+ * ? 1.performance.timing 
+ * 重定向耗时、DOM渲染耗时、页面加载耗时、网络请求耗时、页面卸载耗时、白屏时间
+ * ? 2.performance.getEntriesType('resource') 获取静态资源加载相关信息
+ * 资源名称、资源大小、加载耗时、加载协议
+ * ? 3.domcument.referrer
+ * !性能数据上报
+ * window.requestIdleCallback 
+ * 
+ * !异常捕获
+ * !异常上报
+ * 1.某一阶段统一上报  用户关闭网页导致数据丢失的问题   
+ *   > xmlHttpRequest 实现同步网络模式、进行页面关闭阻塞操作。  
+ *   > new Image()  
+ * 2.即时上报  
+ * 3.navigator.sendBeacon();  不阻塞页面行为，也能保证数据的有效到达。
+ */
+
+/**
+ * ? 深入了解前端监控原理 https://mp.weixin.qq.com/s/LinpAmhE5VB1yLkm_SpTpw
+ * ? 数据上报方式 https://www.jianshu.com/p/04e88271a8f2?from=singlemessage
  */

@@ -29,9 +29,9 @@ let tree = {
  */
 function getListWithDLR(tree) {
     let arr = [];
-    arr = arr.concat([tree.name])
-    if (tree.left) arr = arr.concat(getListWithDLR(tree.left))
-    if (tree.right) arr = arr.concat(getListWithDLR(tree.right))
+    arr = arr.push(tree.name);
+    if (tree.left) arr = [...arr,...getListWithDLR(tree.left)];
+    if (tree.right) arr = [...arr,...getListWithDLR(tree.right)];
     return arr;
 }
 console.log('先序 getListWithDLR(tree): ', getListWithDLR(tree)); //12345

@@ -106,7 +106,7 @@
              if(this instanceof fun) originFun.apply(this,[...args,...innerArgs])
              else originFun.apply(context,[...args,...innerArgs])
           }
-          fun.prototype = Object.create(that.prototype);
+          fun.prototype = Object.create(originFun.prototype);
           return fun;
       }
   }
@@ -141,7 +141,7 @@
    Function.prototype.apply = function(ctx,arg){
       const symbol_pro = Symbol('symbol_pro');
       ctx[symbol_pro] = this;
-      const value  = ctx[this.name](...arg);
+      const value  = ctx[symbol_pro](...arg);
       delete ctx[symbol_pro];
       return value;
    }

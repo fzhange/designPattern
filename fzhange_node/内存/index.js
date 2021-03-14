@@ -8,7 +8,11 @@
  * 见《深入浅出nodejs》
  * 
  * ?内存
- * 进程中的内存总共有几部分；1.rss 进程常驻内存 2.swap交换区 3.filesystem
+ * 进程中的内存总共有几部分:
+ *  1.rss 进程常驻内存   [常说的内存]
+ *  2.swap交换区 
+ *  3.filesystem
+ *  4.VSZ virtual size，虚拟内存
  * ? node内存
  * rss = 堆内内存 + 堆外内存【由C++层面直接申请的内存空间】 (eg:Buffer内存)
  * 
@@ -18,6 +22,7 @@
  * 通常javascript开发者喜欢将一个对象当做缓存使用;对象一般没有严格的过期策略;
  * >问题的解决:合适的过期策略处理，如LRU算法缓存; last recent used;
  * >进程外缓存工具的使用； 如redis;  进程外缓存可实现多进程资源共享，同时第三方库有这完善的缓存过期淘汰处理策略，以及内存管理策略。
+ * >使用堆外内存来处理 堆内内存受限的情况   【其实也不咋好】
  * 
  * 
  * 2.充当生产者消费者中间产物的全局队列
@@ -28,55 +33,78 @@
  *   1.监控队列长度，一旦造成堆积触发监控，通知相关人员。
  *   2.针对任意的异步调用设置超时机制，一旦在限定的时间内未完成响应，通过回调函数传递超时异常。
  * 
- * ?内存泄漏排查
+ * 3，作用域未释放
+ * 
+ * 
+ * ?内存泄漏排查手段
+ * 1. 基于node-heapdump 生成snapshot;通过chrome profile面板对比snapshot实现查看对比。
+ * 
  * 见《深入浅出nodejs》
+ * node内存泄漏以及定位 https://imweb.io/topic/57cc5a75802d795b425977aa 
+ * 
+ * 
  * 
  * ?数据库
  * 数据库是建立在文件系统之上；一般数据库的写入效率是低于文件的直接写入的。
+ * 数据库的优点：1.结构化数据 2.直接可以通过SQL语句进行分析。
+ * ! 在线日志记录 离线日志分析 分而治之
+ * 通过文件系统进行日志记录操作; 进行日志分析时可将文件系统资源导入数据库、从而进行数据分析；即离线的数据分析
+ * 
+ * ?日志
+ * 1、访问日志   分析web用户分步情况、服务器响应时间、响应状态、客户端信息等、
+ * 2、异常日志   不要隐藏错误!!!
+ * 3、日志分割   按级别分割、按日期分割
  * 
  */
 
- /**
-  * 
-    v8垃圾回收算法
-    V8的垃圾回收算法：分代式垃圾回收机制
-    老生代64位系统32MB 32位系统16MB
-    新生代垃圾回收算法 Scavenge。内存一分为二。两个semispace 即from semispace & to semispace。
-    老生代垃圾回收算法 mark sweep & mark compact  因为标记清除存在 内存碎片的问题，所以有了标记整理算法。 
-    后来由于老生代一次全量的垃圾处理时间太长 有了 incremental mark 增量标记算法。
-  */
+/**
+ * 
+   v8垃圾回收算法
+   V8的垃圾回收算法：分代式垃圾回收机制
+   老生代64位系统32MB 32位系统16MB
+   新生代垃圾回收算法 Scavenge。内存一分为二。两个semispace 即from semispace & to semispace。
+   老生代垃圾回收算法 mark sweep & mark compact  因为标记清除存在 内存碎片的问题，所以有了标记整理算法。 
+   后来由于老生代一次全量的垃圾处理时间太长 有了 incremental mark 增量标记算法。
+ */
 
 
-function showMemroy(){
-    var format = function(bytes){
-        return `${(bytes/1024/1024).toFixed(2)}MB`;
-    }
-    var {rss,heapTotal,heapUsed} = process.memoryUsage();
-    console.log(`rss: ${format(rss)} -- heapTotal: ${format(heapTotal)} -- heapUsed: ${format(heapUsed)}`);
+
+
+
+//! 内存泄漏模拟代码
+const http = require('http');
+const heapdump = require('heapdump');
+
+let leakArray = [];
+function leak() {
+    leakArray.push('leak' + Math.random());
 }
 
-//堆内内存使用
-function useHeapMemory(){
-    var size = 20 * 1024 * 1024;
-    var arr = new Array(size);  
-    for(let i=0;i<size;i++){
-        arr[i] = 0;
-    }
-    return arr;
-}
-function useOutHeapMemory(){
-    var size = 20 * 1024 * 1024;
-    var buff = Buffer.alloc(size,0);
-    for(let i=0;i<size;i++){
-        buff[i] = '0';
-    }
-    return buff;
-}
+setInterval(function(){
+    //自主的快照记录  或者 通过进程信号的手段进行快照收集 kill -USR2 <pid>
+    heapdump.writeSnapshot('./' + Date.now() + '.heapsnapshot');
+}, 3000);
 
-var total = [];
-for(j=0;j<15;j++){
-    console.log(`------------${j}-------------`);
-    showMemroy();
-    // total.push(useMemory());
-    total.push(useOutHeapMemory());
-}
+http.createServer((req, res) => {
+    leak();
+    res.writeHead(200, {
+        'Content-Type': "text/plain"
+    })
+    res.end('hello');
+}).listen(1337)
+console.log('server is running 1337');
+
+
+
+/**
+ * ? 为什么寄存器比内存快？ http://www.ruanyifeng.com/blog/2013/10/register.html 
+ * ? 计算机存储层次
+ * 计算机的存储层次（memory hierarchy）之中，寄存器（register）最快，内存其次，最慢的是硬盘。
+ * ? 程序运行时，对象如何进行放置安排
+ * 1.寄存器。位于CPU内部，所以访问速度最快。
+ * 2.堆栈。位于通用RAM。速度仅次于寄存器。Java中某些数据存储在堆栈中--特别是对象的引用，但是对象存储在堆区。
+ * 3.堆。通用的内存池,也位于RAM。堆相对于堆栈操作起来比较灵活。相对的付出的代价是 用堆进行存储分配和清理可能比堆栈更耗时。
+ * 4.常量存储。位于ROM
+ * 5.磁盘存储。
+ * 
+ */

@@ -157,7 +157,7 @@ function _instanceOf(insObj,obj){
 
 function Person(){}
 let ins = new Person();
-console.log('_instanceOf(ins,Object);: ', _instanceOf(ins,Object)); 
+console.log('_instanceOf(ins,Object);: ', _instanceOf(ins,Object));
 
 
 /**
@@ -507,11 +507,9 @@ Array.prototype.splice = function(...args){
   let originArr = Object(this);
 
   if(args.length == 1) myarr = originArr.slice(0,startIdx);
-  if(args.length == 2) myarr = originArr.slice(0,startIdx).concat(originArr.slice(startIdx+deleteCount));
-  if(args.length>2){
-    let arr_1 = originArr.slice(0,startIdx);
-    let arr_3 = originArr.slice(startIdx+deleteCount);
-    myarr = arr_1.concat(otherData).concat(arr_3);
+  if(args.length == 2) myarr = [...originArr.slice(0,startIdx) , originArr.slice(startIdx+deleteCount)] 
+  if(args.length > 2){
+    myarr = [...originArr.slice(0,startIdx) , otherData , originArr.slice(startIdx+deleteCount)]
   }
   for(let i=0;i<myarr.length;i++) originArr[i] = myarr[i];
   originArr.length = myarr.length;

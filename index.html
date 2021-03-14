@@ -1,112 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
   <style>
-    .div_class{
-      background: antiquewhite;
-      display: flex;
-    }
-    .div_class_left{
-      width: 109px;
-      height: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    .my_img{
-      width: 100%;
-      height: 100%;
-    }
-    .div_pos{
-      
-    }
+#container{
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+  grid-auto-rows: 50px; 
+}
 
-    .div_class_right{
+.item {
+  font-size: 2em;
+  text-align: center;
+  border: 1px solid #e5e4e9;
+}
 
-    }
+.item-1 {
+  background-color: #ef342a;
+}
+
+.item-2 {
+  background-color: #f68f26;
+}
+
+.item-3 {
+  background-color: #4ba946;
+}
+
+.item-4 {
+  background-color: #0376c2;
+}
+
+.item-5 {
+  background-color: #c077af;
+}
+
+.item-6 {
+  background-color: #f8d29d;
+}
+
+.item-7 {
+  background-color: #b5a87f;
+}
+
+.item-8 {
+  background-color: #d0e4a9;
+  grid-row-start: 4;
+  grid-column-start: 2;
+}
+
+.item-9 {
+  background-color: #4dc7ec;
+  grid-row-start: 5;
+  grid-column-start: 3;
+}
+ 
+
   </style>
+  <title>Document</title>
 </head>
+
 <body>
-  <div>
-    <div class="div_class">
-      <div class="div_class_left">
-        <div class="div_pos">
-          <img class="my_img" src="https://youimg1.tripcdn.com/target/10061h000001hrgqv833F.jpg" alt="">
-        </div>
-      </div>
-      <div class="div_class_right">
-        <input type="file" onchange="doChange" id="xx">
-        <img src="" alt="">
-        <a href="" download="11"></a>
-      </div>
+  <div class="con">
+    <div class="conL">
+      <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3075353101,3978405129&fm=26&gp=0.jpg" />
+    </div>
+    <div class="conR">
     </div>
   </div>
+  <script src="./index.js">
+  </script>
 </body>
-<script>
 
-// function person(say){
-//   // console.log(this.name);
-//   console.log('this: ', this);
-//   console.log('this: ', this instanceof person) 
-//   // console.log('say: ', say);
-// }
-// new person();
-
-// let fun  = person.bind({
-//   name:"zf"
-// },'hi');
-
-// // fun();
-// let x = new fun();
-
-// Function.prototype.bind = function(obj,...args){
-//   let originFun = this;
-//   var fun = function(){
-//     if(this instanceof fun){
-//       console.log('this: ', this);
-//       this.apply(obj);
-//     }else{
-//       originFun.apply(obj,...args);
-//     }
-//   };
-//   fun.prototype = originFun.prototype
-//   return fun;
-// }
-
-
-
-// let binarySearch = function(nums, target) {
-//     //nums 必须是有序的
-//     var low = 0,
-//         high = nums.length - 1,
-//         mid, elem
-//     while(low <= high) {
-//         mid = Math.floor((low+high)/2)
-//         elem = nums[mid]
-//         if(elem < target) {
-//             low = mid + 1
-//         } else if(elem > target) {
-//             high = mid - 1
-//         } else {
-//             return mid
-//         }
-//     }
-//     return -1
-// }
-
-
-
-// console.log("binarySearch(arr,8): ", binarySearch(arr, 3));
-
-/**
- * @param {number} n
- * @return {number}
- */
-
-
-
-
-</script>
 </html>

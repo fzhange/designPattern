@@ -5,6 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "co": "^4.6.0",
+    "commander": "^7.1.0",
+    "heapdump": "^0.3.15",
+    "koa": "^2.13.0",
     "mkdirp": "^1.0.4",
     "mvdir": "^1.0.17",
     "node-fetch": "^2.6.1",
