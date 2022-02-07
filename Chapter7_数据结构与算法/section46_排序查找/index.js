@@ -23,7 +23,6 @@ console.log("binarySearch(arr,8): ", binarySearch(arr, 8));
 /**
  * 全排列
  */
-
 function fullpermutate(str){
   if(str.length == 1) return [[str]];
   let arr = [];

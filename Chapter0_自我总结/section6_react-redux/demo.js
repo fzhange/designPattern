@@ -52,8 +52,6 @@ let reduxDemoAction = {
 
 
 
-
-
 class Child extends Component {
     constructor(props){
         super(props);
@@ -179,11 +177,3 @@ const mapDispatchToProps = (dispath,ownProps) => {
 
 
 export default connect(mapStateToProps,mapDispatchToProps)(ReduxDemo)
-
-
-
-
-
-
-
-
