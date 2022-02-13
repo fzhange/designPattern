@@ -67,4 +67,36 @@ public class BackTrack {
         if(root.left != null) minDepthHelper(depth+1, root.left,list);
         if(root.right != null) minDepthHelper(depth+1, root.right,list);
     }
+
+    // !-----------------------------------------------------------------------------
+    // 104. 二叉树的最大深度 https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+        class MaxDepth{
+            int res = 0;
+            int depth = 1;
+            int maxDepthHelper(TreeNode root,int depth){
+                if(root.left == null && root.right == null){
+                    this.res = Math.max(res, depth);
+                    return this.res;
+                }
+                if(root.left != null) maxDepthHelper(root.left, depth+1);
+                if(root.right != null) maxDepthHelper(root.right, depth+1);
+                return this.res;
+            }
+            int maxDepthHelper(TreeNode root){
+                if(root.left == null && root.right == null){
+                    this.res = Math.max(res, depth);
+                    return this.res;
+                }
+                depth++; //前序位置
+                if(root.left != null) maxDepthHelper(root.left);
+                if(root.right != null) maxDepthHelper(root.right);
+                depth--; //后序位置
+                return this.res;
+            }
+        }
+        return new MaxDepth().maxDepthHelper(root);
+    }
 }
+

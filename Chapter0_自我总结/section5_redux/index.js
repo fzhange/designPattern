@@ -43,9 +43,9 @@ function createStore(reducer,initialState={},enhancer){
   function combineReducer(reducerObj){
     return function(action,state){
       let newState = {};
-      Object.keys(reducerObj).forEach((key)=>{
-        newState[key] = reducerObj[key](action,state[key]);
-      });
+      Object.entries(reducerObj).forEach((key,reducer)=>{
+        newState[key] = reducer(action,state[key]);
+      })
       return newState;
     }
   }

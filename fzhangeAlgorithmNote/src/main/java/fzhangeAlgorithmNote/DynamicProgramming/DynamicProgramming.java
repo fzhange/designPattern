@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import javax.print.DocPrintJob;
 
+import fzhangeAlgorithmNote.common.TreeNode;
+
 /**
  * 动态规划的一般形式就是求最值。
  * 求解动态规划的核心问题是穷举。因为要求最值，肯定要把所有可行的答案穷举出来，然后在其中找最值呗。穷举的时候会存在效率低下的问题，所以需要[备忘录][dp table]做优化处理。
@@ -117,5 +119,12 @@ public class DynamicProgramming {
             }
         }
         return (dp[amount] == amount + 1) ? -1 : dp[amount];
+    }
+
+    // !-----------------------------------------------------------------------------
+    // 104. 二叉树的最大深度 https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+        return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
 }

@@ -1,34 +1,35 @@
 
-function Element(tagName,props,children){
+function Element(tagName, props, children) {
     this.tagName = tagName;
     this.props = props;
     this.children = children;
 }
-Element.prototype.render = function(){
+Element.prototype.render = function () {
     let tagEle = document.createElement(this.tagName);
-    for(var key in this.props){
-        tagEle.setAttribute(key,this.props[key]);
-    }
+    // for (var key in this.props)
+    Object.entries(this.props).forEach(([key,value],idx)=>{
+        tagEle.setAttribute(key, value);
+    })
     this.children.forEach(child => {
-       let childEl = (child instanceof Element) ? child.render() : document.createTextNode(child);
-       tagEle.appendChild(childEl);
+        let childEl = (child instanceof Element) ? child.render() : document.createTextNode(child);
+        tagEle.appendChild(childEl);
     });
     return tagEle;
 }
 
-function createElement(tagName,props,children){
-    return new Element(tagName,props,children);
+function createElement(tagName, props, children) {
+    return new Element(tagName, props, children);
 }
 
-var ul = createElement('ul',{
-    id:"list",
-},[
-    createElement('li',{class:"item"},["item 1"]),
-    createElement('li',{class:"item"},["item 2"]),
-    createElement('li',{class:"item"},["item 3"])
+var ul = createElement('ul', {
+    id: "list",
+}, [
+    createElement('li', { class: "item" }, ["item 1"]),
+    createElement('li', { class: "item" }, ["item 2"]),
+    createElement('li', { class: "item" }, ["item 3"])
 ])
 
-function g(id){
+function g(id) {
     return document.getElementById(id);
 }
 
