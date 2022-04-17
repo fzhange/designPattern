@@ -1,19 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
+
 <body>
-  <h1>ffff hello world</h1>
-  <script>
-    // 处理数据，向上去值保留小数后两位
-    function dealDecimal(numData){
-      const num = parseFloat(numData)*1000;
-      // (Math.ceil(0.55012 * 100) /100 ).toFixed(2)
-    }
-  </script>
+
 </body>
+<script>
+    /**
+     * @param {number[]} nums
+     * @return {number[][]}
+     */
+    var threeSum = function (nums) {
+        nums.sort((a, b) => a - b);
+        let result = [];
+        for (let index = 0; index < nums.length; index++) {
+            if (nums[index] > 0) break;
+            console.log('nums.indexOf(nums[index]: ', nums.indexOf(nums[index]), index)
+
+            if (nums.indexOf(nums[index]) != index) continue;
+
+            let leftIdx = index + 1;
+            let rightIdx = nums.length - 1;
+
+            while (leftIdx < rightIdx) {
+                let total = nums[index] + nums[leftIdx] + nums[rightIdx];
+                if (total == 0) {
+                    result.push([nums[index], nums[leftIdx], nums[rightIdx]]);
+                    leftIdx++
+                }
+                if (total > 0) {
+                    rightIdx--;
+                }
+                if (total < 0) {
+                    leftIdx++;
+                }
+            }
+        }
+        return result;
+    };
+    // threeSum([-1,0,1,2,-1,-4])
+    console.log(' threeSum([-1,0,1,2,-1,-4]): ', threeSum([0, 0, 0, 0]));
+</script>
+
 </html>

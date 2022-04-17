@@ -4,6 +4,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.util.HashMap;
+
 /**
  * Unit test for simple App.
  */
@@ -34,5 +36,13 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    public static void main(String[] args) {
+        String x = "1234";
+        HashMap map = new HashMap<Character,Integer>();
+
+
+        System.out.println("c"+map.get("1"));
     }
 }
