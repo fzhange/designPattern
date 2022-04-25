@@ -5,10 +5,10 @@ const WARN = console.warn;
  * 变量作用域问题
  */
 inner = "window";
-const obj1 = (function() {
+const obj1 = (function () {
   var inner = "1-1";
   return {
-    say: function() {
+    say: function () {
       console.log(inner);
     }
   };
@@ -47,11 +47,11 @@ for (const [idx, item] of Object.entries(arr)) {
  */
 
 var obj = {
-  '2':3,
-  '3':4,
-  'length':2,
-  'splice':Array.prototype.splice,
-  'push':Array.prototype.push
+  '2': 3,
+  '3': 4,
+  'length': 2,
+  'splice': Array.prototype.splice,
+  'push': Array.prototype.push
 }
 obj.push(1)
 obj.push(2)
@@ -76,19 +76,19 @@ console.log(obj)
 
 async function async2() {
   console.log('6666');
-  return new Promise((res)=>{
+  return new Promise((res) => {
     res(1000)
   })
 }
 async function async1() {
-  let x  = await async2();
-  console.log('async1 end',x)   //3
+  let x = await async2();
+  console.log('async1 end', x)   //3
 }
 async1()
-new Promise((resolve,reject)=>{
+new Promise((resolve, reject) => {
   console.log('promise1') //1
   resolve();
-}).then(()=>{
+}).then(() => {
   console.log('promise2') //2
 })
 
@@ -105,16 +105,16 @@ new Promise((resolve,reject)=>{
 //! ---------------------------------------
 
 async function async1() {
-  let x  = await new Promise((resolve)=>{
+  let x = await new Promise((resolve) => {
     resolve(1200);
   })
-  console.log('async1 end',x)  //2 
+  console.log('async1 end', x)  //2 
 }
 async1()
-new Promise((resolve,reject)=>{
+new Promise((resolve, reject) => {
   console.log('promise1')  //1
   resolve();
-}).then(()=>{
+}).then(() => {
   console.log('promise2') //3
 })
 
@@ -122,14 +122,14 @@ new Promise((resolve,reject)=>{
 
 
 async function async1() {
-  let x  = await 100;
-  console.log('async1 end',x)   //2 
+  let x = await 100;
+  console.log('async1 end', x)   //2 
 }
 async1()
-new Promise((resolve,reject)=>{
+new Promise((resolve, reject) => {
   console.log('promise1')    //1
   resolve();
-}).then(()=>{
+}).then(() => {
   console.log('promise2') //3
 })
 
@@ -147,8 +147,8 @@ a[c] = '君子'
 console.log(a[b])
 
 const d = {}
-const e = {key: '1'}
-const f = {key: '2'}
+const e = { key: '1' }
+const f = { key: '2' }
 d[e] = '子君'
 d[f] = '君子'
 

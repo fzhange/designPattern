@@ -3,42 +3,37 @@
  * a = '12345678'
  * b =   '456789'
  */
-function largeNumAdd(str1,str2){
-  function addZero(str,len){
-    for(let i=0;i<len;i++) str = `0${str}`;
+var addStrings = function (num1, num2) {
+  let len = Math.max(num1.length, num2.length);
+  function addPrefixZero(str, len) {
+    if (len <= str.length) return str;
+    let gap = len - str.length;
+    str = "0".repeat(gap) + str;
     return str;
   }
+  num1 = addPrefixZero(num1, len);
+  num2 = addPrefixZero(num2, len);
 
-  let str1_len = str1.length;
-  let str2_len = str2.length;
-  if(str1_len - str2_len > 0){
-    str2 = addZero(str2,Math.abs(str1_len - str2_len));  //str2短 需要补0   ==>   00456789
-  }else if(str2_len - str1_len > 0){
-    str1 = addZero(str1,Math.abs(str1_len - str2_len)); //str1短 需要针对str1补0 
-  }
-  //12345678
-  //00456789  
-  let arr = [];
-  let arr1 = str1.split('').reverse().map(item=>parseInt(item));
-  let arr2 = str2.split('').reverse().map(item=>parseInt(item));
-  //87654321
-  //98765400
-  arr1.reduce((jinwei,num1,innerIdx)=>{
-    let num2 = arr2[innerIdx];
-    let totalNum = num1 + num2 + jinwei;
-    if(totalNum >= 10) {
-      arr.push(totalNum-10);
-      return 1;
-    }else{
-      arr.push(totalNum);
-      return 0; 
+  let addOne = 0;
+  let resultStr = "";
+  for (i = len - 1; i >= 0; i--) {
+    let number1 = parseInt(num1[i]);
+    let number2 = parseInt(num2[i]);
+    let total = number1 + number2 + addOne;
+    let gewei = total % 10;
+    let shiwei = Math.floor(total / 10);
+    addOne = shiwei;
+    if (addOne == 1 && i == 0) {
+      resultStr = `1${gewei}${resultStr}`;
+    } else {
+      resultStr = `${gewei}${resultStr}`;
     }
-  },0)
-  return arr.reverse().join('')
-}
+  }
+  return resultStr;
+};
 
 
-console.log('largeNumAdd ', largeNumAdd('12345678','456789'));
+console.log('addStrings ', largeNumAdd('12345678', '456789'));
 
 /**
  * JavaScript 浮点数运算的精度问题

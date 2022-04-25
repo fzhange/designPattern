@@ -24,6 +24,15 @@ async function toTry(time, fn) {
   }
 }
 
+async function toTry(time, fn) {
+  if (time === 0) return;
+  try {
+    return await fn();
+  } catch (error) {
+    return await toTry(time - 1, fn);
+  }
+}
+
 /**
  * 3
  * 数组乱序
@@ -222,6 +231,9 @@ console.log('changeLowerUpperCase: ', changeLowerUpperCase('aBc'));
 
 /**
  * 13 数组连续性判断
+ * ? reduce 函数如果有初始值 则idx是从0开始计算 pre指的是初始值 curr是0下标指向的元素
+ * ? 没有初始值  则idx是从1开始计算 pre指的是1-1 curr是1下标指向的元素
+ * ? 后边的pre就是return返回的值
  */
 function arrSeriesFun(arr) {
   let myArr = [arr[0]];
@@ -343,6 +355,21 @@ function objFlat(objFlatObj) {
   return newObj;
 }
 
+function objFlat(objFlatObj) {
+  let resultObj = {};
+  Object.entries(objFlatObj).forEach(([key, value], idx) => {
+    if (value == null || Array.isArray(value) || typeof value != "object") {
+      resultObj[key] = value;
+    } else {
+      let tmpResultObj = objFlat(value);
+      Object.entries(tmpResultObj).forEach(([k, v]) => {
+        resultObj[`${key}.${k}`] = v;
+      })
+    }
+  })
+  return resultObj;
+}
+
 console.log('objFlat(objFlatObj);: ', JSON.stringify(objFlat(objFlatObj))); //{"a.b.c.d":1,"aa":2,"c":[1,2]}
 
 /**
@@ -367,6 +394,22 @@ function openObj(obj) {
     }
   })
   return newObj;
+}
+
+function openObj(objFlatObj) {
+  const resultObj = {};
+  Object.entries(objFlatObj).forEach(([key, value]) => {
+    if (key.includes(".")) {
+      const keyList = key.split(".")
+      keyList.shift();
+      let tmpObj = {}
+      tmpObj[keyList.join(".")] = value;
+      resultObj[key] = openObj(tmpObj);
+    } else {
+      resultObj[key] = value;
+    }
+  })
+  return resultObj;
 }
 
 console.log('openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}): ', openObj({ "a.b.c.d": 1, "aa": 2, "c": [1, 2] }));
@@ -618,4 +661,20 @@ function comment() {
   c.push(' **/') // 添加注释尾
   return c.join('') // 合并参数为字符串
 }
+
+
+// JS给数字加千位分隔符  三位分隔
+function numFormat(num) {
+  var res = num.toString().replace(/\d+/, function (n) { // 先提取整数部分
+    return n.replace(/(\d)(?=(\d{3})+$)/g, function ($1) {
+      return $1 + ",";
+    });
+  })
+  return res;
+}
+
+var a = 1234567894532;
+var b = 673439.4542;
+console.log(numFormat(a)); // "1,234,567,894,532"
+console.log(numFormat(b)); // "673,439.4542"
 

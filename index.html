@@ -12,40 +12,8 @@
 
 </body>
 <script>
-    /**
-     * @param {number[]} nums
-     * @return {number[][]}
-     */
-    var threeSum = function (nums) {
-        nums.sort((a, b) => a - b);
-        let result = [];
-        for (let index = 0; index < nums.length; index++) {
-            if (nums[index] > 0) break;
-            console.log('nums.indexOf(nums[index]: ', nums.indexOf(nums[index]), index)
 
-            if (nums.indexOf(nums[index]) != index) continue;
 
-            let leftIdx = index + 1;
-            let rightIdx = nums.length - 1;
-
-            while (leftIdx < rightIdx) {
-                let total = nums[index] + nums[leftIdx] + nums[rightIdx];
-                if (total == 0) {
-                    result.push([nums[index], nums[leftIdx], nums[rightIdx]]);
-                    leftIdx++
-                }
-                if (total > 0) {
-                    rightIdx--;
-                }
-                if (total < 0) {
-                    leftIdx++;
-                }
-            }
-        }
-        return result;
-    };
-    // threeSum([-1,0,1,2,-1,-4])
-    console.log(' threeSum([-1,0,1,2,-1,-4]): ', threeSum([0, 0, 0, 0]));
 </script>
 
 </html>
