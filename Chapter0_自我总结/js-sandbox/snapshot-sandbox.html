@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    处理低版本浏览器沙箱问题
+    <p>可以很明显的看到，snapshotSandbox会污染全局window，但是可以支持不兼容Proxy的浏览器。</p>
+
+    <script>
+        const iter = (window, callback) => {
+            for (const prop in window) {
+                if (window.hasOwnProperty(prop)) {
+                    callback(prop);
+                }
+            }
+        }
+        class SnapshotSandbox {
+            constructor() {
+                this.proxy = window;
+                this.modifyPropsMap = {};
+            }
+            // 激活沙箱
+            active() {
+                // 缓存active状态的window
+                this.windowSnapshot = {};
+                iter(window, (prop) => {
+                    this.windowSnapshot[prop] = window[prop];
+                });
+                Object.keys(this.modifyPropsMap).forEach(p => {
+                    window[p] = this.modifyPropsMap[p];
+                })
+            }
+            // 退出沙箱
+            inactive() {
+                iter(window, (prop) => {
+                    if (this.windowSnapshot[prop] !== window[prop]) {
+                        // 记录变更
+                        this.modifyPropsMap[prop] = window[prop];
+                        // 还原window
+                        window[prop] = this.windowSnapshot[prop];
+                    }
+                })
+            }
+        }
+    </script>
+
+    <script>
+        const sandbox = new SnapshotSandbox();
+        ((window) => {
+            // 激活沙箱
+            sandbox.active();
+            window.sex = '男';
+            window.age = '22';
+            console.log(window.sex, window.age); //男 22
+            // 退出沙箱
+            sandbox.inactive();
+            console.log(window.sex, window.age); // undefined undefined
+            // 激活沙箱
+            sandbox.active();
+            console.log(window.sex, window.age); //男 22
+        })(sandbox.proxy);
+    </script>
+</body>
+
+</html>

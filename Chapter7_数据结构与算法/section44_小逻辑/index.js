@@ -191,7 +191,7 @@ function bigLetter(str) {
 
 function bigLetter(str) {
   'this is a pen'.replace(/\b\w/g, function (match) {
-    return match.toLocaleUpperCase
+    return match.toLocaleUpperCase()
   })
 }
 

@@ -12,8 +12,16 @@
 
 </body>
 <script>
-
-
+    function throttle(fun) {
+        let timeid = null;
+        return function (...args) {
+            var that = this;
+            timeid && clearTimeout(timeid);
+            timeid = setTimeout(function () {
+                fun.apply(that, args);
+            }, 30)
+        }
+    }
 </script>
 
 </html>

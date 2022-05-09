@@ -5,7 +5,10 @@ import java.io.File;
 public class Find {
 
     public int[] searchRange(int[] nums, int target) {
-        int[] range = { findLeftBoundaryOfArray(nums, target), findRightBoundaryOfArray(nums, target) };
+        int[] range = {
+                findLeftBoundaryOfArray(nums, target),
+                findRightBoundaryOfArray(nums, target)
+        };
         return range;
     }
 
@@ -22,7 +25,7 @@ public class Find {
                 left = middle + 1;
         }
         try {
-            return nums[right + 1] == target ? right + 1 : -1;   
+            return nums[right + 1] == target ? right + 1 : -1;
         } catch (Exception e) {
             return -1;
         }
@@ -41,7 +44,7 @@ public class Find {
                 left = middle + 1;
         }
         try {
-            return nums[left - 1] == target ? left -1 : -1;
+            return nums[left - 1] == target ? left - 1 : -1;
         } catch (ArrayIndexOutOfBoundsException e) {
             return -1;
         }

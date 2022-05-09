@@ -1,47 +1,22 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
- * }
- */
 class Solution {
-  public int getBoundaryOfLeft(int[] list, int target) {
-    int left = 0;
-    int right = list.length - 1;
-    while (left <= right) {
-      int mid = (int) Math.floor((left + right) / 2);
-      if (list[mid] == target) {
-        right = mid - 1;
-      }
-      if (list[mid] > target) {
-        right = mid - 1;
-      }
-      if (list[mid] < target) {
-        left = mid + 1;
-      }
-    }
-    try {
-      if (list[right + 1] == target) {
-        return right + 1;
-      }
-    } catch (Exception e) {
-      return -1;
-    }
-    return -1;
-  }
+    int[] w;
+    int[] prefixSum;
 
-  public static void main(String[] args) {
-    int[] list = { 6, 7, 8, 9, 10, 11 };
-    int x = new Solution().getBoundaryOfLeft(list, 5);
-    System.out.println(x);
-  }
+    public Solution(int[] w) {
+        this.w = w;
+        this.prefixSum = new int[w.length + 1];
+        for (int i = 1; i < w.length; i++) {
+            this.prefixSum[i] = w[i - 1] + this.prefixSum[i - 1];
+        }
+    }
+
+    public int pickIndex() {
+
+    }
 }
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(w);
+ * int param_1 = obj.pickIndex();
+ */
