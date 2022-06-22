@@ -197,25 +197,24 @@ function bigLetter(str) {
 
 /**
  * 11 获取连续字符
- * 'aaabcaakaaaajbb'
- * {
- *  a:4,
- *  b:2
- * }
- * /(.)\1/ 圆括号规则匹配的内容为一个临时缓冲区，\1引用第一个圆括号规则所匹配度的内容。
+ * 滑动窗口的思路 | 快慢指针
  */
-function series(str) {
-  let obj = {}
-  let arr = str.match(/(\w)\1+/g);  // ['aaa','aa','aaaa','bb']; GOOD
-  for (let i = 0; i < arr.length; i++) {
-    let item = arr[i];
-    let ele = item[0];
-    if (obj[ele]) obj[ele] = Math.max(item.length, obj[ele]);
-    else obj[ele] = item.length;
+function fun(str) {
+  let obj = {};
+  let slow = 0;
+  let fast = 0;
+  while (fast < str.length) {
+    if (str[slow] === str[fast]) {
+      if (!!obj[str[slow]]) obj[str[slow]] = Math.max(obj[str[slow]], fast - slow + 1);
+      else obj[str[slow]] = fast - slow + 1;
+      fast += 1;
+    } else {
+      slow = fast;
+    }
   }
   return obj;
 }
-console.log('series(aaabcaakaaaajbb)', series('aaabcaakaaaajbb')); //{ a: 4, b: 2 }
+console.log('series(aaabcaakaaaajbb)', series('aaabcaakaaaajbb')); //{a: 4, b: 2, c: 1, k: 1, j: 1}
 
 /**
  * 12 将一个字符串的大小写取反
@@ -563,7 +562,7 @@ Array.prototype.splice = function (...args) {
         'w',
         'wk',
         'wke',
-        'wke'
+        'kew'
 *    ]
  */
 
@@ -677,4 +676,6 @@ var a = 1234567894532;
 var b = 673439.4542;
 console.log(numFormat(a)); // "1,234,567,894,532"
 console.log(numFormat(b)); // "673,439.4542"
+
+
 

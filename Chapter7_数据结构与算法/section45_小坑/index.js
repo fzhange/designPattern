@@ -136,7 +136,6 @@ new Promise((resolve, reject) => {
 /**
  * 5 
  */
-
 const a = {}
 const b = Symbol('1')
 const c = Symbol('1')
