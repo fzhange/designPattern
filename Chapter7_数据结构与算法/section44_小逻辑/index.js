@@ -131,7 +131,7 @@ function isEqual(obj_1, obj_2) {
         isEqualFlag = val_1 == val_2;
       } else {
         if (val_1 == null && val_2 == null) isEqualFlag = true;
-        if (Array.isArray(val_1) && Array.isArray(val_1))
+        if (Array.isArray(val_1) && Array.isArray(val_2))
           isEqualFlag = JSON.stringify(val_1) == JSON.stringify(val_2);
         else {
           isEqualFlag = isEqual(val_1, val_2);
@@ -627,41 +627,6 @@ function fun(arr, target) {
 }
 fun([2, 3, 6, 7], 7);
 
-
-
-/**
- * ==============================
- * welcome to imooc.com
- * this is a rollup test project
- * ==============================
- **/
-// comment('welcome to imooc.com', 'this is a rollup test project')
-function comment() {
-  if (arguments.length === 0) {
-    return // 如果参数为0直接返回
-  }
-  let maxlength = 0
-  for (let i = 0; i < arguments.length; i++) {
-    const length = arguments[i].toString().length
-    maxlength = length > maxlength ? length : maxlength // 获取最长的参数
-  }
-  maxlength = maxlength === 0 ? maxlength : maxlength + 1 // 在最长参数长度上再加1，为了美观
-  let seperator = ''
-  for (let i = 0; i < maxlength; i++) {
-    seperator += '=' // 根据参数长度生成分隔符
-  }
-  const c = []
-  c.push('/**\n') // 添加注释头
-  c.push(' * ' + seperator + '\n') // 添加注释分隔符
-  for (let i = 0; i < arguments.length; i++) {
-    c.push(' * ' + arguments[i] + '\n') // 加入参数内容
-  }
-  c.push(' * ' + seperator + '\n') // 添加注释分隔符
-  c.push(' **/') // 添加注释尾
-  return c.join('') // 合并参数为字符串
-}
-
-
 // JS给数字加千位分隔符  三位分隔
 function numFormat(num) {
   var res = num.toString().replace(/\d+/, function (n) { // 先提取整数部分
@@ -676,6 +641,23 @@ var a = 1234567894532;
 var b = 673439.4542;
 console.log(numFormat(a)); // "1,234,567,894,532"
 console.log(numFormat(b)); // "673,439.4542"
+
+/**
+ * 红包算法
+ * 二倍均值法
+ * https://blog.csdn.net/bjweimengshu/article/details/80045958
+ */
+function redPackage(amount,num) {
+  if(num==1) return [amount];
+  let redPackageAmount =(Math.random()*(amount/num * 2)).toFixed(2);
+  return [redPackageAmount,...redPackage(amount-redPackageAmount,num-1)]
+}
+let arrNum = redPackage(100,10).map(item =>parseFloat(item));
+console.log('arr: ', arrNum);
+let total =  arrNum.reduce((pre,curr)=>{
+  return pre + curr;
+})
+console.log('total: ', total);
 
 
 
