@@ -17,6 +17,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "create-react-app": "^5.0.1",
     "eslint": "^7.9.0",
     "husky": "^3.0.9"
   },
