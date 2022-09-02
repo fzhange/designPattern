@@ -194,7 +194,10 @@ sonRise();
 
 var longestCommonSubsequence = function (text1, text2) {
   let maxNum = 0;
-  let arr = new Array(text1.length + 1).fill(JSON.stringify(new Array(text2.length + 1).fill(0))).map((item) => JSON.parse(item));
+  let arr = new Array(text1.length + 1).fill(
+    JSON.stringify(new Array(text2.length + 1).fill(0))
+  ).map((item) => JSON.parse(item));
+
   for (x = 1; x < text1.length + 1; x++) {
     for (y = 1; y < text2.length + 1; y++) {
       if (text1[x - 1] == text2[y - 1]) arr[x][y] = arr[x - 1][y - 1] + 1;

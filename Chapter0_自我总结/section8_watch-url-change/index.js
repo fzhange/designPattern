@@ -44,7 +44,6 @@ window.onload = function(){
  * 多页面模式
  * https://mp.weixin.qq.com/s/01SkKuRkBz8BcU-i-dN0UQ
  * 如何捕获用户在该页面停留的时长？
- * 
  */
 
 
