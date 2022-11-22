@@ -649,7 +649,10 @@ console.log(numFormat(b)); // "673,439.4542"
  */
 function redPackage(amount,num) {
   if(num==1) return [amount];
-  let redPackageAmount =(Math.random()*(amount/num * 2)).toFixed(2);
+  let redPackageAmount =(
+    Math.random()*
+    (amount/num * 2)
+    ).toFixed(2);
   return [redPackageAmount,...redPackage(amount-redPackageAmount,num-1)]
 }
 let arrNum = redPackage(100,10).map(item =>parseFloat(item));

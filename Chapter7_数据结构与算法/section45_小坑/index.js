@@ -73,7 +73,6 @@ console.log(obj)
  * 4 async await eventloop
  * 你真的了解 await吗 ？
  */
-
 async function async2() {
   console.log('6666');
   return new Promise((res) => {
