@@ -1,19 +1,10 @@
 package main
 
+import "fmt"
+
 func main() {
-
-	// // ~range
-	// var str = "abcde"
-	// for i, v := range str {
-	// 	fmt.Println(i, string(v))
-	// }
-
-	// // ~ map
-	// var nameMap = map[string]string{
-	// 	"name": "fzhange",
-	// }
-	// if val, ok := nameMap["name"]; ok {
-	// 	fmt.Println(val, ok)
-	// }
-
+	// ~ 数据相除
+	var x int = 10
+	var y int = 3
+	fmt.Println(x / y) //3
 }

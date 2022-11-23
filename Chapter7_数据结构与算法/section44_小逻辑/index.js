@@ -629,7 +629,7 @@ fun([2, 3, 6, 7], 7);
 
 // JS给数字加千位分隔符  三位分隔
 function numFormat(num) {
-  var res = num.toString().replace(/\d+/, function (n) { // 先提取整数部分
+  var res = num.toString().replace(/\d+/, function (n) { // 先提取整数部分w
     return n.replace(/(\d)(?=(\d{3})+$)/g, function ($1) {
       return $1 + ",";
     });

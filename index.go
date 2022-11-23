@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type MinStack struct {
 	dataStack []int
@@ -13,63 +16,53 @@ type List struct {
 }
 
 func main() {
-	for i := 0; i < 10; i++ {
-		fmt.Println("i", i)
-		for j := 0; j < 10; j++ {
-			fmt.Println("j", j)
-			if j == 2 {
+	var x int = 10
+	var y int = 3
+	fmt.Println(x / y)
+}
+
+func evalRPN(tokens []string) int {
+	var caclucateMap = map[string]string{
+		"+": "+",
+		"-": "-",
+		"*": "*",
+		"/": "/",
+	}
+	var stacks = []string{}
+	for i, v := range tokens {
+		if _, ok := caclucateMap[v]; ok {
+			// stacks = append(stacks, )
+			right, _ := strconv.Atoi(stacks[len(stacks)-1])
+			left, _ := strconv.Atoi(stacks[len(stacks)-2])
+			stacks = stacks[:len(stacks)-2]
+			var total int
+			switch v {
+			case "+":
+				total = left + right
+				break
+			case "-":
+				total = left - right
+				break
+			case "*":
+				total = left * right
+				break
+			case "/":
+				total = left / right
 				break
 			}
+			if i == len(tokens)-1 {
+				return total
+			} else {
+				stacks = append(stacks, strconv.Itoa(total))
+			}
+		} else {
+			stacks = append(stacks, v)
 		}
 	}
-}
-
-type MyStack struct {
-	queue1 []int
-	queue2 []int
-}
-
-func Constructor() MyStack {
-	return MyStack{}
-}
-
-func (this *MyStack) Push(x int) {
-	this.queue1 = append([]int{x}, this.queue2...)
-	this.queue2 = this.queue1
-	this.queue1 = []int{}
-}
-
-func (this *MyStack) Pop() int {
-	if len(this.queue2) == 0 {
-		return 0
+	var total int
+	for _, v := range stacks {
+		val, _ := strconv.Atoi(v)
+		total += val
 	}
-	var val int
-	if len(this.queue2) == 1 {
-		val = this.queue2[0]
-		this.queue2 = []int{}
-	} else {
-		val = this.queue2[0]
-		this.queue2 = this.queue2[1:]
-	}
-	return val
+	return total
 }
-
-func (this *MyStack) Top() int {
-	if len(this.queue2) == 0 {
-		return 0
-	}
-	return this.queue2[0]
-}
-
-func (this *MyStack) Empty() bool {
-	return len(this.queue2) == 0
-}
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * obj := Constructor();
- * obj.Push(x);
- * param_2 := obj.Pop();
- * param_3 := obj.Top();
- * param_4 := obj.Empty();
- */
