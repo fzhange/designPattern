@@ -149,7 +149,6 @@ function isEqual(obj_1, obj_2) {
  * 8 手动实现 instanceof
  * 原理 ins.__proto__ 其实就是指的 Person.prototype对象
  */
-
 function _instanceOf(insObj, obj) {
   let insObjProto = insObj;
   let objProto = obj.prototype;
@@ -169,7 +168,6 @@ console.log('_instanceOf(ins,Object);: ', _instanceOf(ins, Object));
  * 9 jsonp
  * 利用静态资源获取不存在同源策略限制
  */
-
 function jsonP(src) {
   const script = document.createElement('script');
   script.src = src;
@@ -340,21 +338,6 @@ let objFlatObj = {
 }
 
 function objFlat(objFlatObj) {
-  let newObj = {}
-  function innerFun(innerObj, parentKeyName = '') {
-    Object.entries(innerObj).forEach(([key, value]) => {
-      if (typeof value != "object" || Array.isArray(value) || value == null) {
-        newObj[`${parentKeyName}${key}`] = value;
-      } else {
-        innerFun(value, `${parentKeyName}${key}.`)
-      }
-    })
-  }
-  innerFun(objFlatObj);
-  return newObj;
-}
-
-function objFlat(objFlatObj) {
   let resultObj = {};
   Object.entries(objFlatObj).forEach(([key, value], idx) => {
     if (value == null || Array.isArray(value) || typeof value != "object") {
@@ -374,27 +357,6 @@ console.log('objFlat(objFlatObj);: ', JSON.stringify(objFlat(objFlatObj))); //{"
 /**
  * 18 对象的展开
  */
-
-function openObj(obj) {
-  let newObj = {}
-  Object.entries(obj).forEach(([key, value]) => {
-    if (key.includes(".")) {
-      let keylist = key.split('.')
-      keylist.reduce((pre, curr, innerIdx) => {
-        if (innerIdx == keylist - 1) {
-          pre[curr] = value;
-        } else {
-          pre[curr] = {}
-        }
-        return pre[curr];   //利用引用传值的特性
-      }, newObj)
-    } else {
-      newObj[key] = value;
-    }
-  })
-  return newObj;
-}
-
 function openObj(objFlatObj) {
   const resultObj = {};
   Object.entries(objFlatObj).forEach(([key, value]) => {
@@ -410,7 +372,6 @@ function openObj(objFlatObj) {
   })
   return resultObj;
 }
-
 console.log('openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}): ', openObj({ "a.b.c.d": 1, "aa": 2, "c": [1, 2] }));
 
 /**
@@ -521,13 +482,17 @@ new Tom().eat('apple').sleep(2000).play('soccer').sleepFirst(1000);
  * 1 3 -1 -3 [5 3 6] 7            6
  * 1 3 -1 -3 5 [3 6 7]            7
  */
-
-function slideWindow(nums, k = 3) { //暴力破解
-  let arr = [];
-  for (let i = 0; i <= nums.length - k; i++) {
-    arr.push(Math.max(...nums.slice(i, i + k)))
+function slideWindow(nums, k = 3) {
+  let l = 0;
+  let r = l + k - 1;
+  let res = [];
+  while (r <= nums.length - 1) {
+    let nowArrs = nums.slice(l, r + 1);
+    res.push(Math.max(...nowArrs));
+    l += 1;
+    r += 1;
   }
-  return arr;
+  return res;
 }
 console.log('slideWindow([1,3,-1,-3,5,3,6,7],3): ', slideWindow([1, 3, -1, -3, 5, 3, 6, 7], 3)); //[ 3, 3, 5, 5, 6, 7 ]
 
@@ -627,7 +592,7 @@ function fun(arr, target) {
 }
 fun([2, 3, 6, 7], 7);
 
-// JS给数字加千位分隔符  三位分隔
+//~ JS给数字加千位分隔符  三位分隔
 function numFormat(num) {
   var res = num.toString().replace(/\d+/, function (n) { // 先提取整数部分w
     return n.replace(/(\d)(?=(\d{3})+$)/g, function ($1) {
@@ -642,11 +607,8 @@ var b = 673439.4542;
 console.log(numFormat(a)); // "1,234,567,894,532"
 console.log(numFormat(b)); // "673,439.4542"
 
-/**
- * 红包算法
- * 二倍均值法
- * https://blog.csdn.net/bjweimengshu/article/details/80045958
- */
+
+// ~ 红包算法  二倍均值法 https://blog.csdn.net/bjweimengshu/article/details/80045958
 function redPackage(amount,num) {
   if(num==1) return [amount];
   let redPackageAmount =(
@@ -663,4 +625,40 @@ let total =  arrNum.reduce((pre,curr)=>{
 console.log('total: ', total);
 
 
+//~ 实现一个简易的模板引擎
+
+const template = '嗨，{{ info.name.value }}您好，今天是星期 {{ day.value }}';
+
+const data = {
+  info: {
+    name: {
+      value: '张三',
+    },
+  },
+  day: {
+    value: '三',
+  },
+};
+
+function render(template, data) {
+  return template.replace(/{{\s*[A-Za-z0-9_\.]+\s*}}/g, function (match) {
+    console.log('match: ', match);
+    var dataStr = match
+      .replace(/({{)|(}})/g, function (matchStr) {
+        return '';
+      })
+      .trim();
+
+    var dataList = dataStr.split('.');
+    var val = data;
+    for (let index = 0; index < dataList.length; index++) {
+      val = val[dataList[index]];
+      console.log('val: ', val);
+    }
+    return val;
+  });
+}
+
+//  嗨，张三您好，今天是星期 三
+console.log('render(template, data): ', render(template, data));
 

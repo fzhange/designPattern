@@ -5,6 +5,8 @@
  * https://labuladong.gitee.io/algo/1/13/
  */
 
+import { type } from "os";
+
 /**
  * 标志法
  * 指针 | 前后指针【二分查找】 | 快慢指针 【快慢指针创建滑动窗口、环形链表、】
@@ -28,3 +30,10 @@
 // console.log('idx: ', idx);
 
 
+type x = number;
+type z = {
+  name: string
+}
+interface y {
+  name: string;
+}

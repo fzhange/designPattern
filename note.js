@@ -23,4 +23,42 @@
  * 2、是不是去重的  去重的数组 我们是不是可以使用hash做一些 空间换时间的操作
  */
 
-console.log('---node');
+
+
+MyPromise.allSettled = function (promises) {
+  return new MyPromise((resolve, reject) => {
+    promises = Array.isArray(promises) ? promises : []
+    let len = promises.length
+    const argslen = len
+    // 如果传入的是一个空数组，那么就直接返回一个resolved的空数组promise对象
+    if (len === 0) return resolve([])
+    // 将传入的参数转化为数组，赋给args变量
+    let args = Array.prototype.slice.call(promises)
+    // 计算当前是否所有的 promise 执行完成，执行完毕则resolve
+    const compute = () => {
+      if(--len === 0) { 
+        resolve(args)
+      }
+    }
+    function resolvePromise(index, value) {
+      // 判断传入的是否是 promise 类型
+      if(value instanceof MyPromise) { 
+        const then = value.then
+        then.call(value, function(val) {
+          args[index] = { status: 'fulfilled', value: val}
+          compute()
+        }, function(e) {
+          args[index] = { status: 'rejected', reason: e }
+          compute()
+        })
+      } else {
+        args[index] = { status: 'fulfilled', value: value}
+        compute()
+      }
+    }
+
+    for(let i = 0; i < argslen; i++){
+      resolvePromise(i, args[i])
+    }
+  })
+}

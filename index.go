@@ -1,36 +1,29 @@
 package main
 
+import "fmt"
+
 func main() {
-
+	val := twoSum([]int{
+		3, 3,
+	}, 6)
+	fmt.Println(">>", val)
 }
 
-/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- */
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+func twoSum(nums []int, target int) []int {
+	numsMap := make(map[int]int)
 
-func levelOrder(root *TreeNode) [][]int {
-	result := [][]int{}
-	if root == nil {
-		return result
+	for i := 0; i < len(nums); i++ {
+		numsMap[nums[i]] = i
 	}
-	list := []int{
-		root.Val,
-	}
+	fmt.Println("||>", numsMap)
 
-	for {
-		if len(list) == 0 {
-			break
+	for i := 0; i < len(nums); i++ {
+		restVal := target - nums[i]
+		anotherIdx, ok := numsMap[restVal]
+		if ok && anotherIdx != i {
+			return []int{i, anotherIdx}
 		}
 	}
-	return result
+
+	return []int{}
 }
