@@ -8,35 +8,29 @@
   </head>
   <body>
     <script>
-      console.log();
-      let list = [
-        { id: 1, name: '部门A', parentId: 0 },
-        { id: 2, name: '部门B', parentId: 0 },
-        { id: 3, name: '部门C', parentId: 1 },
-        { id: 4, name: '部门D', parentId: 1 },
-        { id: 5, name: '部门E', parentId: 2 },
-        { id: 6, name: '部门F', parentId: 3 },
-        { id: 7, name: '部门G', parentId: 2 },
-        { id: 8, name: '部门H', parentId: 4 },
-      ];
-
-      function slideWindow(nums, k = 3) {
-        //暴力破解
-        let l = 0;
-        let r = l + k - 1;
-        let res = [];
-        while (r <= nums.length - 1) {
-          let nowArrs = nums.slice(l, r + 1);
-          res.push(Math.max(...nowArrs));
-          l += 1;
-          r += 1;
+      var fourSumCount = function (A, B, C, D) {
+        let objAB = {};
+        let count = 0;
+        for (let a of A) {
+          for (let b of B) {
+            let t = 0 - a - b;
+            objAB[t] = (objAB[t] || 0) + 1;
+          }
         }
-        return res;
-      }
-      console.log(
-        'slideWindow([1,3,-1,-3,5,3,6,7],3): ',
-        slideWindow([1, 3, -1, -3, 5, 3, 6, 7], 3),
-      ); //[ 3, 3, 5, 5, 6, 7 ]
+        console.log('objAB: ', objAB);
+
+        for (let c of C) {
+          for (let d of D) {
+            let t = c + d;
+            console.log('t: ', t);
+            if (objAB[t]) count = count + objAB[t];
+          }
+        }
+        return count;
+        console.log('count: ', count);
+      };
+      fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]);
+      // ：nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
     </script>
   </body>
 </html>

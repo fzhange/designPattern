@@ -1,42 +1,80 @@
-import java.util.Map;
+public class Index {
 
-class Solution {
-    private Map<Integer, Integer> indexMap;
+    private static final String url = "jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF8&useSSL=false&serverTimezone=UTC";
 
-    public TreeNode myBuildTree(int[] preorder, int[] inorder, int preorder_left, int preorder_right, int inorder_left,
-            int inorder_right) {
-        if (preorder_left > preorder_right) {
+    private static final String username = "root";
+
+    private static final String password = "123456";
+
+    private static DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public Person selectById(Long id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // 获取链接
+            connection = DriverManager.getConnection(url, username, password);
+
+            // 创建statement
+            preparedStatement = connection.prepareStatement("select * from t_person where id = ?");
+            preparedStatement.setLong(1, id);
+
+            // 执行
+            resultSet = preparedStatement.executeQuery();
+
+            // 遍历结果集
+            Person person = null;
+            while (resultSet.next()) {
+                Long realId = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                String mobile = resultSet.getString("mobile");
+                int age = resultSet.getInt("age");
+                Date createAt = resultSet.getDate("create_at");
+                Date updateAt = resultSet.getDate("update_at");
+                person = new Person();
+                person.setId(realId);
+                person.setName(name);
+                person.setMobile(mobile);
+                person.setAge(age);
+                person.setCreateAt(createAt);
+                person.setUpdateAt(updateAt);
+            }
+            return person;
+        } catch (Exception e) {
             return null;
+        } finally {
+            // 关闭资源
+            try {
+                if (connection != null && !connection.isClosed())
+                    connection.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (Exception e) {
+
+            }
         }
-
-        // 前序遍历中的第一个节点就是根节点
-        int preorder_root = preorder_left;
-        // 在中序遍历中定位根节点
-        int inorder_root = indexMap.get(preorder[preorder_root]);
-
-        // 先把根节点建立出来
-        TreeNode root = new TreeNode(preorder[preorder_root]);
-        // 得到左子树中的节点数目
-        int size_left_subtree = inorder_root - inorder_left;
-        // 递归地构造左子树，并连接到根节点
-        // 先序遍历中「从 左边界+1 开始的 size_left_subtree」个元素就对应了中序遍历中「从 左边界 开始到 根节点定位-1」的元素
-        root.left = myBuildTree(
-                preorder, inorder, preorder_left + 1, preorder_left + size_left_subtree, inorder_left,
-                inorder_root - 1);
-        // 递归地构造右子树，并连接到根节点
-        // 先序遍历中「从 左边界+1+左子树节点数目 开始到 右边界」的元素就对应了中序遍历中「从 根节点定位+1 到 右边界」的元素
-        root.right = myBuildTree(preorder, inorder, preorder_left + size_left_subtree + 1, preorder_right,
-                inorder_root + 1, inorder_right);
-        return root;
     }
 
-    public TreeNode buildTree(int[] preorder, int[] inorder) {
-        int n = preorder.length;
-        // 构造哈希映射，帮助我们快速定位根节点
-        indexMap = new HashMap<Integer, Integer>();
-        for (int i = 0; i < n; i++) {
-            indexMap.put(inorder[i], i);
-        }
-        return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
-    }
+}
+
+@Data
+public class Person {
+
+    private Long id;
+
+    private String name;
+
+    private String mobile;
+
+    private Integer age;
+
+    private Date createAt;
+
+    private Date updateAt;
+
 }

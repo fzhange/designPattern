@@ -1,29 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
-func main() {
-	val := twoSum([]int{
-		3, 3,
-	}, 6)
-	fmt.Println(">>", val)
+type Human struct {
+	name  string
+	age   int
+	phone string
 }
 
-func twoSum(nums []int, target int) []int {
-	numsMap := make(map[int]int)
+// 通过这个方法 Human 实现了 fmt.Stringer
+func (h Human) String() string {
+	return "❰" + h.name + " - " + strconv.Itoa(h.age) + " years -  ✆ " + h.phone + "❱"
+}
 
-	for i := 0; i < len(nums); i++ {
-		numsMap[nums[i]] = i
-	}
-	fmt.Println("||>", numsMap)
-
-	for i := 0; i < len(nums); i++ {
-		restVal := target - nums[i]
-		anotherIdx, ok := numsMap[restVal]
-		if ok && anotherIdx != i {
-			return []int{i, anotherIdx}
-		}
-	}
-
-	return []int{}
+func main() {
+	Bob := Human{"Bob", 39, "000-7777-XXX"}
+	fmt.Println("This Human is : ", Bob)
 }

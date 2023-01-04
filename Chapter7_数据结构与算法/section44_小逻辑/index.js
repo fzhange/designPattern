@@ -530,7 +530,6 @@ Array.prototype.splice = function (...args) {
         'kew'
 *    ]
  */
-
 var lengthOfLongestSubstr = function (s) {
   if (!s) return 0;
   let maxSubStrArr = [s[0]];
@@ -617,6 +616,7 @@ function redPackage(amount,num) {
     ).toFixed(2);
   return [redPackageAmount,...redPackage(amount-redPackageAmount,num-1)]
 }
+
 let arrNum = redPackage(100,10).map(item =>parseFloat(item));
 console.log('arr: ', arrNum);
 let total =  arrNum.reduce((pre,curr)=>{
@@ -626,39 +626,42 @@ console.log('total: ', total);
 
 
 //~ 实现一个简易的模板引擎
+function render(template, obj) {
+  // 代码实现
+  let re;
+  if (template.includes('${')) {
+    re = /\$\{\s*(.+?)\s*\}/g;
+  } else {
+    re = /\{\{\s*(.+?)\s*\}\}/g;
+  }
 
-const template = '嗨，{{ info.name.value }}您好，今天是星期 {{ day.value }}';
-
-const data = {
-  info: {
-    name: {
-      value: '张三',
-    },
-  },
-  day: {
-    value: '三',
-  },
-};
-
-function render(template, data) {
-  return template.replace(/{{\s*[A-Za-z0-9_\.]+\s*}}/g, function (match) {
-    console.log('match: ', match);
-    var dataStr = match
-      .replace(/({{)|(}})/g, function (matchStr) {
-        return '';
-      })
-      .trim();
-
-    var dataList = dataStr.split('.');
-    var val = data;
-    for (let index = 0; index < dataList.length; index++) {
-      val = val[dataList[index]];
-      console.log('val: ', val);
+  let results = template.matchAll(re);
+  for (let match of results) {
+    with (obj) {
+      template = template.replace(match[0], eval(match[1]));
     }
-    return val;
-  });
+  }
+  return template;
 }
 
-//  嗨，张三您好，今天是星期 三
-console.log('render(template, data): ', render(template, data));
+templateStr = render(
+  // '你好，我们公司是{{company}}，我们属于{{group.name}}业务线，我们在招聘各种方向的人才，包括{{group.jobs[0]}}、{{group["jobs"][1]}}等。',
+  'hello, ${b}, ${d[0].e} word',
+  {
+    b: 'b',
+    d: [
+      {
+        e: 'e',
+      },
+    ],
+    group: {
+      name: '天猫',
+      jobs: ['前端'],
+      sort: {
+        xxx: 'yyy',
+      },
+    },
+    company: '阿里',
+  },
+);
 
