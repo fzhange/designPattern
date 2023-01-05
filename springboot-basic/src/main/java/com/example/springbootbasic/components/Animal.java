@@ -2,6 +2,10 @@ package com.example.springbootbasic.components;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+/**
+ * 看下@Configuration  @Bean的实践
+ * */
+
 
 @Configuration
 public class Animal {

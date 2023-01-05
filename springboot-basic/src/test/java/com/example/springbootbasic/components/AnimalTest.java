@@ -7,20 +7,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 
 @SpringBootTest
-public class TomTest {
-  @Resource
-  Tom tom;
+public class AnimalTest {
 
   @Autowired
   Dog dog;
 
   @Autowired
   Cat cat;
-
-  @Test
-  void catchMouse(){
-    tom.catchMouse();
-  }
 
   @Test
   void Animal(){

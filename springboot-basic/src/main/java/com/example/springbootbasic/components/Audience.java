@@ -4,6 +4,10 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+/**
+ * 了解切面
+ */
+
 @Aspect
 @Component
 public class Audience {
