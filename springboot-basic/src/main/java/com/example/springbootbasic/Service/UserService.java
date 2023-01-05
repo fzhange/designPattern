@@ -13,4 +13,17 @@ public class UserService {
   public User QueryById(int id){
     return userMapper.QueryById(id);
   }
+
+  public int addUser(User user){
+    return userMapper.insertUser(user);
+  }
+
+  public int deleteUser(int id){
+    return userMapper.deleteUser(id);
+  }
+
+  public int updateUser(User user){
+    return userMapper.updateUser(user);
+  }
+
 }
