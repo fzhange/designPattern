@@ -12,3 +12,6 @@ mybatis:
 #  mapper-locations: classpath:mapping/*Mapper.xml
   type-aliases-package: com.example.springbootbasic.entity
   config: classpath:mybatis-config.xml
+
+logging:
+  config:classpath:logback.xml
