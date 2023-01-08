@@ -134,10 +134,6 @@ console.log('层次后序 interationLRD(tree): ', iterationLRD(tree)); //34251
  * **层次遍历一般用while 深度遍历一般用递归**
  * Breadth First Search  BFS 广度优先
  */
-// 首先申请一个新的队列，记为queue；
-// 将头结点head压入queue中；
-// 每次从queue中出队，记为node，然后打印node值，如果node左孩子不为空，则将左孩子入队；如果node的右孩子不为空，则将右孩子入队；
-// 重复步骤3，直到queue为空。
 function getListWithRank(tree) {
     let myArr = [];
     let arr = [];
@@ -221,6 +217,7 @@ console.log('diameterOfBinaryTree(root): ', diameterOfBinaryTree(tree));
  * @param {TreeNode} root
  * @return {number}
  * 111. 二叉树的最小深度  https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/
+ * 已记录
  */
 var minDepth = function (root) {
     let depthList = [];

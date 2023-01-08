@@ -30,10 +30,20 @@ import { type } from "os";
 // console.log('idx: ', idx);
 
 
-type x = number;
-type z = {
-  name: string
-}
-interface y {
-  name: string;
-}
+
+// TODO 
+// 543. 二叉树的直径
+// 
+
+// 如何打印出每个节点的左右子树各有多少节点？
+// function countOfNode(tree) {
+//   if (!tree) return 0;
+//   const leftNodeCount = countOfNode(tree.left);
+//   const rightNodeCount = countOfNode(tree.right);
+
+//   console.log(`当前节点名：${tree.name}; 左节点数量 ${leftNodeCount}; 右节点数量 ${rightNodeCount}`);
+
+//   return leftNodeCount + rightNodeCount + 1;
+// }
+// console.log('countOfNode(tree): ', countOfNode(tree));
+

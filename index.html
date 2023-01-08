@@ -8,29 +8,63 @@
   </head>
   <body>
     <script>
-      var fourSumCount = function (A, B, C, D) {
-        let objAB = {};
-        let count = 0;
-        for (let a of A) {
-          for (let b of B) {
-            let t = 0 - a - b;
-            objAB[t] = (objAB[t] || 0) + 1;
-          }
-        }
-        console.log('objAB: ', objAB);
+      /**
+       * @param {number[][]} intervals
+       * @return {number[][]}
+       */
+      var merge = function (intervals) {
+        if (!intervals || !intervals.length) return [];
 
-        for (let c of C) {
-          for (let d of D) {
-            let t = c + d;
-            console.log('t: ', t);
-            if (objAB[t]) count = count + objAB[t];
+        intervals.sort((arr1, arr2) => {
+          const [l1, r1] = arr1;
+          const [l2, r2] = arr2;
+
+          if (l1 < l2) return -1;
+          if (l1 > l2) return 1;
+          if (l1 == l2) {
+            if (r1 <= r2) return -1;
+            if (r1 > r2) return 1;
           }
+        });
+
+        let result = [];
+
+        console.log(intervals);
+
+        while (!!intervals.length) {
+          let arr = intervals.shift();
+          if (!result.length) {
+            result.push(arr);
+            continue;
+          }
+
+          let resArr = result.pop();
+          let [resL, resR] = resArr;
+          let [l, r] = arr;
+
+          if (resR < l) {
+            result.push(resArr);
+            result.push(arr);
+            continue;
+          }
+
+          let newL = Math.min(resL, l);
+          let newR = Math.max(resR, r);
+
+          result.push([newL, newR]);
         }
-        return count;
-        console.log('count: ', count);
+        return result;
       };
-      fourSumCount([1, 2], [-2, -1], [-1, 2], [0, 2]);
-      // ：nums1 = [1,2], nums2 = [-2,-1], nums3 = [-1,2], nums4 = [0,2]
+      // merge([[1,3],[2,6],[8,10],[15,18]])
+      console.log(
+        'merge([[1,3],[2,6],[8,10],[15,18]]): ',
+        merge([
+          [1, 3],
+          [2, 6],
+          [8, 10],
+          [15, 18],
+        ]),
+      );
     </script>
   </body>
 </html>
