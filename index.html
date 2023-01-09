@@ -8,63 +8,11 @@
   </head>
   <body>
     <script>
-      /**
-       * @param {number[][]} intervals
-       * @return {number[][]}
-       */
-      var merge = function (intervals) {
-        if (!intervals || !intervals.length) return [];
-
-        intervals.sort((arr1, arr2) => {
-          const [l1, r1] = arr1;
-          const [l2, r2] = arr2;
-
-          if (l1 < l2) return -1;
-          if (l1 > l2) return 1;
-          if (l1 == l2) {
-            if (r1 <= r2) return -1;
-            if (r1 > r2) return 1;
-          }
-        });
-
-        let result = [];
-
-        console.log(intervals);
-
-        while (!!intervals.length) {
-          let arr = intervals.shift();
-          if (!result.length) {
-            result.push(arr);
-            continue;
-          }
-
-          let resArr = result.pop();
-          let [resL, resR] = resArr;
-          let [l, r] = arr;
-
-          if (resR < l) {
-            result.push(resArr);
-            result.push(arr);
-            continue;
-          }
-
-          let newL = Math.min(resL, l);
-          let newR = Math.max(resR, r);
-
-          result.push([newL, newR]);
-        }
-        return result;
-      };
-      // merge([[1,3],[2,6],[8,10],[15,18]])
-      console.log(
-        'merge([[1,3],[2,6],[8,10],[15,18]]): ',
-        merge([
-          [1, 3],
-          [2, 6],
-          [8, 10],
-          [15, 18],
-        ]),
-      );
+      // let x = '12345678'.replace(/\d(?=(\d{3})+$)/g, function (macth) {
+      //   console.log();
+      //   return `${macth},`;
+      // });
+      // console.log('x: ', x);
     </script>
   </body>
 </html>

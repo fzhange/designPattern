@@ -13,18 +13,6 @@ WARN(
   "2 调用一个函数 函数会返回一个promise 如果reject 则继续调用 如果resolve则停止调用 最多调用TIME次"
 );
 async function toTry(time, fn) {
-  try {
-    for (let i = 0; i < time; i++) {
-      //如果await操作成功，就会使用break语句退出循环;如果失败，会被catch语句捕捉，然后进入下一轮循环。
-      await fn();
-      break;
-    }
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-async function toTry(time, fn) {
   if (time === 0) return;
   try {
     return await fn();
@@ -182,7 +170,6 @@ function jsonP(src) {
  * 10 this is a pen首字母大写
  * 正则相关
  */
-
 function bigLetter(str) {
   return str.split(' ').map(item => item = item.slice(0, 1).toLocaleUpperCase() + item.slice(1)).join(' ');
 }
@@ -279,34 +266,7 @@ function flat(arr) {
 console.log('flat:', flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]]));
 // [1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]].flat(Infinity)
 
-/**
- * 15 求两个数组的交集
- * hash表算法 以空间换取时间
- * 先用hash表存储arr1元素出现的个数。
- * 遍历arr2,发现arr2的元素和hash表的key对应，然后就将数据添加到myarr中，然后个数-1.等于0时删除对应key。
- */
 
-// function subnet(arr1,arr2){
-//   return arr1.filter((item)=>{
-//     if(arr2.indexOf(item) != -1) return item;
-//   })
-// }
-function subnet(arr1, arr2) {
-  let obj = {};
-  let myArrr = [];
-  Object.entries(arr1).forEach(([idx, value]) => {
-    !!obj[value] ? obj[value] = obj[value] + 1 : obj[value] = 1;
-  });
-  Object.entries(arr2).forEach(([idx, value]) => {
-    if (obj[value]) {
-      myArrr.push(value);
-      obj[value] = obj[value] - 1
-      if (obj[value] <= 0) delete obj[value];
-    }
-  })
-  return myArrr;
-}
-console.log('subnet([1,2,2,1],[2,3,2]): ', subnet([1, 2, 2, 1], [2, 3, 2]));
 
 /**
  * 16 数组去重
