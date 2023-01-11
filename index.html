@@ -8,11 +8,58 @@
   </head>
   <body>
     <script>
-      // let x = '12345678'.replace(/\d(?=(\d{3})+$)/g, function (macth) {
-      //   console.log();
-      //   return `${macth},`;
-      // });
-      // console.log('x: ', x);
+      let objFlatObj = {
+        a: {
+          b: {
+            c: {
+              d: 1,
+            },
+          },
+        },
+        aa: 2,
+        c: [1, 2],
+      };
+
+      function objFlat(objFlatObj) {
+        let res = {};
+        Object.entries(objFlatObj).forEach(([key, val]) => {
+          if (typeof val === 'object') {
+            if (Array.isArray(val) || val == null) {
+              res[key] = val;
+            } else {
+              let restObj = objFlat(val);
+              Object.entries(restObj).forEach(([k, v]) => {
+                res[`${key}.${k}`] = v;
+              });
+            }
+          } else {
+            res[key] = val;
+          }
+        });
+        return res;
+      }
+
+      function openObj(objFlatObj) {
+        let res = {};
+        Object.entries(objFlatObj).forEach(([key, val]) => {
+          if (key.includes('.')) {
+            let keyList = key.split('.');
+            let resetObj = {};
+            resetObj[keyList.slice(1).join('.')] = val;
+            res[key] = openObj(resetObj);
+          } else {
+            res[key] = val;
+          }
+        });
+        return res;
+      }
+
+      console.log('objFlat(objFlatObj);: ', JSON.stringify(objFlat(objFlatObj))); //{"a.b.c.d":1,"aa":2,"c":[1,2]}
+
+      console.log(
+        'openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}): ',
+        openObj({ 'a.b.c.d': 1, aa: 2, c: [1, 2] }),
+      );
     </script>
   </body>
 </html>

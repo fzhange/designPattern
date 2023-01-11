@@ -505,7 +505,7 @@ var lengthOfLongestSubstr = function (s) {
   }
   console.log('maxSubStrArr: ', maxSubStrArr);
 };
-lengthOfLongestSubstr('bbbbb')
+lengthOfLongestSubstr('bbbbb');
 console.log('lengthOfLongestSubstr(): ', lengthOfLongestSubstr('pwwkew'));
 
 
