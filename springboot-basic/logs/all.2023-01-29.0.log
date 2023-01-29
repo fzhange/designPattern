@@ -1,0 +1,11 @@
+2023-01-29 15:13:55.140 [main] INFO  c.e.springbootbasic.SpringbootBasicApplication - Starting SpringbootBasicApplication using Java 1.8.0_211 on fzhange_mac with PID 11820 (/Users/zhangfan/fzhange_pro/designPattrn_1/springboot-basic/target/classes started by zhangfan in /Users/zhangfan/fzhange_pro/designPattrn_1/springboot-basic) 
+2023-01-29 15:13:55.142 [main] INFO  c.e.springbootbasic.SpringbootBasicApplication - No active profile set, falling back to 1 default profile: "default" 
+2023-01-29 15:13:56.720 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 80 (http) 
+2023-01-29 15:13:56.730 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-80"] 
+2023-01-29 15:13:56.730 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat] 
+2023-01-29 15:13:56.731 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.70] 
+2023-01-29 15:13:56.878 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+2023-01-29 15:13:56.878 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1679 ms 
+2023-01-29 15:13:57.742 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-80"] 
+2023-01-29 15:13:57.773 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 80 (http) with context path '' 
+2023-01-29 15:13:57.786 [main] INFO  c.e.springbootbasic.SpringbootBasicApplication - Started SpringbootBasicApplication in 3.145 seconds (JVM running for 4.178) 

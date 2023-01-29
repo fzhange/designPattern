@@ -17,6 +17,7 @@ public class AnimalTest {
 
   @Test
   void Animal(){
+    int x = 10;
     dog.speak();
     cat.speak();
   }
