@@ -7,6 +7,13 @@ import org.springframework.context.annotation.Configuration;
  * */
 @Configuration
 public class Animal {
+  public  void  init(){
+    System.out.println("this is a init method");
+  }
+  static {
+    System.out.println("this is static block");
+  }
+
   @Bean
   public Dog getDog(){
     return new Dog();

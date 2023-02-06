@@ -21,4 +21,13 @@ public class AnimalTest {
     dog.speak();
     cat.speak();
   }
+
+  @Test
+  void TestInit(){
+     Animal an = new Animal();
+     Animal an2 = new Animal();
+  }
+
+
+
 }

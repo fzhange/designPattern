@@ -24,7 +24,6 @@ public class LoginInterceptor implements HandlerInterceptor {
   public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
     System.out.println("\n-------- LogInterception.postHandle --- ");
     System.out.println("Request URL: " + request.getRequestURL());
-
   }
 
   @Override
