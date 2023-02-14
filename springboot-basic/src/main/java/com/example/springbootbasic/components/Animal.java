@@ -10,8 +10,23 @@ public class Animal {
   public  void  init(){
     System.out.println("this is a init method");
   }
+
+
+
   static {
     System.out.println("this is static block");
+  }
+
+   class Dog{
+    public void  speak(){
+      System.out.println("wang wang");
+    }
+  }
+
+   class Cat {
+    public void speak() {
+      System.out.println("miao miao");
+    }
   }
 
   @Bean
@@ -25,19 +40,8 @@ public class Animal {
 }
 
 
-class Dog implements  AnimalsBasic{
-  public void  speak(){
-    System.out.println("wang wang");
-  }
-}
 
-class Cat implements AnimalsBasic{
-  @Override
-  public void speak() {
-    System.out.println("miao miao");
-  }
-}
 
-interface AnimalsBasic {
-  void speak();
-}
+
+
+

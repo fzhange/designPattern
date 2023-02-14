@@ -9,17 +9,11 @@ import javax.annotation.Resource;
 @SpringBootTest
 public class AnimalTest {
 
-  @Autowired
-  Dog dog;
 
-  @Autowired
-  Cat cat;
 
   @Test
   void Animal(){
-    int x = 10;
-    dog.speak();
-    cat.speak();
+
   }
 
   @Test

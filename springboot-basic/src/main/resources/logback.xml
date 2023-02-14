@@ -54,8 +54,21 @@
     </root>
   </springProfile>
 
+  <logger name="com.example.springbootbasic.mapper">
+    <level value="trace"/>
+  </logger>
 
 
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%5level [%thread] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+
+  <root level="error">
+    <appender-ref ref="stdout"/>
+  </root>
 
 <!--  <logger name="com.example.logbackdemo.IndexAction" level="info" additivity="false">-->
 <!--    <appender-ref ref="CONSOLE"/>-->

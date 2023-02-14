@@ -1,12 +1,8 @@
-server:
-  port: 80
 
 spring:
-  datasource:
-    username: root
-    password: qwer54321
-    url: jdbc:mysql://sh-cdb-dozq4z36.sql.tencentcdb.com:63865/life?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles:
+    # 控制使用哪套环境变量
+    active: dev
 
 mybatis:
 #  mapper-locations: classpath:mapping/*Mapper.xml
