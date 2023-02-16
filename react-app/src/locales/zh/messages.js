@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:JSON.parse("{\"Message Inbox\":\"中文\",\"See all <0>unread messages</0> or <1>mark them</1> as read.\":\"See all <0>未读消息</0>  或者 <1>标记为已读</1> 已读.\"}")};

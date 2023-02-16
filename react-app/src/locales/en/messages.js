@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:JSON.parse("{\"Message Inbox\":\"Message Inbox\",\"See all <0>unread messages</0> or <1>mark them</1> as read.\":\"See all <0>unread messages</0> or <1>mark them</1> as read.\"}")};

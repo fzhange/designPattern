@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@lingui/react": "^3.17.1",
     "@logicflow/core": "^1.1.26",
     "@logicflow/extension": "^1.1.26",
     "@testing-library/jest-dom": "^5.16.5",
@@ -14,6 +15,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "extract": "lingui extract",
+    "compile": "lingui compile",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -36,5 +39,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@lingui/cli": "^3.17.1",
+    "@lingui/macro": "^3.17.1"
   }
 }
