@@ -12,11 +12,11 @@ public class ExceptionHandle {
   private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
-  @ExceptionHandler(value =Exception.class)
+  @ExceptionHandler(value = Exception.class)
   @ResponseBody
-  public String exceptionHandler(Exception e){
-    logger.error("全局异常捕获>>>:"+e);
-    return "全局异常捕获,错误原因>>>"+e.getMessage();
+  public String exceptionHandler(Exception e) {
+    logger.error("\n全局异常捕获>>>:\n" + e);
+    return "全局异常捕获,错误原因>>>" + e.getMessage();
   }
 
 }

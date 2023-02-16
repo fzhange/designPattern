@@ -24,8 +24,9 @@ public class BodyWrapperFilter implements Filter {
                        ServletResponse servletResponse,
                        FilterChain filterChain) throws IOException, ServletException {
     logger.info("-------- this is  BodyWrapperFilter doFilter --- ");
+
     ServletRequest requestWrapper = null;
-    if (servletRequest instanceof HttpServletRequest) {
+    if (servletRequest instanceof HttpServletRequest) {  // 数据向下转型类型判断
       requestWrapper = new CustomHttpServletRequestWrapper((HttpServletRequest) servletRequest);
     }
 
