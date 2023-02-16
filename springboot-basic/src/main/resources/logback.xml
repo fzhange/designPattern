@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <contextName>logback-spring-demo-dev</contextName>
+
   <property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg %n"/>
-  <property name="pattern-color" value="%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) [%thread] %highlight(%-5level) %green(%logger{50}) - %highlight(%msg) %n"/>
+
+  <property name="pattern-color"
+            value="%yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) [%thread] %highlight(%-5level) %green(%logger{50}) - %highlight(%msg) %n"/>
   <property name="LOG_HOME" value="logs"/>
 
   <!-- 控制台输出 -->
@@ -35,10 +38,10 @@
   </appender>
 
 
-  <root level="INFO">
-    <appender-ref ref="CONSOLE-WITH-COLOR"/>
-    <appender-ref ref="FILE"/>
-  </root>
+  <!--  <root level="INFO">-->
+  <!--    <appender-ref ref="CONSOLE-WITH-COLOR"/>-->
+  <!--    <appender-ref ref="FILE"/>-->
+  <!--  </root>-->
 
   <springProfile name="local,dev">
     <root level="INFO">
@@ -49,7 +52,7 @@
 
   <springProfile name="prod">
     <root level="INFO">
-<!--      <appender-ref ref="CONSOLE-WITH-COLOR"/>-->
+      <!--      <appender-ref ref="CONSOLE-WITH-COLOR"/>-->
       <appender-ref ref="FILE"/>
     </root>
   </springProfile>
@@ -58,20 +61,5 @@
     <level value="trace"/>
   </logger>
 
-
-  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%5level [%thread] - %msg%n</pattern>
-    </encoder>
-  </appender>
-
-
-  <root level="error">
-    <appender-ref ref="stdout"/>
-  </root>
-
-<!--  <logger name="com.example.logbackdemo.IndexAction" level="info" additivity="false">-->
-<!--    <appender-ref ref="CONSOLE"/>-->
-<!--  </logger>-->
 
 </configuration>
