@@ -1,7 +1,7 @@
 package com.example.springbootbasic.controller;
 
-import com.example.springbootbasic.Service.UserService;
 import com.example.springbootbasic.entity.User;
+import com.example.springbootbasic.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

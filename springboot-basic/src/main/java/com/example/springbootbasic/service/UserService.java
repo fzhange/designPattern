@@ -1,4 +1,4 @@
-package com.example.springbootbasic.Service;
+package com.example.springbootbasic.service;
 
 import com.example.springbootbasic.entity.User;
 import com.example.springbootbasic.mapper.UserMapper;
@@ -10,19 +10,19 @@ public class UserService {
   @Autowired
   UserMapper userMapper;
 
-  public User QueryById(int id){
+  public User QueryById(int id) {
     return userMapper.QueryById(id);
   }
 
-  public int addUser(User user){
+  public int addUser(User user) {
     return userMapper.insertUser(user);
   }
 
-  public int deleteUser(int id){
+  public int deleteUser(int id) {
     return userMapper.deleteUser(id);
   }
 
-  public int updateUser(User user){
+  public int updateUser(User user) {
     return userMapper.updateUser(user);
   }
 
