@@ -24,33 +24,29 @@ public class UserController {
   private UserService userService;
 
   @RequestMapping("/get/{id}")
-  public User GetUser(@PathVariable int id){
-    logger.debug("测试logger标签");
-    logger.info("测试logger标签");
-    logger.warn("测试logger标签");
-    logger.error("测试logger标签");
+  public User GetUser(@PathVariable int id) {
     return userService.QueryById(id);
   }
 
-  @RequestMapping(value = "/addUser",method = RequestMethod.POST)
-  public int addUser(@RequestBody User user){
+  @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+  public int addUser(@RequestBody User user) {
     return userService.addUser(user);
   }
 
-  @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
-  public int deleteUser(@PathVariable int id){
+  @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+  public int deleteUser(@PathVariable int id) {
     return userService.deleteUser(id);
   }
 
   @PostMapping("/update")
   // @RequestMapping(value = "/update/${id}", method = RequestMethod.POST)
-  public int updateUser(@RequestBody User user){
+  public int updateUser(@RequestBody User user) {
     return userService.updateUser(user);
   }
 
   @GetMapping("/errorTest")
-  public int errorTest(@PathParam(value = "num") int num){
-    logger.info(""+num);
-    return 100/num;
+  public int errorTest(@PathParam(value = "num") int num) {
+    logger.info("" + num);
+    return 100 / num;
   }
 }

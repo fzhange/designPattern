@@ -1,6 +1,6 @@
 package com.example.springbootbasic.config;
 
-import com.example.springbootbasic.components.LoginInterceptor;
+import com.example.springbootbasic.interceptor.LogInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(new LoginInterceptor());
+    registry.addInterceptor(new LogInterceptor());
 
 //    registry.addInterceptor(new OldLoginInterceptor()).addPathPatterns("/admin/oldLogin");
 //    registry.addInterceptor(new AdminInterceptor()).addPathPatterns("/admin/*").excludePathPatterns("/admin/oldLogin");
