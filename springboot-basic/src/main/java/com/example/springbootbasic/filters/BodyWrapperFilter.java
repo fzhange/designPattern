@@ -9,7 +9,6 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
 public class BodyWrapperFilter implements Filter {
 
   private Logger logger = LoggerFactory.getLogger(BodyWrapperFilter.class);

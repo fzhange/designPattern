@@ -1,6 +1,7 @@
 package com.example.springbootbasic;
 
 import com.example.springbootbasic.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -28,10 +29,13 @@ class TT {
 }
 
 @SpringBootTest
+@Slf4j
 class SpringbootBasicApplicationTests {
+
 
   @Test
   void contextLoads() {
+    log.info("1312");
   }
 
 }
