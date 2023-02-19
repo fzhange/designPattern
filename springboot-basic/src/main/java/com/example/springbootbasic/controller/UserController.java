@@ -2,8 +2,7 @@ package com.example.springbootbasic.controller;
 
 import com.example.springbootbasic.entity.User;
 import com.example.springbootbasic.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +16,23 @@ import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
-  private Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
   @Autowired
   private UserService userService;
+  int count;
+
+
+  public UserController() {
+    log.info(this.toString());
+  }
 
   @RequestMapping("/get/{id}")
   public User GetUser(@PathVariable int id) {
+    count++;
+    log.info(">>>" + count);
     return userService.QueryById(id);
   }
 
@@ -46,7 +54,7 @@ public class UserController {
 
   @GetMapping("/errorTest")
   public int errorTest(@PathParam(value = "num") int num) {
-    logger.info("" + num);
+    log.info("" + num);
     return 100 / num;
   }
 }
