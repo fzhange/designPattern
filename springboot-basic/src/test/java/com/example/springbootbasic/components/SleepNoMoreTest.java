@@ -12,7 +12,8 @@ public class SleepNoMoreTest {
 
   @Test
   void performTest(){
-    sleepNoMore.perform();
+    String endString = sleepNoMore.perform();
+    System.out.printf("endString"+endString);
   }
 
 }

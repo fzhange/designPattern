@@ -123,6 +123,7 @@ async function async1() {
   console.log('async1 end', x)   //2 
 }
 async1()
+
 new Promise((resolve, reject) => {
   console.log('promise1')    //1
   resolve();
@@ -140,7 +141,7 @@ a[b] = '子君'
 a[c] = '君子'
 
 // 我是子君还是君子呢
-console.log(a[b])
+console.log(a[b])  //子君
 
 const d = {}
 const e = { key: '1' }

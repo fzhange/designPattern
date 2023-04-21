@@ -31,7 +31,7 @@ class TT {
 @SpringBootTest
 @Slf4j
 class SpringbootBasicApplicationTests {
-
+  Object x ;
 
   @Test
   void contextLoads() {

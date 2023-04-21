@@ -252,6 +252,39 @@ function arrSeriesFun(arr) {
 // }
 
 
+// 滑动窗口 双指针
+function arrSeriesFun(arr){
+  let l=1;
+  let r = 1;
+  let result = [[arr[0]]];
+
+  while(r<=arr.length-1){
+    if(l===r) {
+      r++;
+      continue;
+    }
+
+    if(arr[r] === arr[l]+1){
+      let preArr = result.pop();
+      preArr.push(arr[r]);
+      result.push(preArr);
+      r++;
+      l++;
+      continue;
+    }
+
+    if(arr[r]!== arr[l]+1){
+      result.push([arr[r]]);
+      r++;
+      l++;
+      continue;
+    }
+  }
+
+  return result;
+}
+
+
 console.log('arrSeriesFun([1,2,3,5,8,10,11]): ', arrSeriesFun([1, 2, 3, 5, 8, 10, 11])); //[ 1, [ 1, 2, 3 ], [ 5 ], [ 8 ], [ 10, 11 ] ]
 
 /**
@@ -376,6 +409,32 @@ function convert(list) {
   })
 }
 console.log('convert(list): ', convert(list));
+
+function listToTree(list) {
+  // 使用对象重新存储数据, 空间换时间
+  let map = {};
+  // treeData存储最后结果
+  let treeData = [];
+  // 遍历原始数据data，存到map中，id为key，值为数据
+  for (let i = 0; i < list.length; i++) {
+    map[list[i].id] = list[i];
+  }
+  // 遍历对象
+  for (let i in map) {
+    // 根据 parentId 找到的是父节点
+    if (map[i].parentId) {
+      if (!map[map[i].parentId].children) {
+        map[map[i].parentId].children = [];
+      }
+      // 将子节点放到父节点的 children中
+      map[map[i].parentId].children.push(map[i]);
+    } else {
+      // parentId 找不到对应值，说明是根结点，直接插到根数组中
+      treeData.push(map[i]);
+    }
+  }
+  return treeData;
+}
 
 /**
  * Lazy man

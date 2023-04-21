@@ -5,61 +5,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .grandfather {
+        background-color: antiquewhite;
+        width: 200px;
+        height: 200px;
+      }
+      .father {
+        margin-top: 20px;
+        margin-left: 20px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        background-color: aqua;
+      }
+    </style>
   </head>
   <body>
     <script>
-      let objFlatObj = {
-        a: {
-          b: {
-            c: {
-              d: 1,
-            },
-          },
-        },
-        aa: 2,
-        c: [1, 2],
-      };
+      // let arr = [10,2];
+      // let arr2 = [3,30,34,5,9];
+      // function getMax(arr){
+      //   arr.sort((a,b)=>{
+      //     let x = parseInt(`${a}${b}`,10);
+      //     let y = parseInt(`${b}${a}`,10);
+      //     if(x>=y) return -1;
+      //     else return 1;
+      //   })
+      //   return arr.join("")
+      // }
 
-      function objFlat(objFlatObj) {
-        let res = {};
-        Object.entries(objFlatObj).forEach(([key, val]) => {
-          if (typeof val === 'object') {
-            if (Array.isArray(val) || val == null) {
-              res[key] = val;
+      // // getMax(arr)
+      // console.log('getMax(arr): ', getMax(arr2));
+
+      // function generateBracket(count){
+      //   let result = [];
+      //   function assistFun(brackets,leftCount,rightCount){
+      //     if(leftCount == count && rightCount==count){
+      //       result.push(brackets);
+      //       return;
+      //     }
+      //     if(leftCount<count){
+      //       assistFun(brackets+"(",leftCount+1,rightCount);
+      //     }
+      //     if(rightCount<count && rightCount<leftCount){
+      //       assistFun(brackets+")",leftCount,rightCount+1);
+      //     }
+      //   }
+      //   assistFun("",0,0);
+      //   return result;
+      // }
+      // // generateBracket(3);
+      // console.log('generateBracket(3): ', generateBracket(3));
+      // 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+      // 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+      let list = [
+        { id: 1, name: '部门A', parentId: 0 },
+        { id: 2, name: '部门B', parentId: 0 },
+        { id: 3, name: '部门C', parentId: 1 },
+        { id: 4, name: '部门D', parentId: 1 },
+        { id: 5, name: '部门E', parentId: 2 },
+        { id: 6, name: '部门F', parentId: 3 },
+        { id: 7, name: '部门G', parentId: 2 },
+        { id: 8, name: '部门H', parentId: 4 },
+      ];
+
+      function convert(list) {
+        let obj = {};
+        let finalResult = [];
+        for (ele of list) {
+          obj[ele.id] = ele;
+        }
+        for (ele of list) {
+          if (ele.parentId === 0) {
+            finalResult.push(ele);
+          } else {
+            if (!!obj[ele.parentId]?.children) {
+              obj[ele.parentId].children.push(ele);
             } else {
-              let restObj = objFlat(val);
-              Object.entries(restObj).forEach(([k, v]) => {
-                res[`${key}.${k}`] = v;
-              });
+              obj[ele.parentId].children = [ele];
             }
-          } else {
-            res[key] = val;
           }
-        });
-        return res;
+        }
+        return finalResult;
       }
 
-      function openObj(objFlatObj) {
-        let res = {};
-        Object.entries(objFlatObj).forEach(([key, val]) => {
-          if (key.includes('.')) {
-            let keyList = key.split('.');
-            let resetObj = {};
-            resetObj[keyList.slice(1).join('.')] = val;
-            res[key] = openObj(resetObj);
-          } else {
-            res[key] = val;
-          }
-        });
-        return res;
+      // convert(list);
+      console.log('convert(list): ', convert(list));
+
+      function flat() {
+        let arr = [[0], [2, 3, 4], 1, [1, [2, 3]]];
+        while (arr.some((ele) => Array.isArray(ele))) {
+          arr = [].concat(...arr);
+        }
+        console.log('arr: ', arr);
       }
-
-      console.log('objFlat(objFlatObj);: ', JSON.stringify(objFlat(objFlatObj))); //{"a.b.c.d":1,"aa":2,"c":[1,2]}
-
-      console.log(
-        'openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}): ',
-        openObj({ 'a.b.c.d': 1, aa: 2, c: [1, 2] }),
-      );
+      flat();
     </script>
   </body>
 </html>

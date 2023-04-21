@@ -61,6 +61,7 @@ public class Audience {
    */
   @AfterReturning(value="perform()",returning="result")
   public void applause(JoinPoint joinPoint, Object result) {
+    System.out.printf("returning==== "  + result +"\n");
     System.out.println("CLAP CLAP CLAP!!!");
   }
 
@@ -78,19 +79,21 @@ public class Audience {
   /**
    * 环绕通知, 围绕着方法执行
    */
-  @Around("perform()")
-  public void watchPerform(ProceedingJoinPoint joinPoint) {
-    try {
-      System.out.println("Taking seats");
-      System.out.println("Silencing cell phones");
+//  @Around("perform()")
+//  public void watchPerform(ProceedingJoinPoint joinPoint) {
+//    try {
+//      System.out.println("Taking seats");
+//      System.out.println("Silencing cell phones");
+//
+//      joinPoint.proceed();  //注意
+//
+//      System.out.println("CLAP CLAP CLAP!!!");
+//    } catch (Throwable throwable) {
+//      System.out.println("Demanding a refund");
+//    } finally {
+//      System.out.println("perform finish");
+//    }
+//  }
 
-      joinPoint.proceed();  //注意
 
-      System.out.println("CLAP CLAP CLAP!!!");
-    } catch (Throwable throwable) {
-      System.out.println("Demanding a refund");
-    } finally {
-      System.out.println("perform finish");
-    }
-  }
 }

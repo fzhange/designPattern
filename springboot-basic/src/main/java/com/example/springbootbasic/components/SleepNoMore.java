@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 public class SleepNoMore {
 
   //连接点
-  public void perform() {
+  public String perform() {
     System.out.println("戏剧《不眠之夜Sleep No More》");
+    return "thanks everyone. i have finished my perform";
   }
 }
