@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" modified="2023-03-15T02:23:54.675Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="JxPGn9JIlOcMdWRDJfhq" version="21.0.6" type="github">
+  <diagram name="第 1 页" id="9I7ZgKha11rdNsVGsiRg">
+    <mxGraphModel dx="1403" dy="755" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5P3ndVNJ1U_cf0fA1xsV-1" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;div style=&quot;color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-weight: normal; font-size: 12px; line-height: 18px;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #267f99;&quot;&gt;PageContainer&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;strokeColor=#66FF66;" parent="1" vertex="1">
+          <mxGeometry x="20" y="260" width="440" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="5P3ndVNJ1U_cf0fA1xsV-6" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;strokeColor=#00FFFF;" parent="1" vertex="1">
+          <mxGeometry x="40" y="290" width="400" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="5P3ndVNJ1U_cf0fA1xsV-2" value="&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;CartAnim&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="60" y="320" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5P3ndVNJ1U_cf0fA1xsV-4" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;SkuLayerWrap&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="160" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5P3ndVNJ1U_cf0fA1xsV-7" value="&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;GlobalProvider&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="295" y="290" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5P3ndVNJ1U_cf0fA1xsV-8" value="&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;PageContainer&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="280" y="260" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5P3ndVNJ1U_cf0fA1xsV-9" value="&lt;font face=&quot;Menlo, Monaco, Courier New, monospace&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;children&lt;/span&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="300" y="320" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-3" value="rax.js" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=12 12;strokeColor=#FF00FF;" vertex="1" parent="1">
+          <mxGeometry x="194" y="860" width="416" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-5" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;div style=&quot;color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-weight: normal; font-size: 12px; line-height: 18px;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #267f99;&quot;&gt;PageContainer&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;strokeColor=#66FF66;" vertex="1" parent="1">
+          <mxGeometry x="194" y="660" width="416" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-6" value="" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;strokeColor=#00FFFF;" vertex="1" parent="1">
+          <mxGeometry x="214" y="690" width="376" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-8" value="&lt;font face=&quot;Menlo, Monaco, Courier New, monospace&quot;&gt;@ali/txd-container&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="316" y="720" width="76" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-9" value="&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="469" y="690" width="130" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-10" value="&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;txd-packages&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="450" y="660" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-11" value="&lt;font face=&quot;Menlo, Monaco, Courier New, monospace&quot;&gt;@ali/txd-coupon&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="410" y="720" width="76" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-12" value="&lt;font face=&quot;Menlo, Monaco, Courier New, monospace&quot;&gt;@ali/txd-cart&lt;br&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="220" y="720" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-13" value="&lt;font face=&quot;Menlo, Monaco, Courier New, monospace&quot;&gt;...&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="500" y="720" width="76" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="W1UfCdsYG77qAc5TYhtT-14" value="web-application" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=12 12;strokeColor=#FF00FF;" vertex="1" parent="1">
+          <mxGeometry x="194" y="570" width="416" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
