@@ -3,38 +3,36 @@ import './App.css';
 
 import React from 'react'
 import { Trans } from '@lingui/macro'
+import styled from "styled-components"
+import { func } from 'prop-types';
+
+
+
+function H1({
+  test
+}){
+  return <h1>{test}</h1>
+}
+
+function Text({
+  Com
+}){
+  return (
+    <div>
+      {Com}
+    </div>
+  )
+}
 
 
 export default function Inbox() {
-  const messages = [{}, {}]
-  const messagesCount = messages.length
-  const lastLogin = new Date()
-  const markAsRead = () => { alert('Marked as read.') }
-
+  let obj = {name:null};
+  let {name = "ff"} = obj
+  console.log("🚀 ~ file: App.js:31 ~ Inbox ~ name:", name);
   return (
     <div>
-      {/* <h1>Message Inbox</h1> */}
-      <h1><Trans>Message Inbox</Trans></h1>
-
-
-      <p>
-        <Trans>
-          See all <a href="/unread">unread messages</a>{" or "}
-          <a onClick={markAsRead}>mark them</a> as read.
-        </Trans>
-      </p>
-
-      <p>
-          {
-            messagesCount === 1
-              ?  <Trans>There's ${messagesCount} message in your inbox.</Trans>
-              :  <Trans>There's ${messagesCount} messages in your inbox.</Trans>  
-          }
-      </p>
-
-      <footer>
-        Last login on {lastLogin.toLocaleDateString()}.
-      </footer>
+      <Text Com={<H1 test={"this is h1"}></H1>}>
+      </Text>
     </div>
   )
 }
