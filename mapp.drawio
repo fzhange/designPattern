@@ -1,1 +1,40 @@
-<mxfile host="app.diagrams.net" modified="2022-05-26T08:29:25.117Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36" version="18.1.2" etag="ljy2vMaRqAbsxbsFv51V" type="github"><diagram id="5DJkbFrkF-0NfNi0XkgB">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2023-06-23T07:00:54.808Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="62XW_Pbv1PmDgHzvtHyP" version="21.5.0" type="github">
+  <diagram id="5DJkbFrkF-0NfNi0XkgB" name="第 1 页">
+    <mxGraphModel dx="1865" dy="649" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-1" value="&lt;font face=&quot;Comic Sans MS&quot;&gt;new sandBox&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="50" y="70" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-4" value="1. create three&amp;nbsp;variable&lt;br&gt;&lt;ol&gt;&lt;li&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;addedPropsMapInSandbox.&amp;nbsp;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;&lt;div style=&quot;line-height: 18px;&quot;&gt;modifiedPropsOriginalValueMapInSandbox&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;div style=&quot;line-height: 18px;&quot;&gt;&lt;div style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; line-height: 18px;&quot;&gt;currentUpdatedPropsValueMap&lt;/div&gt;&lt;/div&gt;&lt;/li&gt;&lt;/ol&gt;&lt;div&gt;2. create a fake window&lt;/div&gt;&lt;div&gt;3. create a proxy function&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;log new property to&amp;nbsp;addedPropsMapInSandbox.&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;log new window value to&amp;nbsp;&lt;/span&gt;modifiedPropsOriginalValueMapInSandbox&lt;/li&gt;&lt;li&gt;log all updates (including add and update) to currentUpdatedPropsValueMap&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="410" y="70" width="430" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o4sS4s2T9ScSJjDvOLJU-7" target="o4sS4s2T9ScSJjDvOLJU-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-7" value="&lt;font face=&quot;Comic Sans MS&quot;&gt;active SandBox&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="50" y="290" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-10" value="&lt;span style=&quot;background-color: initial;&quot;&gt;update original window by&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace;&quot;&gt;currentUpdatedPropsValueMap&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="410" y="290" width="299" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-11" value="&lt;font face=&quot;Comic Sans MS&quot;&gt;inactive SandBox&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-12" value="&lt;div&gt;fallback original window.&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;use modifiedPropsOriginalValueMapInSandbox to fallback modified value.&lt;/li&gt;&lt;li&gt;use addedPropsMapInSandbox to fallback added value.&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="410" y="430" width="299" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-13" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="o4sS4s2T9ScSJjDvOLJU-1" target="o4sS4s2T9ScSJjDvOLJU-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="250" y="320" as="sourcePoint" />
+            <mxPoint x="300" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o4sS4s2T9ScSJjDvOLJU-17" value="&lt;font face=&quot;Comic Sans MS&quot;&gt;new sandBox&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="-800" y="100" width="430" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
