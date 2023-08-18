@@ -302,7 +302,7 @@ console.log('flat:', flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]]));
 
 
 /**
- * 16 数组去重
+ * 16 数组去重 || hashMap
  *  let arr = [[1,2,3],[1,'2',3],[1,2,3]]
  *  let myArr=  [...new Set(arr.map(item=>JSON.stringify(item)))].map((item)=>JSON.parse(item))
  */
@@ -626,7 +626,11 @@ console.log(numFormat(a)); // "1,234,567,894,532"
 console.log(numFormat(b)); // "673,439.4542"
 
 
-// ~ 红包算法  二倍均值法 https://blog.csdn.net/bjweimengshu/article/details/80045958
+/* 红包算法  二倍均值法 https://blog.csdn.net/bjweimengshu/article/details/80045958
+ * 假设有10个人,总红包为100. 
+ * (100/10) * 2  = [0,20]  平均为10
+ * （90/9）* 2 = [0,20]  平均为10
+ */
 function redPackage(amount,num) {
   if(num==1) return [amount];
   let redPackageAmount =(
@@ -683,4 +687,28 @@ templateStr = render(
     company: '阿里',
   },
 );
+
+
+/**
+ * implement useInterval function (byteDance)
+ * https://overreacted.io/zh-hans/making-setinterval-declarative-with-react-hooks/
+ */
+
+
+/**
+ * what will happen when new a object.
+ * this is logic code.
+ */
+
+var createObject = function(){
+  var obj = new Object(),   //(1)
+      Constructor = [].shift.call(arguments);   //(2)
+  obj.__proto__ = Constructor.prototype;    //(3)
+  var ret = Constructor.apply(obj, arguments);    //(4)
+  return typeof ret === 'object' ? ret : obj;   //(5)
+};
+var Freak = createObject(Rocker, 'Freak');
+console.log(Freak.name);  //Freak
+console.log(Freak.getName());  //Freak
+console.log(Object.getPrototypeOf(Freak) === Rocker.prototype); //true
 

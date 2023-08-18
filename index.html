@@ -2,61 +2,61 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-  <script>
-              class ProxySandbox {
-                active() {
-                  this.sandboxRunning = true;
-                }
-                inactive() {
-                  this.sandboxRunning = false;
+    <script>
+        class Tom{
+            constructor(){
+                this.queue = [];
+                setTimeout(()=>{
+                    this.next();
+                })
+            }
+            eat(food){
+                const task = ()=>{
+                    console.log(food);
+                    this.next();
+                };
+                this.queue.push(task);
+                return this;
+            }
+            sleep(time){
+                const task = ()=>{
+                    setTimeout(()=>{
+                        this.next();
+                    },time)
+                };
+                this.queue.push(task);
+                return this;
+            }
+            play(game){
+                const task = ()=>{
+                    console.log(game);
+                    this.next();
+                };
+                this.queue.push(task);
+                return this;
+            }
+            sleepFirst(time){
+                const task = ()=>{
+                    setTimeout(()=>{
+                        this.next();
+                    },time)
+                };
+                this.queue.unshift(task);
+                return this;
+            }
+            next(){
+                const task = this.queue.shift();
+                task?.();
+            }
         }
-              constructor() {
-                const rawWindow = window;
-                const fakeWindow = {};
-                const proxy = new Proxy(fakeWindow, {
-                  set: (target, prop, value) => {
-                    if (this.sandboxRunning) {
-                      target[prop] = value;
-                      return true;
-            }
-                },
-                get: (target, prop) => {
-                  // 如果fakeWindow里面有，就从fakeWindow里面取，否则，就从外部的window里面取
-                  let value = prop in target ? target[prop] : rawWindow[prop];
-                  return value
-          }
-              })
-              this.proxy = proxy;
-            }
-      }
-
-            window.sex = '男';
-            let proxy1 = new ProxySandbox();
-            let proxy2 = new ProxySandbox();
-            ((window) => {
-              proxy1.active();
-              console.log('修改前proxy1的sex', window.sex); //修改前proxy1的sex 男 
-              window.sex = '女';
-              console.log('修改后proxy1的sex', window.sex); //修改后proxy1的sex 女
-            })(proxy1.proxy);
-            console.log('外部window.sex=>1', window.sex); //外部window.sex=>1 男
-
-            ((window) => {
-              proxy2.active();
-              console.log('修改前proxy2的sex', window.sex); //修改前proxy2的sex 男
-              window.sex = '111';
-              console.log('修改后proxy2的sex', window.sex); //修改后proxy2的sex 111 
-            })(proxy2.proxy);
-            console.log('外部window.sex=>2', window.sex); //外部window.sex=>2 男
-
-
-</script>
-  </body>
+        new Tom().eat('apple').sleep(2000).play('soccer').sleepFirst(1000);
+    </script>
+</body>
 
 </html>

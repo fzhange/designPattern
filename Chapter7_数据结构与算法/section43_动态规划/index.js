@@ -295,7 +295,6 @@ console.log('recursionFibo(6): ', recursionFibo(6));
 
 /**
  * 连续子数组最大和 
- *
  */
 // 输入: [-2,1,-3,4,-1,2,1,-5,4]
 // 输出: 6
