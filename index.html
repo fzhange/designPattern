@@ -1,62 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <script>
-        class Tom{
-            constructor(){
-                this.queue = [];
-                setTimeout(()=>{
-                    this.next();
-                })
-            }
-            eat(food){
-                const task = ()=>{
-                    console.log(food);
-                    this.next();
-                };
-                this.queue.push(task);
-                return this;
-            }
-            sleep(time){
-                const task = ()=>{
-                    setTimeout(()=>{
-                        this.next();
-                    },time)
-                };
-                this.queue.push(task);
-                return this;
-            }
-            play(game){
-                const task = ()=>{
-                    console.log(game);
-                    this.next();
-                };
-                this.queue.push(task);
-                return this;
-            }
-            sleepFirst(time){
-                const task = ()=>{
-                    setTimeout(()=>{
-                        this.next();
-                    },time)
-                };
-                this.queue.unshift(task);
-                return this;
-            }
-            next(){
-                const task = this.queue.shift();
-                task?.();
-            }
-        }
-        new Tom().eat('apple').sleep(2000).play('soccer').sleepFirst(1000);
+      function flat(array, depth, maxDepth) {
+        arr = [].concat();
+      }
+      console.log('flat:', flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]], 1));
     </script>
-</body>
-
+  </body>
 </html>
