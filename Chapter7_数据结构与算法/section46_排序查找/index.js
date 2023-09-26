@@ -126,6 +126,64 @@ function quickSort(arr) {
 console.log('quickSort', quickSort([2, 1, 1, 4, 5]));
 
 /**
+ * merge sort  归并排序
+ *
+归并排序（Merge Sort）是一种常用的排序算法，它采用分治的思想，将一个大问题分解为多个小问题，并将小问题的解合并起来得到最终的解。
+
+归并排序的基本思想如下：
+
+将待排序的序列不断划分为更小的子序列，直到每个子序列只包含一个元素为止。这可以通过递归实现。
+
+将相邻的子序列两两合并，直到最终只剩下一个有序序列。
+合并的过程中，比较两个子序列的元素，并按照从小到大的顺序将它们合并到一个新的有序序列中。
+ */
+function mergeSort(array) {
+  if (array.length <= 1) {
+    return array; // 如果数组长度为1或者空，则认为已经有序，直接返回
+  }
+
+  // 将数组分成两个子数组
+  const middle = Math.floor(array.length / 2);
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
+
+  // 递归地对两个子数组进行归并排序
+  const sortedLeft = mergeSort(left);
+  const sortedRight = mergeSort(right);
+
+  // 合并两个有序数组
+  return merge(sortedLeft, sortedRight);
+}
+
+function merge(left, right) {
+  let merged = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  // 比较左右两个子数组的元素，并按照顺序将它们合并到一个新的数组中
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      merged.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      merged.push(right[rightIndex]);
+      rightIndex++;
+    }
+  }
+
+  // 将剩余的元素添加到新的数组中
+  return merged.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+}
+
+// 测试示例
+const array = [8, 4, 2, 9, 5, 1, 6, 3, 7];
+const sortedArray = mergeSort(array);
+console.log(sortedArray); // 输出: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+
+
+/**
  * 冒泡排序
  * 总是比较相邻的两个值
  * 经过第一轮比较 将最大值放在最后

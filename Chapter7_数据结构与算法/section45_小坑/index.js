@@ -76,21 +76,21 @@ console.log(obj)
  * 你真的了解 await吗 ？
  */
 async function async2() {
-  console.log('6666');
+  console.log('6666'); //1
   return new Promise((res) => {
     res(1000)
   })
 }
 async function async1() {
   let x = await async2();
-  console.log('async1 end', x)   //3
+  console.log('async1 end', x)   //4
 }
 async1()
 new Promise((resolve, reject) => {
-  console.log('promise1') //1
+  console.log('promise1') //2
   resolve();
 }).then(() => {
-  console.log('promise2') //2
+  console.log('promise2') //3
 })
 
 // promise 自包裹示例

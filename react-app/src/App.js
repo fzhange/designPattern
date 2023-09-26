@@ -14,8 +14,6 @@ function useInterval(callback, delay) {
     savedCallback.current = callback;
   });
 
- 
-
   // 建立 interval
   useEffect(() => {
     function tick() {
