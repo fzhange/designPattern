@@ -9,3 +9,8 @@ node_modules
 package-lock.json
 yarn.lock
 fzhangeAlgorithmNote/target
+
+
+/vite-project
+/vue-demo
+/vue-demo-3

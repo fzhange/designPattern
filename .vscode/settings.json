@@ -7,5 +7,6 @@
     ],
     "cSpell.words": [
         "nums"
-    ]
+    ],
+    "vue.codeActions.enabled": false
 }

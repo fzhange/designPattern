@@ -2,60 +2,57 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+        :root {
+            --main-color: #f00;
+        }
+
+        .test {
+            color: var(--main-color);
+        }
+    </style>
 </head>
 
 <body>
-    <script>
-        class Tom{
-            constructor(){
-                this.queue = [];
-                setTimeout(()=>{
-                    this.next();
-                })
-            }
-            eat(food){
-                const task = ()=>{
-                    console.log(food);
-                    this.next();
-                };
-                this.queue.push(task);
-                return this;
-            }
-            sleep(time){
-                const task = ()=>{
-                    setTimeout(()=>{
-                        this.next();
-                    },time)
-                };
-                this.queue.push(task);
-                return this;
-            }
-            play(game){
-                const task = ()=>{
-                    console.log(game);
-                    this.next();
-                };
-                this.queue.push(task);
-                return this;
-            }
-            sleepFirst(time){
-                const task = ()=>{
-                    setTimeout(()=>{
-                        this.next();
-                    },time)
-                };
-                this.queue.unshift(task);
-                return this;
-            }
-            next(){
-                const task = this.queue.shift();
-                task?.();
-            }
+    <div class="test">test</div>
+    <ol>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ol>
+    <script>  
+      function curry(argLen){
+        let temArr = [];
+
+        function assist(...args){
+          temArr = temArr.concat(args);
+          console.log('temArr: ', temArr);
+          if(temArr.length === argLen){
+            let res = 0;
+            temArr.forEach((ele)=>{
+              res += ele;
+            })
+            // 清空存储 不然会有bug
+            temArr = [];
+            return res;
+          }else{
+            return assist;
+          }
         }
-        new Tom().eat('apple').sleep(2000).play('soccer').sleepFirst(1000);
+        
+        return assist;
+      }
+
+      let sum4 = curry(4);
+
+      console.log(sum4(1, 2, 3, 4)); // 10
+      console.log(sum4(1, 2)(3, 4)); // 10
+      console.log(sum4(1)(2, 3, 4)); // 10
+      console.log(sum4(1)(2)(3, 4)); // 10
+      console.log(sum4(1)(2)(3)(4)); // 10
     </script>
 </body>
 
