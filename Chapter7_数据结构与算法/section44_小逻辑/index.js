@@ -743,3 +743,35 @@ var Freak = createObject(Rocker, 'Freak');
 console.log(Freak.name); //Freak
 console.log(Freak.getName()); //Freak
 console.log(Object.getPrototypeOf(Freak) === Rocker.prototype); //true
+
+// ===================函数的颗粒化问题=============================================
+
+function curry(argLen) {
+  let temArr = [];
+
+  function assist(...args) {
+    temArr = temArr.concat(args);
+    console.log('temArr: ', temArr);
+    if (temArr.length === argLen) {
+      let res = 0;
+      temArr.forEach((ele) => {
+        res += ele;
+      });
+      // 清空存储 不然会有bug
+      temArr = [];
+      return res;
+    } else {
+      return assist;
+    }
+  }
+
+  return assist;
+}
+
+let sum4 = curry(4);
+
+console.log(sum4(1, 2, 3, 4)); // 10
+console.log(sum4(1, 2)(3, 4)); // 10
+console.log(sum4(1)(2, 3, 4)); // 10
+console.log(sum4(1)(2)(3, 4)); // 10
+console.log(sum4(1)(2)(3)(4)); // 10

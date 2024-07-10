@@ -1,0 +1,24 @@
+<html>
+  <body>
+    <div>21312</div>
+  </body>
+  <script>
+    
+   // Person in here. we can think it is a object.
+    function Person() {}
+    Person.getName = function(){
+      // this in here. Point to the Person function. Isn't Person instance.
+      // so this.name is Person
+      console.log('this: ', this);
+      return this.name;
+    }
+    Person.prototype = {
+      name: 'fzhange',
+      sex: '',
+    };
+    const pers = new Person();
+    console.log('Person: ', Person);
+    console.log('pers: ', pers);
+    
+  </script>
+</html>

@@ -1,13 +1,6 @@
 {
-    "java.project.sourcePaths": [
-        "算法笔记/常规算法",
-        "算法笔记/宏观思路",
-        "算法笔记/动态规划",
-        ""
-    ],
-    "cSpell.words": [
-        "nums"
-    ],
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "java.project.sourcePaths": ["算法笔记/常规算法", "算法笔记/宏观思路", "算法笔记/动态规划", ""],
+  "cSpell.words": ["nums"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
