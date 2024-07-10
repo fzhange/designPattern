@@ -5,7 +5,7 @@
  * https://labuladong.gitee.io/algo/1/13/
  */
 
-import { type } from "os";
+import { type } from 'os';
 
 /**
  * 标志法
@@ -29,12 +29,10 @@ import { type } from "os";
 // let idx = arr.findIndex((item) => item === 6)
 // console.log('idx: ', idx);
 
-
-
-// TODO 
+// TODO
 // 543. 二叉树的直径  https://leetcode.cn/problems/diameter-of-binary-tree/submissions/
 // 409. 最长回文串   https://leetcode.cn/problems/longest-palindrome/  这个太牛了
-// 
+//
 
 // 如何打印出每个节点的左右子树各有多少节点？
 // function countOfNode(tree) {
@@ -47,4 +45,3 @@ import { type } from "os";
 //   return leftNodeCount + rightNodeCount + 1;
 // }
 // console.log('countOfNode(tree): ', countOfNode(tree));
-

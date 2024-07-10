@@ -1,58 +1,8 @@
 {
-  title: {
-    text,
-    subtext,
-    textStyle: {
-      color: '#222',
-      fontSize: '14',
-      lineHeight: 22,
-      fontWeight: 500,
-    },
-    subtextStyle: {
-      color: '#8C8C8C',
-      lineHeight: 20,
-      fontSize: 12,
-      fontWeight: 400,
-    },
-    padding: [
-      0,
-      0,
-      20,
-      0
-    ],
-  },
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      type: 'shadow',
-    },
-  },
-  grid: {
-    left: '0',
-    right: '0',
-    bottom: '20',
-    containLabel: true,
-  },
-  xAxis: [
-    {
-      type: 'category',
-      data: xAxisDataList,
-      axisTick: {
-        alignWithLabel: true,
-      },
-    },
-  ],
-  yAxis: [
-    {
-      type: 'value',
-    },
-  ],
-  series: [
-    {
-      // name: 'Direct',
-      type: 'bar',
-      // barWidth: '60%',
-      data: dataList,
-    },
-  ],
+  "componentId": "",
+  "componentName": "",
+  "containerMetaInfo": {
+    "width": "",
+    "height": ""
+  }
 }

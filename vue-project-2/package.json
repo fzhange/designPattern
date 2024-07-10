@@ -1,0 +1,29 @@
+{
+  "name": "vue-project-2",
+  "version": "0.0.0",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "element-ui": "^2.15.14",
+    "file-saver": "^2.0.5",
+    "pinia": "^2.1.7",
+    "prom-client": "^15.1.0",
+    "reflect-metadata": "^0.2.1",
+    "rxjs": "^7.8.1",
+    "vue": "^2.7.7",
+    "vue-grid-layout": "^2.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-legacy": "^2.0.0",
+    "@vitejs/plugin-vue2": "^1.1.2",
+    "terser": "^5.14.2",
+    "vite": "^3.0.2",
+    "vuepress": "^1.9.10"
+  }
+}

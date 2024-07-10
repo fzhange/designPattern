@@ -1,36 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-
+  <head> </head>
   <body>
+    <div>1213</div>
     <script>
-      function flat(array, depth, maxDepth) {
-        arr = [].concat();
-      }
-      console.log('flat:', flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]], 1));
-
-      function useInterval(callback, time) {
-        const callbackRef = useRef();
-        useEffect(() => {
-          callbackRef.current = callback;
-        }, [callback]);
-
-        useEffect(() => {
-          function tick() {
-            callbackRef.current();
+      function flat(arr) {
+        let res = [];
+        for (let index = 0; index < arr.length; index++) {
+          const element = arr[index];
+          if (Array.isArray(element)) {
+            res = res.concat(flat(element));
+          } else {
+            res.push(element);
           }
-          const intervalId = setInterval(() => {
-            tick();
-          }, time);
-          return () => {
-            clearInterval(intervalId);
-          };
-        }, [time]);
+        }
+        return res;
       }
+      console.log('flat:', flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]]));
     </script>
   </body>
 </html>
