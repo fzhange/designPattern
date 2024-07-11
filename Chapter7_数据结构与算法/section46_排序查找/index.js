@@ -18,7 +18,7 @@ function binarySearch(arr, num) {
   }
   return -1;
 }
-console.log("binarySearch(arr,8): ", binarySearch(arr, 8));
+console.log('binarySearch(arr,8): ', binarySearch(arr, 8));
 // ----------------------------------------------------------------
 function left_bound(nums, target) {
   let left = 0;
@@ -67,7 +67,7 @@ function right_bound(nums, target) {
 
 //? 二分查找左右边界
 var searchRange = function (nums, target) {
-  return [left_bound(nums, target), right_bound(nums, target)]
+  return [left_bound(nums, target), right_bound(nums, target)];
 };
 //! ---------------------
 
@@ -83,7 +83,7 @@ function fullpermutate(str) {
     let otherStrArr = fullpermutate(otherStr);
     otherStrArr.forEach((item) => {
       arr.push([`${item[0]}${nowIChar}`]);
-    })
+    });
   }
   return arr;
 }
@@ -106,7 +106,6 @@ function fullpermutate(str) {
 // }
 
 console.log('fullpermutate(abc): ', fullpermutate('abc'));
-
 
 /**
  * 快速排序
@@ -180,9 +179,6 @@ const array = [8, 4, 2, 9, 5, 1, 6, 3, 7];
 const sortedArray = mergeSort(array);
 console.log(sortedArray); // 输出: [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-
-
-
 /**
  * 冒泡排序
  * 总是比较相邻的两个值
@@ -203,7 +199,7 @@ function bubbleSort(arr) {
 }
 console.log('bubbleSort([2,1,1,4,5]): ', bubbleSort([2, 1, 1, 4, 5]));
 /**
- * 选择排序 i like 
+ * 选择排序 i like
  * 用第一个值和后边每一个进行比较
  * 经过一轮比较将最下值放在最前
  * 一轮比较只需要更换一次顺序。
@@ -229,8 +225,8 @@ console.log('selectSort', selectSort(selectArr));
  */
 let versions = ['4.1', '4.7.1', '4.8', '4.8.0', '4.10', '5'];
 versions.sort((currVersion, preVersion) => {
-  let currArr = currVersion.split('.').map(item => parseInt(item));
-  let preArr = preVersion.split('.').map(item => parseInt(item));
+  let currArr = currVersion.split('.').map((item) => parseInt(item));
+  let preArr = preVersion.split('.').map((item) => parseInt(item));
   let len = Math.min(currArr.length, preArr.length);
   for (let i = 0; i < len; i++) {
     let currNum = currArr[i];
@@ -241,5 +237,5 @@ versions.sort((currVersion, preVersion) => {
   }
   if (currArr.length < preArr.length) return -1;
   else return 1;
-})
+});
 console.log('versions: ', versions);

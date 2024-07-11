@@ -258,35 +258,25 @@ function arrSeriesFun(arr) {
 // }
 
 // 滑动窗口 双指针
-function arrSeriesFun(arr) {
-  let l = 1;
-  let r = 1;
-  let result = [[arr[0]]];
-
-  while (r <= arr.length - 1) {
-    if (l === r) {
+function arrSeriesFun(array) {
+  let l = 0;
+  let r = 0;
+  let res = [];
+  while (l <= array.length - 1) {
+    if (l === r && l === 0) {
       r++;
       continue;
     }
-
-    if (arr[r] === arr[l] + 1) {
-      let preArr = result.pop();
-      preArr.push(arr[r]);
-      result.push(preArr);
+    if (array[r] + 1 == array[r + 1]) {
       r++;
-      l++;
-      continue;
-    }
-
-    if (arr[r] !== arr[l] + 1) {
-      result.push([arr[r]]);
-      r++;
-      l++;
-      continue;
+    } else {
+      const x = array.slice(l, r + 1);
+      res.push(x);
+      l = r + 1;
+      r = r + 1;
     }
   }
-
-  return result;
+  return res;
 }
 
 console.log('arrSeriesFun([1,2,3,5,8,10,11]): ', arrSeriesFun([1, 2, 3, 5, 8, 10, 11])); //[ 1, [ 1, 2, 3 ], [ 5 ], [ 8 ], [ 10, 11 ] ]
@@ -329,6 +319,21 @@ function mySet(arr) {
     .map((item) => JSON.parse(item));
   console.log('arr: ', arr);
 }
+
+function mySet(array) {
+  const cache = {};
+  const res = [];
+  array.forEach((element) => {
+    if (!cache[JSON.stringify(element)]) {
+      cache[JSON.stringify(element)] = true;
+      res.push(element);
+    }
+  });
+  console.log('res: ', res);
+
+  return res;
+}
+
 mySet([
   [1, 2, 3],
   [1, '2', 3],
@@ -352,18 +357,18 @@ let objFlatObj = {
 };
 
 function objFlat(objFlatObj) {
-  let resultObj = {};
+  let res = {};
   Object.entries(objFlatObj).forEach(([key, value], idx) => {
-    if (value == null || Array.isArray(value) || typeof value != 'object') {
-      resultObj[key] = value;
-    } else {
-      let tmpResultObj = objFlat(value);
-      Object.entries(tmpResultObj).forEach(([k, v]) => {
-        resultObj[`${key}.${k}`] = v;
+    if (typeof value === 'object' && !Array.isArray(value && value != null)) {
+      const cookedValue = objFlat(value);
+      Object.entries(cookedValue).forEach(([k, v]) => {
+        res[`${key}.${k}`] = v;
       });
+    } else {
+      res[key] = value;
     }
   });
-  return resultObj;
+  return res;
 }
 
 console.log('objFlat(objFlatObj);: ', JSON.stringify(objFlat(objFlatObj))); //{"a.b.c.d":1,"aa":2,"c":[1,2]}
@@ -371,21 +376,22 @@ console.log('objFlat(objFlatObj);: ', JSON.stringify(objFlat(objFlatObj))); //{"
 /**
  * 18 对象的展开
  */
-function openObj(objFlatObj) {
-  const resultObj = {};
-  Object.entries(objFlatObj).forEach(([key, value]) => {
+function openObj(obj) {
+  const res = {};
+  Object.entries(obj).forEach(([key, value]) => {
     if (key.includes('.')) {
-      const keyList = key.split('.');
-      keyList.shift();
-      let tmpObj = {};
-      tmpObj[keyList.join('.')] = value;
-      resultObj[key] = openObj(tmpObj);
+      let obj = {};
+      const firstCharBeforeFirstDot = key.split('.').slice(0, 1);
+      const restCharsAfterFirstDot = key.split('.').slice(1);
+      obj[restCharsAfterFirstDot.join('.')] = value;
+      res[firstCharBeforeFirstDot] = openObj(obj);
     } else {
-      resultObj[key] = value;
+      res[key] = value;
     }
   });
-  return resultObj;
+  return res;
 }
+
 console.log(
   'openObj({"a.b.c.d":1,"aa":2,"c":[1,2]}): ',
   openObj({ 'a.b.c.d': 1, aa: 2, c: [1, 2] }),
@@ -615,36 +621,23 @@ console.log('lengthOfLongestSubstr(): ', lengthOfLongestSubstr('pwwkew'));
   ]
   回溯 递归 hash缓存
  */
-function fun(arr, target) {
-  let obj = {};
-
-  function innerFun(arr, nowTargetVal) {
-    console.log('nowTargetVal: >>>>>>', nowTargetVal);
-    if (obj[nowTargetVal]) return obj[nowTargetVal];
-    let myArr = [];
-    for (let i = 0; i < arr.length; i++) {
-      let nowVal = arr[i];
-      let reduceVal = nowTargetVal - nowVal;
-      if (reduceVal == 0) {
-        myArr.push([nowVal]);
+function calculateSumOfTarget(material, target) {
+  let res = [];
+  function assist(material, historyPath, historySum) {
+    for (let index = 0; index < material.length; index++) {
+      const element = material[index];
+      const currentSum = element + historySum;
+      if (currentSum === target) {
+        res.push(historyPath.concat(element));
       }
-      if (reduceVal > 0) {
-        let recursionArr = [];
-
-        recursionArr = innerFun(arr, reduceVal);
-        recursionArr.forEach((item, idx) => {
-          myArr.push([nowVal, ...item]);
-        });
+      // Get this. We need to use index===0 to cut off branches of the tree.
+      if (currentSum < target && index === 0) {
+        assist(material, [...historyPath, element], currentSum);
       }
     }
-    obj[nowTargetVal] = myArr;
-    console.log('nowTargetVal: ', nowTargetVal, myArr);
-    return myArr;
   }
-  let myArr = innerFun(arr, target);
-
-  console.log('myArr: ', myArr);
-  console.log('obj: ', obj);
+  assist(material, [], 0);
+  return res;
 }
 fun([2, 3, 6, 7], 7);
 

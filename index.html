@@ -4,19 +4,37 @@
   <body>
     <div>1213</div>
     <script>
-      function flat(arr) {
-        let res = [];
-        for (let index = 0; index < arr.length; index++) {
-          const element = arr[index];
-          if (Array.isArray(element)) {
-            res = res.concat(flat(element));
-          } else {
-            res.push(element);
+      let tree = {
+        name: '1',
+        left: {
+          name: '2',
+          left: {
+            name: '3',
+          },
+          right: {
+            name: '4',
+          },
+        },
+        right: {
+          name: '5',
+        },
+      };
+
+      var minDepth = function (root) {
+        let res = Number.MAX_SAFE_INTEGER;
+        function helper(root, level) {
+          if (!root.left && !root.right) {
+            res = Math.min(res, level);
+            return;
           }
+          helper(root.left, level + 1);
+          helper(root.right, level + 1);
         }
+        helper(root, 1);
         return res;
-      }
-      console.log('flat:', flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]]));
+      };
+      // minDepth(root)
+      console.log(' minDepth(root): ', minDepth(tree));
     </script>
   </body>
 </html>
