@@ -4,37 +4,35 @@
   <body>
     <div>1213</div>
     <script>
-      let tree = {
-        name: '1',
-        left: {
-          name: '2',
-          left: {
-            name: '3',
-          },
-          right: {
-            name: '4',
-          },
-        },
-        right: {
-          name: '5',
-        },
-      };
-
-      var minDepth = function (root) {
-        let res = Number.MAX_SAFE_INTEGER;
-        function helper(root, level) {
-          if (!root.left && !root.right) {
-            res = Math.min(res, level);
-            return;
+      /**
+       * @param {number[]} prices
+       * @return {number}
+       */
+      var maxProfit = function (prices) {
+        /**
+         *  The solution of this question. The main though is the dynamic programming.
+         *  the index of 0 indicate the max benefit of purchase.
+         *  the index of 1 indicate sell max benefit of sell.
+         */
+        let result = new Array(prices.length).fill(new Array(2).fill(0));
+        for (let index = 0; index < prices.length; index++) {
+          const currentPriceOfStock = prices[index];
+          if (index === 0) {
+            result[index][0] = -currentPriceOfStock;
+            result[index][1] = 0;
+          } else {
+            result[index][0] = Math.max(
+              result[index - 1][0], // max benefit from last purchase behavior
+              result[index - 1][1] - currentPriceOfStock, // max benefit from last sale minus currentPriceOfStock
+            );
+            result[index][1] = Math.max(
+              result[index - 1][1],
+              result[index - 1][0] + currentPriceOfStock,
+            );
           }
-          helper(root.left, level + 1);
-          helper(root.right, level + 1);
         }
-        helper(root, 1);
-        return res;
+        return result[prices.length - 1][1];
       };
-      // minDepth(root)
-      console.log(' minDepth(root): ', minDepth(tree));
     </script>
   </body>
 </html>

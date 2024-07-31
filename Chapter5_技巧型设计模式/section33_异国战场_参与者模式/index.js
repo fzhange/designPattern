@@ -6,7 +6,7 @@
 //         fn.apply(obj,arguments);
 //     }
 // }
-//升级版 可以携带参数    
+//升级版 可以携带参数
 // var bind = function(fn,obj){
 //     var fnParam = [].slice.call(arguments,2);
 //     return function(){
@@ -43,41 +43,26 @@
 // // var bindDiv = divFn.bind(div)
 
 // //函数柯里化 start
-// function curry(fn,...arg){
-//    console.log(fn.length , arg.length);
-//    if(fn.length <= arg.length){
-//       fn(...arg);
-//    }
-//    return function(...arg1){
-//       return curry(fn,...arg,...arg1);
-//    }
-// }
-// function add(a,b,c){
-//    console.log('a+b+c: ', a+b+c);
-// }
-// add(1,2,3) //6
-// let curryAdd = curry(add);
-// curryAdd(1)(2)(3); //6
 
-// function curry(originFun){
-//    let arg = Array.from(arguments).slice(1);
-//    function fun(){
-//      let _arg = Array.from(arguments);
-//      arg = arg.concat(_arg);
-//      if(originFun.length <= arg.length){
-//        originFun.apply(null,arg);
-//      }else{
-//        return fun;
-//      }
-//    }
-//    return fun;
-//  }
+function generateCurryFunction(lenOfCurryArgs) {
+  let finalArgs = [];
+  function curry(...args) {
+    finalArgs = finalArgs.concat(args);
+    if (finalArgs.length >= lenOfCurryArgs) {
+      const res = finalArgs.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      finalArgs = [];
+      return res;
+    } else return curry;
+  }
+  return curry;
+}
+const add = generateCurryFunction(2);
+console.log('add(2, 5): ', add(2, 5));
+console.log('add(2)(5): ', add(2)(5));
 
 // //函数柯里化 end
-
-
-
-
 
 // var $ = {
 //     g: function (id) {
@@ -92,24 +77,23 @@
 // })
 // $.g('div').addEventListener('click', x);
 
-
 /**
  * bind 方法实现
  */
 if (Function.prototype.bind == undefined) {
-   Function.prototype.bind = function (context, ...args) {
-      // var args = Array.prototype.slice.call(arguments,1);
-      var originFun = this;
+  Function.prototype.bind = function (context, ...args) {
+    // var args = Array.prototype.slice.call(arguments,1);
+    var originFun = this;
 
-      var fun = function (...innerArgs) {
-         // bind后的函数不丢失this
-         // 通多new创建
-         if (this instanceof fun) originFun.apply(this, [...args, ...innerArgs])
-         else originFun.apply(context, [...args, ...innerArgs])
-      }
-      fun.prototype = Object.create(originFun.prototype);
-      return fun;
-   }
+    var fun = function (...innerArgs) {
+      // bind后的函数不丢失this
+      // 通多new创建
+      if (this instanceof fun) originFun.apply(this, [...args, ...innerArgs]);
+      else originFun.apply(context, [...args, ...innerArgs]);
+    };
+    fun.prototype = Object.create(originFun.prototype);
+    return fun;
+  };
 }
 // function fun(){};
 // let obj = {name:"Zf"}
@@ -117,37 +101,37 @@ if (Function.prototype.bind == undefined) {
 // let c = new _fun();
 
 /**
-* call 方法实现
-* fun.call(obj,...arg)
-*/
+ * call 方法实现
+ * fun.call(obj,...arg)
+ */
 Function.prototype.call = function (ctx) {
-   let arg = Array.from(arguments).slice(1);
-   ctx[this.name] = this;
-   const value = ctx[this.name](...arg);
-   delete ctx[this.name];
-   return value;
-}
-let obj = { name: "Zf" }
+  let arg = Array.from(arguments).slice(1);
+  ctx[this.name] = this;
+  const value = ctx[this.name](...arg);
+  delete ctx[this.name];
+  return value;
+};
+let obj = { name: 'Zf' };
 
 function say(age) {
-   console.log('---', this.name, age);
+  console.log('---', this.name, age);
 }
 
-say.call(obj, 18)
+say.call(obj, 18);
 
-/** 
- * apply 
- * fn.apply(ctx,[arg]) 
+/**
+ * apply
+ * fn.apply(ctx,[arg])
  */
 Function.prototype.apply = function (ctx, arg) {
-   const symbol_pro = Symbol('symbol_pro');
-   ctx[symbol_pro] = this;
-   const value = ctx[symbol_pro](...arg);
-   delete ctx[symbol_pro];
-   return value;
-}
+  const symbol_pro = Symbol('symbol_pro');
+  ctx[symbol_pro] = this;
+  const value = ctx[symbol_pro](...arg);
+  delete ctx[symbol_pro];
+  return value;
+};
 function say(age) {
-   console.log('---', this.name, age);
+  console.log('---', this.name, age);
 }
 
-say.apply(obj, [18])
+say.apply(obj, [18]);
