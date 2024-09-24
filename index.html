@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head> </head>
-  <body>
-    <div>1213</div>
-    <script>
-      /**
-       * @param {number[]} prices
-       * @return {number}
-       */
-      var maxProfit = function (prices) {
-        /**
-         *  The solution of this question. The main though is the dynamic programming.
-         *  the index of 0 indicate the max benefit of purchase.
-         *  the index of 1 indicate sell max benefit of sell.
-         */
-        let result = new Array(prices.length).fill(new Array(2).fill(0));
-        for (let index = 0; index < prices.length; index++) {
-          const currentPriceOfStock = prices[index];
-          if (index === 0) {
-            result[index][0] = -currentPriceOfStock;
-            result[index][1] = 0;
-          } else {
-            result[index][0] = Math.max(
-              result[index - 1][0], // max benefit from last purchase behavior
-              result[index - 1][1] - currentPriceOfStock, // max benefit from last sale minus currentPriceOfStock
-            );
-            result[index][1] = Math.max(
-              result[index - 1][1],
-              result[index - 1][0] + currentPriceOfStock,
-            );
-          }
-        }
-        return result[prices.length - 1][1];
-      };
-    </script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Global Error Handling</title>
+  <script>
+    // Attach the global error handler
+    window.onerror = function (message, source, lineno, colno, error) {
+      console.error(`Global error caught: ${message} at ${source}:${lineno}:${colno}`, error);
+      // Optionally, handle the error (e.g., log to server, show alert, etc.)
+    };
+
+    // Simulate a global error
+    function simulateGlobalError() {
+      // This error is not caught by a try...catch and will trigger window.onerror
+      throw new Error("This is a simulated uncaught error");
+    }
+
+    XMLHttpRequest
+    // Call the function to trigger the global error
+    window.onload = function () {
+      simulateGlobalError();
+    };
+  </script>
+</head>
+
+<body>
+  <h1>Test Global Error Handling with window.onerror</h1>
+</body>
+
 </html>

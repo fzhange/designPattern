@@ -1,44 +1,53 @@
 /**
- * 假设选择第8个 那么对应最大价值为 
+ * 假设选择第8个 那么对应最大价值为
  *    MaxVal(8) = 4 + MAxVal(5);
  * 不选第8个 则对应最大价值为
  *    MaxVal(8) = MaxVal(7);
  */
-let data = [{
-  val: 0,
-  preIdx: null,
-}, {
-  val: 5,
-  preIdx: null,
-}, {
-  val: 1,
-  preIdx: null,
-}, {
-  val: 8,
-  preIdx: null,
-}, {
-  val: 4,
-  preIdx: 1,
-}, {
-  val: 6,
-  preIdx: null,
-}, {
-  val: 3,
-  preIdx: 2,
-}, {
-  val: 2,
-  preIdx: 3,
-}, {
-  val: 4,
-  preIdx: 5
-}]
-
+let data = [
+  {
+    val: 0,
+    preIdx: null,
+  },
+  {
+    val: 5,
+    preIdx: null,
+  },
+  {
+    val: 1,
+    preIdx: null,
+  },
+  {
+    val: 8,
+    preIdx: null,
+  },
+  {
+    val: 4,
+    preIdx: 1,
+  },
+  {
+    val: 6,
+    preIdx: null,
+  },
+  {
+    val: 3,
+    preIdx: 2,
+  },
+  {
+    val: 2,
+    preIdx: 3,
+  },
+  {
+    val: 4,
+    preIdx: 5,
+  },
+];
 
 function countMaxVal(data) {
   let arr = [];
   for (let i = 1; i < data.length; i++) {
     let selectVal;
-    let noSelectVal = data[i - 1].val
+    let noSelectVal = data[i - 1].val;
     if (!!data[i].preIdx) {
       let _preIdx = data[i].preIdx;
       selectVal = data[i].val + data[_preIdx].val;
@@ -55,14 +64,10 @@ function countMaxVal(data) {
 
 console.log('countMaxVal(data): ', countMaxVal(data));
 
-
-
-
-
 /**
  * 货币基数【1,5,11】
  * 为了凑出目标金额使用最少的货币数量
- * 
+ *
  * 假设目标金额为 x 则使用最少的货币数量为f(x)
  * f(x) = Math.min(f(x-1),f(x-5),f(x-11)) + 1;
  */
@@ -73,9 +78,9 @@ function fun(targetVal) {
   let arr = [0, 1];
   for (let i = 2; i <= targetVal; i++) {
     let count = 0;
-    if (i - 1 >= 0) count = Math.min(arr[i - 1])
-    if (i - 5 >= 0) count = Math.min(count, arr[i - 5])
-    if (i - 11 >= 0) count = Math.min(count, arr[i - 11])
+    if (i - 1 >= 0) count = Math.min(arr[i - 1]);
+    if (i - 5 >= 0) count = Math.min(count, arr[i - 5]);
+    if (i - 11 >= 0) count = Math.min(count, arr[i - 11]);
     arr[i] = count + 1;
   }
   console.log('arr: ', arr);
@@ -83,7 +88,6 @@ function fun(targetVal) {
 }
 
 console.log('fun(14): ', fun(4));
-
 
 /**
  * DAG最短路径问题
@@ -98,12 +102,12 @@ function DAG() {
       b: 20,
     },
     a: {
-      from: ["s"],
+      from: ['s'],
       c: 30,
       d: 10,
     },
     b: {
-      from: ["s"],
+      from: ['s'],
       d: 20,
     },
     c: {
@@ -113,19 +117,18 @@ function DAG() {
     },
     d: {
       from: ['a', 'c', 'b'],
-      t: 10
+      t: 10,
     },
     t: {
-      from: ['c', 'd']
-    }
-  }
+      from: ['c', 'd'],
+    },
+  };
 
-
-  let obj = {}
+  let obj = {};
   Object.entries(myobj).forEach(([key, value]) => {
     if (value.from.length == 0) obj[key] = 0;
     if (value.from.length == 1) {
-      let fromKey = value.from[0]
+      let fromKey = value.from[0];
       let num2 = myobj[fromKey][key];
       obj[key] = num2;
     }
@@ -140,14 +143,13 @@ function DAG() {
           let num2 = obj[currFrom] + myobj[currFrom][key];
           return Math.min(preFrom, num2);
         }
-      })
+      });
       obj[key] = miniNum;
     }
-  })
+  });
   console.log('dagObj:', obj);
 }
 DAG();
-
 
 /**
  * let str = "1,5,3,4,6,9,7,8";
@@ -156,10 +158,10 @@ DAG();
  */
 function sonRise() {
   let obj = {
-    1: [1]
-  }
-  let str = "1,5,3,4,6,9,7,8";
-  str = str.split(',').map(item => parseInt(item));
+    1: [1],
+  };
+  let str = '1,5,3,4,6,9,7,8';
+  str = str.split(',').map((item) => parseInt(item));
 
   for (let i = 1; i < str.length; i++) {
     for (let j = i - 1; j >= 0; j--) {
@@ -180,11 +182,11 @@ function sonRise() {
 sonRise();
 
 /**
- * @param {*} text1 
- * @param {*} text2 
+ * @param {*} text1
+ * @param {*} text2
  * 最长公共子序列
  * https://leetcode-cn.com/problems/longest-common-subsequence/solution/chao-xiang-xi-dong-tai-gui-hua-jie-fa-by-shi-wei-h/
- * longestCommonSubsequence({S1,S2,S3,...,Sn}  {T1,T2,T3,...,Tn}) 
+ * longestCommonSubsequence({S1,S2,S3,...,Sn}  {T1,T2,T3,...,Tn})
  * if Sn == Tn longestCommonSubsequence({S1,S2,S3,...,Sn-1}  {T1,T2,T3,...,Tn-1}) + 1
  * else Max(
  *  longestCommonSubsequence( {S1,S2,S3,...,Sn-1} , {T1,T2,T3,...,Tn} )
@@ -194,15 +196,15 @@ sonRise();
 
 var longestCommonSubsequence = function (text1, text2) {
   let maxNum = 0;
-  let arr = new Array(text1.length + 1).fill(
-    JSON.stringify(new Array(text2.length + 1).fill(0))
-  ).map((item) => JSON.parse(item));
+  let arr = new Array(text1.length + 1)
+    .fill(JSON.stringify(new Array(text2.length + 1).fill(0)))
+    .map((item) => JSON.parse(item));
 
   for (x = 1; x < text1.length + 1; x++) {
     for (y = 1; y < text2.length + 1; y++) {
       if (text1[x - 1] == text2[y - 1]) arr[x][y] = arr[x - 1][y - 1] + 1;
       else {
-        arr[x][y] = Math.max(arr[x - 1][y], arr[x][y - 1])
+        arr[x][y] = Math.max(arr[x - 1][y], arr[x][y - 1]);
       }
       if (arr[x][y] > maxNum) maxNum = arr[x][y];
     }
@@ -210,23 +212,24 @@ var longestCommonSubsequence = function (text1, text2) {
   console.log('arr: ', arr);
   return maxNum;
 };
-console.log('longestCommonSubsequence: ', longestCommonSubsequence("abcde", "ace"));
-
+console.log('longestCommonSubsequence: ', longestCommonSubsequence('abcde', 'ace'));
 
 /**
-* 最长公共子串
-* 子串具有连续性 子序列不存在连续性
-* LCS(S,T)
-* {S1,S2,S3,...,Sn} , {T1,T2,T3,...,Tn}
-* if Sn == Tn LCS(Sn-1,Tn-1)+1
-* else 0
-*/
+ * 最长公共子串
+ * 子串具有连续性 子序列不存在连续性
+ * LCS(S,T)
+ * {S1,S2,S3,...,Sn} , {T1,T2,T3,...,Tn}
+ * if Sn == Tn LCS(Sn-1,Tn-1)+1
+ * else 0
+ */
 //     'x' 'y' 'z' 'a' 'b' 'c'
 // 'a'  0   0   0   1   0   0
 // 'b'  0   0   0   0   2   0
 // 'b'  0   0   0   0   1   3
 var LCS = function (text1, text2) {
-  let arr = new Array(text2.length).fill(JSON.stringify(new Array(text1.length).fill(0))).map(item => JSON.parse(item));
+  let arr = new Array(text2.length)
+    .fill(JSON.stringify(new Array(text1.length).fill(0)))
+    .map((item) => JSON.parse(item));
 
   for (let x = 0; x < text1.length; x++) {
     let xVal = text1[x];
@@ -238,11 +241,9 @@ var LCS = function (text1, text2) {
       }
     }
   }
-  return Math.max(...arr.flat())
+  return Math.max(...arr.flat());
 };
-console.log('longestCommonSubsequence: ', LCS("abcdefg", "xyzabcda"));
-
-
+console.log('longestCommonSubsequence: ', LCS('abcdefg', 'xyzabcda'));
 
 /**
  * 斐波那契
@@ -251,7 +252,7 @@ console.log('longestCommonSubsequence: ', LCS("abcdefg", "xyzabcda"));
  *  */
 /**
  * 设idx为每一个元素的下标 则每一个元素的值为f(idx)
- * 
+ *
  * 根据题意
  * f(0) = 0;
  * f(1) = 1;
@@ -276,25 +277,23 @@ function fibo(idx) {
 console.log(' fibo(6): ', fibo(6)); //8
 
 /**
-* 算法二
-* recursion[递归] reverse[反向] fibo 
-* 递归的思想一般是一种反向逻辑;
-*/
+ * 算法二
+ * recursion[递归] reverse[反向] fibo
+ * 递归的思想一般是一种反向逻辑;
+ */
 
 function recursionFibo(idx) {
   let value = 0;
   if (idx == 0) return 0;
   if (idx == 1) return 1;
   value = value + recursionFibo(idx - 1) + recursionFibo(idx - 2);
-  return value
+  return value;
 }
 
 console.log('recursionFibo(6): ', recursionFibo(6));
 
-
-
 /**
- * 连续子数组最大和 
+ * 连续子数组最大和
  */
 // 输入: [-2,1,-3,4,-1,2,1,-5,4]
 // 输出: 6
@@ -308,5 +307,3 @@ var maxSubArray = function (nums) {
   }
   return Math.max(...arr);
 };
-
-

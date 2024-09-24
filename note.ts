@@ -45,3 +45,17 @@ import { type } from 'os';
 //   return leftNodeCount + rightNodeCount + 1;
 // }
 // console.log('countOfNode(tree): ', countOfNode(tree));
+
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     val: number
+ *     left: TreeNode | null
+ *     right: TreeNode | null
+ *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+ *         this.val = (val===undefined ? 0 : val)
+ *         this.left = (left===undefined ? null : left)
+ *         this.right = (right===undefined ? null : right)
+ *     }
+ * }
+ */
