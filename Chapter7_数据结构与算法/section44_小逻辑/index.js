@@ -717,7 +717,7 @@ templateStr = render(
 
 /**
  * implement useInterval function (byteDance)
- * https://overreacted.io/zh-hans/making-setinterval-declarative-with-react-hooks/
+ * https://overreacted.io/making-setinterval-declarative-with-react-hooks/
  */
 
 /**

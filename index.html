@@ -6,23 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Test Global Error Handling</title>
   <script>
-    // Attach the global error handler
-    window.onerror = function (message, source, lineno, colno, error) {
-      console.error(`Global error caught: ${message} at ${source}:${lineno}:${colno}`, error);
-      // Optionally, handle the error (e.g., log to server, show alert, etc.)
-    };
-
-    // Simulate a global error
-    function simulateGlobalError() {
-      // This error is not caught by a try...catch and will trigger window.onerror
-      throw new Error("This is a simulated uncaught error");
+    // 
+    function flat(arr) {
+      let = []
+      while (arr.some((ele) => {
+        return Array.isArray(ele)
+      })) {
+        arr = [].concat(...arr)
+      }
+      return arr
     }
-
-    XMLHttpRequest
-    // Call the function to trigger the global error
-    window.onload = function () {
-      simulateGlobalError();
-    };
+    const x = flat([1, 2, [3, 4, 5, [6, 7], 8], 9, 10, [11, [12, 13]]])
+    console.log(' x: ', x);
   </script>
 </head>
 
