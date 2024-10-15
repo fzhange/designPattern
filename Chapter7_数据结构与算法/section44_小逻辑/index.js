@@ -739,26 +739,19 @@ console.log(Object.getPrototypeOf(Freak) === Rocker.prototype); //true
 
 // ===================函数的颗粒化问题=============================================
 
-function curry(argLen) {
-  let temArr = [];
-
-  function assist(...args) {
-    temArr = temArr.concat(args);
-    console.log('temArr: ', temArr);
-    if (temArr.length === argLen) {
-      let res = 0;
-      temArr.forEach((ele) => {
-        res += ele;
-      });
-      // 清空存储 不然会有bug
-      temArr = [];
+function curry(totalCount) {
+  let dataCache = [];
+  function assistant(...args) {
+    dataCache = dataCache.concat(args);
+    if (dataCache.length === totalCount) {
+      const res = dataCache.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      dataCache = [];
       return res;
-    } else {
-      return assist;
-    }
+    } else return assistant;
   }
-
-  return assist;
+  return assistant;
 }
 
 let sum4 = curry(4);
