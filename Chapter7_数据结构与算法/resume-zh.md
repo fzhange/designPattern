@@ -27,7 +27,7 @@
 
 ## 美克生能源 (09/2023 - Now)
 
-隶属于平台产品部承担前端产品负责人的角色。
+隶属于平台产品部，日常职责如下：
 
 - 负责产品稳定性保障
 - 团队任务拆分，需求拆分
@@ -40,6 +40,17 @@
 AOC 低代码平台。该平台主要是基于数据模型的能力，快速帮助产品进行页面的搭建，进行能源场站的接入。
 
 低代码平台已然是一个很成熟的技术了。但是结合我们的技术需求，仍然存在一些挑战。
+
+**架构**
+
+- 基于 Nx 的 Monorepos 组件库体系
+- 基于 storybook 构建 UIs
+- 基于 Jest 的 Snapshot 组件测试体系
+- 基于 Nest.js 的 node 服务体系
+- 基于 typeorm 的 orm sql 体系
+- 基于 react 的低代码前后台体系
+
+**挑战：**
 
 - 网络并发性问题（我们知道，低代码是由组件构成的，组件需要请求数据，如果有很多组件并发请求，会存在客户端并发阻塞问题）
 - 渲染组件和配置组件通信问题
@@ -59,6 +70,19 @@ AOC 低代码平台。该平台主要是基于数据模型的能力，快速帮�
 隶属于腾讯云营销产品部，负责自动化营销平台的前端开发工作。项目背景需要进行多团队、多项目、多技术栈进行前端融合，即微前端需求。由于在接入使用 qiankun 背景下需要对子应用做巨量改造，且存在一定 bug 的背景下，自研微前端框架 tiny-app，并进行 oteam 开发。
 项目地址：https://tmc.tencent.com/
 
+**业务问题：**
+
+- 浏览器刷新、前进、后退子应用路由不同步问题。
+- 父子应用通信问题
+- 子应用弹窗不居中问题
+
+**技术挑战：**
+
+- JS 隔离 （解决父子应用 JS 变量冲突问题）
+- DOM CSS 隔离（解决父子应用 DOM CSS 冲突问题）
+- 父子应用通信
+- 父子应用路由同步
+
 **库特征：**
 
 - 基于 iframe
@@ -68,39 +92,23 @@ AOC 低代码平台。该平台主要是基于数据模型的能力，快速帮�
 - 无接入成本
 - 子应用 keep-alive
 
-**业务问题：**
-
-- 浏览器刷新、前进、后退子应用路由不同步问题。
-- 父子应用通信问题
-- 子应用弹窗不居中问题
-- 应用的 keep-alive
-- 纯净无污染(得益于浏览器本身天然沙盒的支持)
-- 体积小(11kb)
-- 无接入成本
-
-**技术挑战：**
-
-- JS 隔离 （解决父子应用 JS 变量冲突问题）
-- DOM CSS 隔离（解决父子应用 DOM CSS 冲突问题）
-- 父子应用通信
-- 父子应用路由同步
-
 ## 携程旅行网 (201902-202103)
 
 项目地址： https://www.trip.com/travel-guide/
 项目简介：trip.com 是携程针对海外的⻔戶网站。其主要模块分为酒店、机票、火⻋票、汽⻋ 票、玩乐⻔票、攻略等。我们作为攻略社区、提供内容信息服务。其主要分为目的地、POI、景 玩、 ⻔票、榜单等。
 
 **项目特征：**
-● 从 0 到 1
-● SEO
-● Next.js
-● SSR
-● I18n
-● UI 组件化
-● 全站响应式、多端适配
-● 应用监控 （客户端，Node 端）
 
-## 平安集团旗下壹钱包电子商务有限公司(201707-201902)
+1. 完全从 0 起步逐步构建
+2. 高度重视 SEO（搜索引擎优化），以提升网站在搜索引擎中的排名和可见性；
+3. 采用 Next.js 技术框架，为开发提供强大支持；
+4. 实现 SSR（服务端渲染），加快页面加载速度并提升用户体验；
+5. 具备 I18n（国际化）功能，满足不同地区用户的语言需求；
+6. 实现 UI 组件化，提高开发效率和代码可维护性；
+7. 全站响应式设计，实现多端适配，确保在各种设备上都能呈现出良好的界面效果；
+8. 建立了应用监控体系，涵盖客户端和 Node 端，及时发现并解决问题。
+
+## 平安集团壹钱包电子商务有限公司(201707-201902)
 
 商业地产项目(h5)
 个人职责:日常项目维护、日常版本迭代(按照产品需求、视觉 UI、完成项目开发)。项目框架 迁移，原 angular 老框架迁移到 vue 新框架。项目首页的 ssr 化
@@ -156,6 +164,17 @@ Belongs to the Platform Product department and assumes the role of front-end pro
 **AOC Platform:**
 
 the AOC platform is a low-code platform. Although the technique of the low-code is very mature. However, combined with our business requirements. There are still some challenges for us.
+
+**architecture**
+
+- Monorepos component library system based on Nx
+- Building UIs based on storybook
+- Snapshot component test system based on Jest
+- node service system based on Nest.js
+- orm sql system based on typeorm
+- Low code front and back system based on react ecology
+
+**challenges：**
 
 1. How to keep the network concurrency on the client side? (We all know the low-code platform consists of components, that need to request data from the backend if there are many components will lead to concurrent and block questions on the client side)
 2. How to ensure communication between atomic components?

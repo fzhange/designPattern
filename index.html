@@ -5,64 +5,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Test Global Error Handling</title>
+  <!-- <script src="vue-grid-layout.umd.min.js"></script> -->
+  <style>
+    .empty {
+      padding-top: 100%;
+      background-color: red;
+    }
+  </style>
   <script>
-    let tree = {
-      name: '1',
-      left: {
-        name: '2',
-        left: {
-          name: '3',
-        },
-        right: {
-          name: '4',
-        },
-      },
-      right: {
-        name: '5',
-      },
-    };
-    function traverseTree(tree) {
-      let coach = [tree]
-      const result = []
-      while (coach.length) {
-        const len = coach.length;
-        const miniBus = []
-        for (let i = 0; i < len; i++) {
-          const node = coach.pop();
-          miniBus.push(node.name);
-          node.left && coach.push(node.left);
-          node.right && coach.push(node.right);
+    const timeout = (ms) =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, ms);
+      });
+
+    const ajax1 = () =>
+      timeout(2000).then(() => {
+        return 1;
+      });
+
+    const ajax2 = () =>
+      timeout(1000).then(() => {
+        return 2;
+      });
+
+    const ajax3 = () =>
+      timeout(2000).then(() => {
+        return 3;
+      });
+
+    // const mergePromise = (ajaxArray) => {
+    //   // 在这里实现你的代码
+    //   const res = [];
+
+    //   for (let index = 0; index < ajaxArray.length; index++) {
+    //     const ajax = ajaxArray[index];
+    //     res[index] = ajax();
+    //   }
+    //   return Promise.all(res);
+    // };
+
+    const mergePromise = (ajaxArray) => {
+      // Deal the promise like a chain
+      let sequence = Promise.resolve();
+      return new Promise((resolve) => {
+        const result = [];
+
+        for (let index = 0; index < ajaxArray.length; index++) {
+          sequence = sequence.then(ajaxArray[index]).then((res) => {
+            result.push(res)
+            if (index === ajaxArray.length - 1) resolve(result);
+          })
         }
-        result.push(miniBus)
-      }
-      return result;
-    }
-    const res = traverseTree(tree)
+      })
+    };
 
-
-
-    function reverseBinaryTree(root) {
-      if (!root) return null;
-      const reversedSubLeftTree = reverseBinaryTree(root.left)
-      const reversedSubRightTree = reverseBinaryTree(root.right)
-      root.left = reversedSubRightTree;
-      root.right = reversedSubLeftTree;
-      return root;
-    }
-
-    //     Node.js isn't dying. Choose your words wisely.
-    //      Do you know that team working for making node.js better by every version is unpaid ? While bun is VC funded.
-    // Bun has implemented lots of things from nodejs and it's doesn't mean bun faster in everything.
-    //       FYI, I tried `sharp` and bun didn't supported that library.
-    //        I had to use pnpm to install that lib but still bun kept on giving me lots of errors.
-    //        There are lots of modules which will needs to be rebuilt for bun.
-    // You should also check how bun package manager and pnpm works.
-    //       There's a big difference which made bun to install modules faster than pnpm.
-    // I guess you have to do a research on how pnpm verifies package and how bun does it.
-    // Plus there are lots of memory issues with bun which I faced and because
-    // of which I had to migrate to nodejs for that same project.Bun is good,
-    //       but to say that nodejs is dying is a big insult to devs who are working to make it better.
-    //   visually
+    mergePromise([ajax1, ajax2, ajax3]).then((data) => {
+      console.log('done');
+      console.log(data); // data 为 [1, 2, 3]
+    });
   </script>
 
 </head>
@@ -70,6 +72,7 @@
 <body>
 
   <h1>Test Global Error Handling with window.onerror</h1>
+  <div class="empty"></div>
 </body>
 
 </html>
